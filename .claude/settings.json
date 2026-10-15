@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./tools/raw/**)",
+      "Read(./tools/.venv/**)",
+      "Read(./GeoCore/.build/**)",
+      "Read(**/DerivedData/**)",
+      "Read(./GeoCore/Sources/GeoCore/Resources/cities.tsv)",
+      "Read(./GeoCore/Sources/GeoCore/Resources/countries.json)",
+      "Read(./GeoCore/Sources/GeoCore/Resources/regions.json.z)",
+      "Read(./GeoCore/Sources/GeoCore/Resources/CityDetail/**)",
+      "Read(./GeoCore/Sources/GeoCore/Resources/Districts/**)"
+    ]
+  }
+}

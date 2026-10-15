@@ -1,0 +1,14 @@
+# Rohdaten von Natural Earth und GeoNames (über 1 GB), neu holen mit tools/fetch_data.py
+tools/raw/
+
+# Xcode
+xcuserdata/
+DerivedData/
+.build/
+.DS_Store
+
+# Lokale Python-Umgebung für die Aufbereitung (shapely)
+tools/.venv/
+
+# Persönliche Claude-Code-Einstellungen
+.claude/settings.local.json
