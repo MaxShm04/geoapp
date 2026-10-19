@@ -1,6 +1,6 @@
 # Phase 2: Time & stories
 
-Status: **done** (Oct 19, 2026) · nothing committed yet · Plan written Oct 19, 2026 · Branch `phase-2-time-stories` (from 33e5426) · See `ROADMAP.md`, Phase 2
+Status: **done** (Oct 19, 2026) · committed as 12f1541 on `phase-2-time-stories` (not pushed) · Plan written Oct 19, 2026 · Branch `phase-2-time-stories` (from 33e5426) · See `ROADMAP.md`, Phase 2
 
 ## Goal
 
@@ -179,7 +179,7 @@ Status: ☐ open · ◐ in progress · ☑ done (reviewed by the main model)
 ## Handed back to Max (not in this phase)
 
 - Register the App Group `group.de.max.geoapp` and the widget bundle ID `de.max.geoapp.widgets` for team QT6L26B55Z (Xcode's automatic signing does it on the first device build; simulator builds need nothing).
-- Commit `phase-2-time-stories` when happy (nothing committed, nothing pushed).
+- Push `phase-2-time-stories` and open a PR when happy (committed, not pushed).
 - Decide whether the map's year choice should be remembered across launches (it is, via `@AppStorage("mapYear")`) — easy to drop.
 
 ## Open items for later
