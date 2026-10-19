@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A1000000000000000000B001 /* GeoCore in Frameworks */ = {isa = PBXBuildFile; productRef = A1000000000000000000C001 /* GeoCore */; };
 		A1000000000000000000B002 /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = A1000000000000000000C002 /* MapLibre */; };
+		A1000000000000000000B003 /* GeoWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A10000000000000000000204 /* GeoWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -19,13 +20,45 @@
 			remoteGlobalIDString = A10000000000000000000100;
 			remoteInfo = GeoApp;
 		};
+		A1000000000000000000D002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A10000000000000000000102;
+			remoteInfo = GeoWidgets;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A10000000000000000000A01 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A1000000000000000000B003 /* GeoWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A10000000000000000000201 /* GeoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10000000000000000000202 /* GeoAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeoAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10000000000000000000203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A10000000000000000000204 /* GeoWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GeoWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A10000000000000000000310 /* Exceptions for "GeoWidgets" folder in "GeoWidgets" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A10000000000000000000102 /* GeoWidgets */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A10000000000000000000301 /* GeoApp */ = {
@@ -41,6 +74,19 @@
 		A10000000000000000000303 /* GPX */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = GPX;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000304 /* GeoWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A10000000000000000000310 /* Exceptions for "GeoWidgets" folder in "GeoWidgets" target */,
+			);
+			path = GeoWidgets;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000305 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,6 +108,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A10000000000000000000403 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -72,6 +125,8 @@
 				A10000000000000000000301 /* GeoApp */,
 				A10000000000000000000302 /* GeoAppTests */,
 				A10000000000000000000303 /* GPX */,
+				A10000000000000000000304 /* GeoWidgets */,
+				A10000000000000000000305 /* Shared */,
 				A10000000000000000000502 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,6 +136,7 @@
 			children = (
 				A10000000000000000000201 /* GeoApp.app */,
 				A10000000000000000000202 /* GeoAppTests.xctest */,
+				A10000000000000000000204 /* GeoWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,13 +151,16 @@
 				A10000000000000000000701 /* Sources */,
 				A10000000000000000000401 /* Frameworks */,
 				A10000000000000000000801 /* Resources */,
+				A10000000000000000000A01 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A1000000000000000000E002 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				A10000000000000000000301 /* GeoApp */,
+				A10000000000000000000305 /* Shared */,
 			);
 			name = GeoApp;
 			packageProductDependencies = (
@@ -135,6 +194,29 @@
 			productReference = A10000000000000000000202 /* GeoAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		A10000000000000000000102 /* GeoWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000000000000000000613 /* Build configuration list for PBXNativeTarget "GeoWidgets" */;
+			buildPhases = (
+				A10000000000000000000703 /* Sources */,
+				A10000000000000000000403 /* Frameworks */,
+				A10000000000000000000803 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A10000000000000000000304 /* GeoWidgets */,
+				A10000000000000000000305 /* Shared */,
+			);
+			name = GeoWidgets;
+			packageProductDependencies = (
+			);
+			productName = GeoWidgets;
+			productReference = A10000000000000000000204 /* GeoWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -151,6 +233,9 @@
 					A10000000000000000000101 = {
 						CreatedOnToolsVersion = 27.0;
 						TestTargetID = A10000000000000000000100;
+					};
+					A10000000000000000000102 = {
+						CreatedOnToolsVersion = 27.0;
 					};
 				};
 			};
@@ -175,6 +260,7 @@
 			targets = (
 				A10000000000000000000100 /* GeoApp */,
 				A10000000000000000000101 /* GeoAppTests */,
+				A10000000000000000000102 /* GeoWidgets */,
 			);
 		};
 /* End PBXProject section */
@@ -188,6 +274,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A10000000000000000000802 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A10000000000000000000803 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -211,6 +304,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A10000000000000000000703 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -218,6 +318,11 @@
 			isa = PBXTargetDependency;
 			target = A10000000000000000000100 /* GeoApp */;
 			targetProxy = A1000000000000000000D001 /* PBXContainerItemProxy */;
+		};
+		A1000000000000000000E002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A10000000000000000000102 /* GeoWidgets */;
+			targetProxy = A1000000000000000000D002 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -288,6 +393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GeoApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QT6L26B55Z;
@@ -319,6 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GeoApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QT6L26B55Z;
@@ -385,6 +492,60 @@
 			};
 			name = Release;
 		};
+		A10000000000000000000907 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GeoWidgets/GeoWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QT6L26B55Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GeoWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GeoApp;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = de.max.geoapp.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A10000000000000000000908 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GeoWidgets/GeoWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QT6L26B55Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GeoWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GeoApp;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = de.max.geoapp.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -411,6 +572,15 @@
 			buildConfigurations = (
 				A10000000000000000000905 /* Debug */,
 				A10000000000000000000906 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000000000000000000613 /* Build configuration list for PBXNativeTarget "GeoWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000000000000000000907 /* Debug */,
+				A10000000000000000000908 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

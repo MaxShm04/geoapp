@@ -36,7 +36,47 @@ enum MockData {
             }
             day.addTimeInterval(86_400 / 2)
         }
+        WidgetSync.refresh(context: context)
     }
+
+    #if DEBUG
+    /// Nur zum Prüfen im Simulator (`-enableMockTrips YES`): Reisen über zwei Jahre mit München als
+    /// Heimat, als Testdaten (`.demo`), die beim Ausschalten der Testdaten wieder verschwinden.
+    static func enableTrips(context: ModelContext, now: Date = .now) {
+        let munich = 2867714
+        // (Stadt, Beginn in Tagen vor heute, Tage). Mehrere Städte nacheinander bilden eine Reise.
+        let stays: [(Int, Int, Int)] = [
+            (2988507, 480, 5),                                   // Paris, Juni des Vorjahres
+            (2761369, 400, 3),                                   // Wien
+            (3164527, 160, 2), (3164603, 158, 2), (3176959, 156, 2), (3169070, 154, 2),  // Italien
+            (2911298, 60, 3),                                    // Hamburg
+        ]
+        var awayDays = Set<Int>()
+        for (_, start, days) in stays { for offset in 0..<days { awayDays.insert(start - offset) } }
+        let recorder = VisitRecorder(context: context, diagnosticsEnabled: { false })
+        func record(_ id: Int, daysAgo: Int, hour: Double) {
+            guard let city = GeoLookup.shared.cities.city(id: id) else { return }
+            let timestamp = Calendar.current.startOfDay(for: now).addingTimeInterval(Double(-daysAgo) * 86_400 + hour * 3600)
+            recorder.record(latitude: city.latitude, longitude: city.longitude, horizontalAccuracy: 50,
+                            speed: -1, timestamp: timestamp, source: .demo)
+        }
+        // Zuhause alle paar Tage, damit die Heimatregion erkannt wird und Lücken sich schließen.
+        for daysAgo in stride(from: 500, through: 0, by: -4) where !awayDays.contains(daysAgo) {
+            record(munich, daysAgo: daysAgo, hour: 9)
+        }
+        for (id, start, days) in stays {
+            for offset in 0..<days { record(id, daysAgo: start - offset, hour: 13) }
+        }
+        // Abreise- und Rückkehrtage: morgens zu Hause, abends unterwegs und umgekehrt.
+        for (start, end) in [(480, 476), (400, 398), (160, 153), (60, 58)] {
+            record(munich, daysAgo: start, hour: 7)
+            record(munich, daysAgo: end, hour: 21)
+        }
+        record(2766824, daysAgo: 20, hour: 13)                   // Salzburg als Tagesausflug
+        record(munich, daysAgo: 20, hour: 20)
+        WidgetSync.refresh(context: context)
+    }
+    #endif
 
     static func disable(context: ModelContext) {
         try? Deletion.deleteDemo(context: context)

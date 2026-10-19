@@ -91,9 +91,11 @@ struct ProStoreTests {
         #expect(identifier?.hasSuffix("Products.storekit") == true, "Schema verweist nicht auf Products.storekit")
     }
 
-    @Test func gatesOffInPhase1() {
+    /// Phase 2 (D10) sperrt Jahresfilter, Zeitleiste, Statistik und Widgets; ersetzt Phase 1, Fall 22.
+    @Test func gatesOnInPhase2() {
+        #expect(ProFeature.allCases == [.yearFilter, .timeline, .statistics, .widgets])
         for feature in ProFeature.allCases {
-            #expect(ProFeature.isGated(feature) == false, "\(feature.rawValue) ist gesperrt")
+            #expect(ProFeature.isGated(feature) == true, "\(feature.rawValue) ist nicht gesperrt")
         }
     }
 

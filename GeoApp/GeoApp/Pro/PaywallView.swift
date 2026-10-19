@@ -6,6 +6,16 @@ struct PaywallView: View {
     @Environment(ProStore.self) private var store
     @Environment(\.dismiss) private var dismiss
 
+    /// Was Pro freischaltet, so wie es ausgeliefert ist (Phase 2, D10).
+    static let featureKeys: [String] = [
+        "Every year on the map and in your trips",
+        "Detailed statistics for every year",
+        "All widgets for your Home Screen",
+    ]
+
+    /// SF-Symbol je Funktion, in derselben Reihenfolge wie `featureKeys`.
+    private static let featureSymbols = ["calendar", "chart.bar", "square.grid.2x2"]
+
     var body: some View {
         SubscriptionStoreView(productIDs: ProStore.productIDs) {
             marketing
@@ -34,11 +44,24 @@ struct PaywallView: View {
                 .accessibilityHidden(true)
             Text("Pro")
                 .font(.largeTitle.bold())
-            Text("Pro adds upcoming features: your travel years, statistics and widgets. Your support keeps the app free of ads and tracking.")
+            Text("More out of your places. Your support keeps the app free of ads and tracking.")
                 .font(.body)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(Self.featureKeys.indices, id: \.self) { index in
+                    // Feste Breite für die Symbole, damit die Texte untereinander beginnen.
+                    Label {
+                        Text(LocalizedStringKey(Self.featureKeys[index]))
+                    } icon: {
+                        Image(systemName: Self.featureSymbols[index]).frame(width: 24)
+                    }
+                    .font(.subheadline)
+                    .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
             Text("Your places stay on your iPhone.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)

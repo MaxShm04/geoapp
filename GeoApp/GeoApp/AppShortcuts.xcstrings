@@ -1,0 +1,36 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "How many countries this year in ${applicationName}" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wie viele Länder dieses Jahr in ${applicationName}"
+          }
+        }
+      }
+    },
+    "Countries this year in ${applicationName}" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Länder dieses Jahr in ${applicationName}"
+          }
+        }
+      }
+    },
+    "How many countries have I visited this year with ${applicationName}" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In wie vielen Ländern war ich dieses Jahr laut ${applicationName}"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

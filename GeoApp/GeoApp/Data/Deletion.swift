@@ -11,6 +11,7 @@ enum Deletion {
         try context.delete(model: Country.self, where: #Predicate { $0.isoCode == code })
         try removeOrphans(affectedCountries: [], context: context)
         try context.save()
+        WidgetSync.refresh(context: context)
     }
 
     /// Löscht eine Stadt mit ihren Tagen. Das Land bleibt, solange es dort noch andere Besuche gibt.
@@ -23,6 +24,7 @@ enum Deletion {
         cities.forEach(context.delete)
         try removeOrphans(affectedCountries: affected, context: context)
         try context.save()
+        WidgetSync.refresh(context: context)
     }
 
     /// Löscht alles: Länder, Städte, Tage und das Diagnose-Log.
@@ -32,6 +34,7 @@ enum Deletion {
         try context.delete(model: Country.self)
         try context.delete(model: DiagnosticEntry.self)
         try context.save()
+        WidgetSync.refresh(context: context)
     }
 
     /// Löscht die Testdaten. Städte, die auch echte Besuche haben, bleiben und bekommen ihren
@@ -54,6 +57,7 @@ enum Deletion {
         }
         try removeOrphans(affectedCountries: affectedCountries, context: context)
         try context.save()
+        WidgetSync.refresh(context: context)
     }
 
     /// Entfernt Städte und Länder ohne Tage. Bei betroffenen Ländern wird der Zeitraum

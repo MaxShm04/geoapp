@@ -2,19 +2,11 @@ import Foundation
 import Observation
 import StoreKit
 
-/// Ein Berechtigungsnachweis aus StoreKit, ohne StoreKit-Typen, damit die Regeln testbar bleiben.
-struct EntitlementFact: Sendable {
-    let productID: String
-    let revoked: Bool
-    let expires: Date?
-    let isUpgraded: Bool
-}
-
 /// Pro-Abo: schaltet die Pro-Funktionen frei. Der Zustand lebt nur im Arbeitsspeicher.
 @MainActor @Observable
 final class ProStore {
     /// Produkt-IDs aus App Store Connect (D5).
-    static let productIDs = ["de.max.geoapp.pro.monthly", "de.max.geoapp.pro.yearly"]
+    static let productIDs = ProRules.productIDs
 
     /// Rechtliche Links für die Paywall (D8).
     enum Links {
@@ -25,11 +17,7 @@ final class ProStore {
 
     /// Ein Abo gilt, wenn es zu Pro gehört, nicht widerrufen oder ersetzt ist und nicht abgelaufen ist.
     static func isPro(facts: [EntitlementFact], now: Date) -> Bool {
-        facts.contains { fact in
-            guard productIDs.contains(fact.productID), !fact.revoked, !fact.isUpgraded else { return false }
-            guard let expires = fact.expires else { return true }
-            return expires > now
-        }
+        ProRules.isPro(facts: facts, now: now)
     }
 
     private(set) var isPro = false
@@ -105,16 +93,16 @@ final class ProStore {
     }
 }
 
-/// Funktionen, die Pro benötigen. In Phase 1 ist keine davon gesperrt.
+/// Funktionen, die Pro benötigen. Jede hat einen freien Teil, siehe `ProGate` (Phase 2, D10).
 enum ProFeature: String, CaseIterable {
-    case yearFilter, statistics, widgets
+    case yearFilter, timeline, statistics, widgets
 
-    /// Ob ein Feature ohne Pro gesperrt ist. Phase 1 sperrt nichts (D7).
+    /// Ob ein Feature ohne Pro gesperrt ist. Phase 2 sperrt alle Funktionen, jede mit einem freien Teil (D10).
     static func isGated(_ feature: ProFeature) -> Bool {
         switch feature {
-        // Phase 2 hängt hier die Sperren an (Jahresfilter, Statistik, Widgets).
-        case .yearFilter, .statistics, .widgets:
-            return false
+        // Jede Funktion hat einen freien Teil, siehe `ProGate`.
+        case .yearFilter, .timeline, .statistics, .widgets:
+            return true
         }
     }
 }

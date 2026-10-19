@@ -10,9 +10,15 @@ private let projectDirectory = URL(fileURLWithPath: #filePath)
 /// Quellordner der App (synchronisierte Gruppe `GeoApp/GeoApp`).
 private let appSourceDirectory = projectDirectory.appendingPathComponent("GeoApp")
 
+/// Quellordner des Widget-Ziels (`GeoApp/GeoWidgets`, D13).
+private let widgetSourceDirectory = projectDirectory.appendingPathComponent("GeoWidgets")
+
+/// Gemeinsamer Quellordner von App und Widgets (`GeoApp/Shared`).
+private let sharedSourceDirectory = projectDirectory.appendingPathComponent("Shared")
+
 /// Lädt die `strings` eines `.xcstrings`-Katalogs aus dem Quellordner. Fehlt die Datei, wird ein Issue gemeldet.
-private func loadStrings(_ file: String) -> [String: Any]? {
-    let url = appSourceDirectory.appendingPathComponent(file)
+private func loadStrings(_ file: String, in directory: URL = appSourceDirectory) -> [String: Any]? {
+    let url = directory.appendingPathComponent(file)
     guard let data = try? Data(contentsOf: url),
           let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
           let strings = json["strings"] as? [String: Any] else {
@@ -141,48 +147,58 @@ struct LocalizationTests {
     }
 
     @Test func catalogComplete() {
-        guard let strings = loadStrings("Localizable.xcstrings") else { return }
-        var missing: [String] = []
-        for key in strings.keys.sorted() {
-            guard let entry = strings[key] as? [String: Any] else {
-                missing.append(key)
-                continue
+        // Der Katalog der App und der des Widget-Ziels (D13).
+        let catalogs: [(file: String, directory: URL)] = [
+            ("Localizable.xcstrings", appSourceDirectory),
+            ("Localizable.xcstrings", widgetSourceDirectory),
+        ]
+        for catalog in catalogs {
+            guard let strings = loadStrings(catalog.file, in: catalog.directory) else { continue }
+            var missing: [String] = []
+            for key in strings.keys.sorted() {
+                guard let entry = strings[key] as? [String: Any] else {
+                    missing.append(key)
+                    continue
+                }
+                if entry["shouldTranslate"] as? Bool == false { continue }
+                guard let localizations = entry["localizations"] as? [String: Any],
+                      let german = localizations["de"] as? [String: Any],
+                      isTranslated(german) else {
+                    missing.append(key)
+                    continue
+                }
             }
-            if entry["shouldTranslate"] as? Bool == false { continue }
-            guard let localizations = entry["localizations"] as? [String: Any],
-                  let german = localizations["de"] as? [String: Any],
-                  isTranslated(german) else {
-                missing.append(key)
-                continue
-            }
+            #expect(missing.isEmpty, "\(catalog.directory.lastPathComponent)/\(catalog.file): keys without a complete de translation: \(missing.joined(separator: ", "))")
         }
-        #expect(missing.isEmpty, "Keys without a complete de translation: \(missing.joined(separator: ", "))")
     }
 
     @Test func noGermanSourceStrings() {
         let files = swiftFiles(in: appSourceDirectory)
         #expect(!files.isEmpty, "No Swift files found under \(appSourceDirectory.path)")
 
-        let pattern = #"(?<![A-Za-z0-9_])(Text|Label|Button|Section|\.navigationTitle|Toggle|LabeledContent|ContentUnavailableView|\.alert|\.confirmationDialog|hintCapsule)\(\s*"((?:[^"\\]|\\.)*)""#
+        let pattern = #"(?<![A-Za-z0-9_])(Text|Label|Button|Section|\.navigationTitle|Toggle|LabeledContent|ContentUnavailableView|\.alert|\.confirmationDialog|hintCapsule|StatTile|LockedCard)\(\s*"((?:[^"\\]|\\.)*)""#
         guard let regex = try? NSRegularExpression(pattern: pattern) else {
             Issue.record("Invalid regular expression for string literal scan")
             return
         }
         let germanMarkers = CharacterSet(charactersIn: "äöüßÄÖÜ„")
 
+        // App, Widget-Ziel und gemeinsamer Ordner.
         var offending: [String] = []
-        for file in files {
-            let relativePath = file.path.replacingOccurrences(of: appSourceDirectory.path + "/", with: "")
-            guard let source = try? String(contentsOf: file, encoding: .utf8) else {
-                Issue.record("Cannot read \(relativePath)")
-                continue
-            }
-            let text = stripComments(source) as NSString
-            for match in regex.matches(in: text as String, range: NSRange(location: 0, length: text.length)) {
-                let literal = text.substring(with: match.range(at: 2))
-                guard literal.rangeOfCharacter(from: germanMarkers) != nil else { continue }
-                let line = text.substring(to: match.range.location).components(separatedBy: "\n").count
-                offending.append("\(relativePath):\(line) \"\(literal)\"")
+        for root in [appSourceDirectory, widgetSourceDirectory, sharedSourceDirectory] {
+            for file in swiftFiles(in: root) {
+                let relativePath = root.lastPathComponent + "/" + file.path.replacingOccurrences(of: root.path + "/", with: "")
+                guard let source = try? String(contentsOf: file, encoding: .utf8) else {
+                    Issue.record("Cannot read \(relativePath)")
+                    continue
+                }
+                let text = stripComments(source) as NSString
+                for match in regex.matches(in: text as String, range: NSRange(location: 0, length: text.length)) {
+                    let literal = text.substring(with: match.range(at: 2))
+                    guard literal.rangeOfCharacter(from: germanMarkers) != nil else { continue }
+                    let line = text.substring(to: match.range.location).components(separatedBy: "\n").count
+                    offending.append("\(relativePath):\(line) \"\(literal)\"")
+                }
             }
         }
         #expect(offending.isEmpty, "German string literals in UI calls: \(offending.joined(separator: "; "))")

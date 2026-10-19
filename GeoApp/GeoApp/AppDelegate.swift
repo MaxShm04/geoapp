@@ -20,6 +20,11 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
                 MockData.enable(context: Store.shared.mainContext)
                 UserDefaults.standard.set(true, forKey: AppSettings.mockDataEnabled)
             }
+            if UserDefaults.standard.bool(forKey: "enableMockTrips"),
+               !UserDefaults.standard.bool(forKey: AppSettings.mockDataEnabled) {
+                MockData.enableTrips(context: Store.shared.mainContext)
+                UserDefaults.standard.set(true, forKey: AppSettings.mockDataEnabled)
+            }
             #endif
         }
         return true

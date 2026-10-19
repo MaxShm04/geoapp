@@ -28,4 +28,14 @@ enum PlaceNames {
     static func region(_ region: Region) -> String {
         region.localizedName(language: language)
     }
+
+    /// Stadtname zur ID, ohne gespeicherten Namen (etwa für Reisen und Statistik).
+    static func city(id: Int) -> String {
+        city(id: id, fallback: GeoLookup.shared.cities.city(id: id)?.name ?? String(id))
+    }
+
+    /// Name eines Gebiets (`PlaceDay.areaKey`): die Region, ohne Region das Land.
+    static func area(_ key: String) -> String {
+        RegionIndex.shared.region(id: key).map { region($0) } ?? CountryNames.name(for: key)
+    }
 }

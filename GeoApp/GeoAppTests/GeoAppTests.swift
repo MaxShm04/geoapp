@@ -447,4 +447,23 @@ struct PrivacyTests {
             }
         }
     }
+
+    /// Was die App Group für die Widgets ablegt (Snapshot, D8) enthält keine Position, weder im Text noch als Schlüssel.
+    @Test func appGroupFilesHaveNoCoordinates() throws {
+        let directory = FileManager.default.temporaryDirectory
+            .appendingPathComponent("PrivacyTests-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+
+        let url = WidgetSnapshot.url(in: directory)
+        try WidgetSnapshot.placeholder.write(to: url)
+        let text = try String(contentsOf: url, encoding: .utf8)
+        #expect(!text.lowercased().contains("latitude"), "Snapshot enthält \"latitude\"")
+        #expect(!text.lowercased().contains("longitude"), "Snapshot enthält \"longitude\"")
+
+        let parsed = try JSONSerialization.jsonObject(with: Data(text.utf8))
+        let object = try #require(parsed as? [String: Any])
+        let coordinateKeys = object.keys.filter(WidgetSnapshotTests.isCoordinateKey)
+        #expect(coordinateKeys.isEmpty, "Verdächtige Schlüssel im Snapshot: \(coordinateKeys.joined(separator: ", "))")
+    }
 }

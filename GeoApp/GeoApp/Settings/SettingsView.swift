@@ -1,5 +1,6 @@
 import CoreLocation
 import GeoCore
+import SwiftData
 import SwiftUI
 
 struct SettingsView: View {
@@ -13,6 +14,13 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var context
     @State private var confirmsDeleteAll = false
     @AppStorage(AppSettings.mockDataEnabled) private var mockDataEnabled = false
+    @Query private var visits: [DayVisit]
+    @AppStorage(AppSettings.homeRegionOverride) private var homeOverride = ""
+
+    /// Tagebuch für das Heimatgebiet in der Zeile unten.
+    private var journal: Journal {
+        Journal.make(visits: visits, homeOverride: homeOverride, today: DayKey.today())
+    }
 
     var body: some View {
         NavigationStack {
@@ -32,6 +40,18 @@ struct SettingsView: View {
                     Text("Pro")
                 } footer: {
                     Text("Pro is optional. Recording and the map stay free.")
+                }
+
+                Section {
+                    NavigationLink {
+                        HomeRegionView()
+                    } label: {
+                        LabeledContent("Home region", value: journal.home.map { PlaceNames.area($0) } ?? String(localized: "Not known yet"))
+                    }
+                } header: {
+                    Text("Home")
+                } footer: {
+                    Text("Trips are days away from your home region.")
                 }
 
                 Section {

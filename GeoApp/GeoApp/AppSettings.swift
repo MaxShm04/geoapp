@@ -11,6 +11,8 @@ enum AppSettings {
     static let mockDataEnabled = "mockDataEnabled"
     /// Datenstand (`GeoLookup.dataVersion`), für den die gespeicherten Städte zuletzt angeglichen wurden.
     static let dataVersion = "dataVersion"
+    /// Heimatgebiet aus den Einstellungen (`PlaceDay.areaKey`), leer = automatisch erkannt (Phase 2, D4).
+    static let homeRegionOverride = "homeRegionOverride"
 
     static func registerDefaults() {
         UserDefaults.standard.register(defaults: [

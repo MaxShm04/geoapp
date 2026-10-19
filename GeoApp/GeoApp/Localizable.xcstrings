@@ -1,6 +1,49 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    " · " : {
+      "shouldTranslate" : false
+    },
+    "%@ and %lld more" : {
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ und %lld weiteres"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ und %lld weitere"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ and %lld more"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ and %lld more"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%@ km to center" : {
       "localizations" : {
         "de" : {
@@ -101,6 +144,46 @@
         }
       }
     },
+    "%lld days" : {
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Tag"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Tage"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld days"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld regions" : {
       "localizations" : {
         "de" : {
@@ -147,6 +230,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sobald die App einen Ort erfasst, erscheint er hier."
+          }
+        }
+      }
+    },
+    "A trip starts when you spend a night away from your home region." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine Reise beginnt, wenn du eine Nacht außerhalb deiner Heimatregion verbringst."
           }
         }
       }
@@ -201,6 +294,16 @@
         }
       }
     },
+    "All time" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesamte Zeit"
+          }
+        }
+      }
+    },
     "All visits in this city will be removed." : {
       "localizations" : {
         "de" : {
@@ -217,6 +320,27 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alle Besuche in diesem Land und seine Städte werden entfernt."
+          }
+        }
+      }
+    },
+    "All widgets for your Home Screen" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Widgets für deinen Home-Bildschirm"
+          }
+        }
+      }
+    },
+    "All years" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Jahre"
           }
         }
       }
@@ -277,6 +401,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Immer fehlt noch"
+          }
+        }
+      }
+    },
+    "Automatic" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatisch"
+          }
+        }
+      }
+    },
+    "Automatic uses the region where you spent the most days in the last 90 days." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatisch nimmt die Region, in der du in den letzten 90 Tagen die meisten Tage warst."
           }
         }
       }
@@ -391,6 +535,16 @@
         }
       }
     },
+    "Countries this year" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Länder dieses Jahr"
+          }
+        }
+      }
+    },
     "Country borders: Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com." : {
       "localizations" : {
         "de" : {
@@ -407,6 +561,56 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Daten"
+          }
+        }
+      }
+    },
+    "Dates" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeitraum"
+          }
+        }
+      }
+    },
+    "Days" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tage"
+          }
+        }
+      }
+    },
+    "Days per country" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tage je Land"
+          }
+        }
+      }
+    },
+    "Days per country, travel days per month and your longest trip, for every year." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tage je Land, Reisetage je Monat und deine längste Reise, für jedes Jahr."
+          }
+        }
+      }
+    },
+    "Days without a recording count where you were last seen." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tage ohne Erfassung zählen dort, wo du zuletzt gesehen wurdest."
           }
         }
       }
@@ -481,6 +685,17 @@
         }
       }
     },
+    "Detailed statistics for every year" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausführliche Statistik für jedes Jahr"
+          }
+        }
+      }
+    },
     "Diagnostic Log" : {
       "localizations" : {
         "de" : {
@@ -531,6 +746,17 @@
         }
       }
     },
+    "Every year on the map and in your trips" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jedes Jahr auf der Karte und in deinen Reisen"
+          }
+        }
+      }
+    },
     "First %@ · last %@" : {
       "localizations" : {
         "de" : {
@@ -567,6 +793,16 @@
         }
       }
     },
+    "Full statistics" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vollständige Statistik"
+          }
+        }
+      }
+    },
     "GeoNames" : {
       "shouldTranslate" : false
     },
@@ -576,6 +812,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pro holen"
+          }
+        }
+      }
+    },
+    "Home" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuhause"
+          }
+        }
+      }
+    },
+    "Home region" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heimatregion"
+          }
+        }
+      }
+    },
+    "Home region: %@. Change it in Settings." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heimatregion: %@. Ändern kannst du sie in den Einstellungen."
           }
         }
       }
@@ -700,6 +966,16 @@
         }
       }
     },
+    "Longest trip" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Längste Reise"
+          }
+        }
+      }
+    },
     "Main roads in cities: © OpenStreetMap contributors, available under the Open Database License (ODbL)." : {
       "localizations" : {
         "de" : {
@@ -773,6 +1049,26 @@
         }
       }
     },
+    "Month" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monat"
+          }
+        }
+      }
+    },
+    "More out of your places. Your support keeps the app free of ads and tracking." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr aus deinen Orten. Deine Unterstützung hält die App frei von Werbung und Tracking."
+          }
+        }
+      }
+    },
     "Natural Earth" : {
       "shouldTranslate" : false
     },
@@ -792,6 +1088,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Neue Einträge erscheinen, solange das Diagnose-Log eingeschaltet ist."
+          }
+        }
+      }
+    },
+    "New places" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue Orte"
           }
         }
       }
@@ -816,12 +1122,42 @@
         }
       }
     },
+    "No countries recorded in %@ yet." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ist noch kein Land erfasst."
+          }
+        }
+      }
+    },
     "No country found, for example at sea." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kein Land gefunden, zum Beispiel auf offenem Meer."
+          }
+        }
+      }
+    },
+    "No new places in this period." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In diesem Zeitraum keine neuen Orte."
+          }
+        }
+      }
+    },
+    "No places recorded in this year yet." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In diesem Jahr ist noch kein Ort erfasst."
           }
         }
       }
@@ -836,12 +1172,62 @@
         }
       }
     },
+    "No regions yet" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Regionen"
+          }
+        }
+      }
+    },
+    "No statistics yet" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Statistik"
+          }
+        }
+      }
+    },
+    "No trips in this period." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In diesem Zeitraum keine Reisen."
+          }
+        }
+      }
+    },
+    "No trips yet" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Reisen"
+          }
+        }
+      }
+    },
     "Not asked yet" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Noch nicht gefragt"
+          }
+        }
+      }
+    },
+    "Not known yet" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch nicht bekannt"
           }
         }
       }
@@ -872,6 +1258,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beim Öffnen"
+          }
+        }
+      }
+    },
+    "Ongoing" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Läuft"
           }
         }
       }
@@ -935,16 +1331,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pro"
-          }
-        }
-      }
-    },
-    "Pro adds upcoming features: your travel years, statistics and widgets. Your support keeps the app free of ads and tracking." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pro bringt neue Funktionen: deine Reisejahre, Statistiken und Widgets. Deine Unterstützung hält die App frei von Werbung und Tracking."
           }
         }
       }
@@ -1079,6 +1465,26 @@
         }
       }
     },
+    "Statistics" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistik"
+          }
+        }
+      }
+    },
+    "Statistics fill in as the app records your places." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Statistik füllt sich, während die App deine Orte erfasst."
+          }
+        }
+      }
+    },
     "Status" : {
       "localizations" : {
         "de" : {
@@ -1125,6 +1531,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tippe auf ein farbiges Land, um seine Regionen und Städte zu sehen."
+          }
+        }
+      }
+    },
+    "Tells you in how many countries the app recorded you this year." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sagt dir, in wie vielen Ländern die App dich dieses Jahr erfasst hat."
           }
         }
       }
@@ -1189,12 +1605,62 @@
         }
       }
     },
+    "This year" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieses Jahr"
+          }
+        }
+      }
+    },
     "To record in the background, the app needs the Always permission." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Für die Erfassung im Hintergrund braucht die App die Berechtigung Immer."
+          }
+        }
+      }
+    },
+    "Travel days" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reisetage"
+          }
+        }
+      }
+    },
+    "Travel days per month" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reisetage je Monat"
+          }
+        }
+      }
+    },
+    "Trips" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reisen"
+          }
+        }
+      }
+    },
+    "Trips are days away from your home region." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reisen sind Tage außerhalb deiner Heimatregion."
           }
         }
       }
@@ -1329,6 +1795,26 @@
         }
       }
     },
+    "Year filter" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jahresfilter"
+          }
+        }
+      }
+    },
+    "Your home region is found automatically once the app has recorded a few days." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Heimatregion wird automatisch erkannt, sobald die App ein paar Tage erfasst hat."
+          }
+        }
+      }
+    },
     "Your places stay on your iPhone." : {
       "localizations" : {
         "de" : {
@@ -1339,12 +1825,62 @@
         }
       }
     },
+    "Your regions" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Regionen"
+          }
+        }
+      }
+    },
     "Your travel map fills in by itself" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Deine Reisekarte füllt sich von selbst"
+          }
+        }
+      }
+    },
+    "You’ve been to %lld countries in %@." : {
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Du warst %2$@ in %1$lld Land."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Du warst %2$@ in %1$lld Ländern."
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "You’ve been to %lld country in %@."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "You’ve been to %lld countries in %@."
+                }
+              }
+            }
           }
         }
       }

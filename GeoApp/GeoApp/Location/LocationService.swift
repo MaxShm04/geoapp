@@ -117,7 +117,10 @@ final class LocationService: NSObject {
             let match = await Task.detached(priority: .userInitiated) {
                 GeoLookup.shared.resolve(latitude: latitude, longitude: longitude)
             }.value
-            VisitRecorder.shared.record(match: match, timestamp: timestamp, source: source, reducedAccuracy: reduced)
+            let outcome = VisitRecorder.shared.record(match: match, timestamp: timestamp, source: source,
+                                                      reducedAccuracy: reduced)
+            // Neuer Ort an diesem Tag: Widgets bekommen die neuen Zahlen (nur Zähler und Namen, keine Position).
+            if case .newDay = outcome { WidgetSync.refresh(context: Store.shared.mainContext) }
             task.end()
         }
     }

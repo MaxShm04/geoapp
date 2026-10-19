@@ -6,6 +6,17 @@
 	<string>So your map fills in by itself, the app checks which city you are in whenever you move a larger distance. Only the city, the country and the time are stored, no routes and no coordinates.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The app matches your location to a city and a country. The exact position is discarded right away and is never stored or sent.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>de.max.geoapp</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>geoapp</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
