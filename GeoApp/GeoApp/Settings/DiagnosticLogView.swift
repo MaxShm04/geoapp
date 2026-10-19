@@ -9,8 +9,8 @@ struct DiagnosticLogView: View {
     var body: some View {
         Group {
             if entries.isEmpty {
-                ContentUnavailableView("Log ist leer", systemImage: "doc.text.magnifyingglass",
-                                       description: Text("Neue Einträge erscheinen, solange das Diagnose-Log eingeschaltet ist."))
+                ContentUnavailableView("Log is empty", systemImage: "doc.text.magnifyingglass",
+                                       description: Text("New entries appear while the diagnostic log is turned on."))
             } else {
                 List(entries) { entry in
                     VStack(alignment: .leading, spacing: 4) {
@@ -22,16 +22,16 @@ struct DiagnosticLogView: View {
                         }
                         .font(.footnote)
                         Text(place(for: entry))
-                        Text(entry.outcome)
+                        Text(DiagnosticOutcome.text(for: entry.outcome))
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
                 }
             }
         }
-        .navigationTitle("Diagnose-Log")
+        .navigationTitle("Diagnostic Log")
         .toolbar {
-            Button("Leeren", role: .destructive) {
+            Button("Clear", role: .destructive) {
                 try? context.delete(model: DiagnosticEntry.self)
                 try? context.save()
             }
@@ -45,9 +45,9 @@ struct DiagnosticLogView: View {
         if let district = entry.districtName, district != entry.cityName { parts.append(district) }
         if let code = entry.countryCode { parts.append(CountryNames.name(for: code)) }
         if let km = entry.distanceToCityCenterKm {
-            parts.append("\(km.formatted(.number.precision(.fractionLength(1)))) km zur Mitte")
+            parts.append(String(localized: "\(km.formatted(.number.precision(.fractionLength(1)))) km to center"))
         }
-        if entry.reducedAccuracy { parts.append("ungefähr") }
+        if entry.reducedAccuracy { parts.append(String(localized: "approximate")) }
         return parts.isEmpty ? "–" : parts.joined(separator: " · ")
     }
 }

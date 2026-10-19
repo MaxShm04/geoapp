@@ -65,6 +65,13 @@ public struct CityIndex: Sendable {
         byID[id].map { cities[$0] }
     }
 
+    /// Name der Stadt in `language` aus `city_names.tsv`, sonst der eigene Name der Stadt.
+    /// `nil` nur bei unbekannter ID. Die Übersetzungen werden erst beim ersten Aufruf geladen.
+    public func localizedName(id: Int, language: String) -> String? {
+        guard let city = city(id: id) else { return nil }
+        return cityNameTable[id]?[normalizedLanguageCode(language)] ?? city.name
+    }
+
     /// Nächste Stadt innerhalb von `radiusKm`. Städte aus `preferredCountry` haben Vorrang,
     /// erst wenn dort keine im Radius liegt, zählt eine Stadt aus einem anderen Land.
     public func nearest(lat: Double, lon: Double, radiusKm: Double, preferredCountry: String?) -> City? {
@@ -105,6 +112,27 @@ public struct CityIndex: Sendable {
     private static func cellKey(lat: Int, lon: Int) -> Int {
         (lat + 90) * 360 + (lon + 180)
     }
+}
+
+/// Übersetzte Stadtnamen aus `city_names.tsv` (geonameid, Sprache, Name). Nur Namen, die vom
+/// englischen Namen abweichen. Swift lädt globale `let` beim ersten Zugriff, thread-sicher und
+/// einmal pro Prozess, `GeoLookup.shared` lädt sie nicht.
+private let cityNameTable: [Int: [String: String]] = {
+    guard let url = Bundle.module.url(forResource: "city_names", withExtension: "tsv"),
+          let text = try? String(contentsOf: url, encoding: .utf8) else { return [:] }
+    var table: [Int: [String: String]] = [:]
+    for line in text.split(separator: "\n", omittingEmptySubsequences: true) {
+        let cols = line.split(separator: "\t", omittingEmptySubsequences: false)
+        guard cols.count == 3, let id = Int(cols[0]) else { continue }
+        table[id, default: [:]][String(cols[1])] = String(cols[2])
+    }
+    return table
+}()
+
+/// Sprachcode ohne Region und in Kleinbuchstaben: `de-DE` und `pt_BR` werden zu `de` und `pt`.
+func normalizedLanguageCode(_ identifier: String) -> String {
+    let parts = identifier.lowercased().split(whereSeparator: { $0 == "-" || $0 == "_" })
+    return parts.first.map(String.init) ?? ""
 }
 
 extension CityIndex {

@@ -6,8 +6,8 @@ struct LicensesView: View {
     var body: some View {
         List {
             Section {
-                Text("Ländergrenzen: Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.")
-                Text("Natural Earth ist gemeinfrei (Public Domain). Verwendet werden die Ländergrenzen im Maßstab 1:50 Mio., für Kleinstaaten 1:10 Mio.")
+                Text("Country borders: Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.")
+                Text("Natural Earth is in the public domain. Country borders are used at a scale of 1:50 million, and 1:10 million for small countries.")
                     .foregroundStyle(.secondary)
                 Link("naturalearthdata.com", destination: URL(string: "https://www.naturalearthdata.com")!)
             } header: {
@@ -15,11 +15,11 @@ struct LicensesView: View {
             }
 
             Section {
-                Text("Städtedaten: GeoNames (geonames.org), lizenziert unter Creative Commons Namensnennung 4.0 International (CC BY 4.0).")
-                Text("Verwendet wird die Liste der Orte ab 15.000 Einwohnern mit englischen Namen. Für die App wurden die Daten verändert: Stadtteile und Vororte sind ihrer Stadt zugeordnet (zum Beispiel Arrondissements zu Paris, Stepney zu London).")
+                Text("City data: GeoNames (geonames.org), licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).")
+                Text("Uses the list of places with 15,000 or more residents and English names. The data was changed for the app: districts and suburbs are assigned to their city (for example, arrondissements to Paris, Stepney to London).")
                     .foregroundStyle(.secondary)
                 Link("geonames.org", destination: URL(string: "https://www.geonames.org")!)
-                Link("Lizenz CC BY 4.0", destination: URL(string: "https://creativecommons.org/licenses/by/4.0/deed.de")!)
+                Link("CC BY 4.0 license", destination: URL(string: "https://creativecommons.org/licenses/by/4.0/deed.de")!)
             } header: {
                 Text("GeoNames")
             }
@@ -28,20 +28,20 @@ struct LicensesView: View {
                 ForEach(DistrictIndex.shared.sources, id: \.cc) { source in
                     VStack(alignment: .leading, spacing: 2) {
                         Text(CountryNames.name(for: source.cc))
-                        Text("\(source.source) · \(source.license)")
+                        Text(verbatim: "\(source.source) · \(source.license)")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
                 }
             } header: {
-                Text("Kreise und Bezirke")
+                Text("Districts")
             } footer: {
-                Text("Grenzen der Kreise aus geoBoundaries (geoboundaries.org) und Natural Earth, vereinfacht für die App. Die Lizenz gilt jeweils für die Daten des Landes.")
+                Text("District borders from geoBoundaries (geoboundaries.org) and Natural Earth, simplified for the app. The license applies to each country’s data.")
             }
 
             Section {
-                Text("Hauptstraßen in Großstädten: © OpenStreetMap-Mitwirkende, verfügbar unter der Open Database License (ODbL).")
-                Text("Für die App vereinfacht und auf die Umgebung der Städte zugeschnitten.")
+                Text("Main roads in cities: © OpenStreetMap contributors, available under the Open Database License (ODbL).")
+                Text("Simplified for the app and cut to the area around the cities.")
                     .foregroundStyle(.secondary)
                 Link("openstreetmap.org/copyright", destination: URL(string: "https://www.openstreetmap.org/copyright")!)
             } header: {
@@ -49,15 +49,15 @@ struct LicensesView: View {
             }
 
             Section {
-                Text("Kartendarstellung mit MapLibre Native (BSD-2-Clause-Lizenz). Die Karte zeigt nur die Daten oben, ohne Kartenkacheln aus dem Netz.")
+                Text("Map display with MapLibre Native (BSD 2-Clause license). The map shows only the data above, without map tiles from the network.")
                     .foregroundStyle(.secondary)
                 Link("maplibre.org", destination: URL(string: "https://maplibre.org")!)
-                NavigationLink("Lizenztext MapLibre Native") { MapLibreLicenseView() }
+                NavigationLink("MapLibre Native license text") { MapLibreLicenseView() }
             } header: {
-                Text("Karte")
+                Text("Map")
             }
         }
-        .navigationTitle("Lizenzen")
+        .navigationTitle("Licenses")
     }
 }
 

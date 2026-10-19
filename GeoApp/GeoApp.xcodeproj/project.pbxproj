@@ -155,11 +155,11 @@
 				};
 			};
 			buildConfigurationList = A10000000000000000000610 /* Build configuration list for PBXProject "GeoApp" */;
-			developmentRegion = de;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				de,
 				en,
+				de,
 				Base,
 			);
 			mainGroup = A10000000000000000000501;
@@ -295,8 +295,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GeoApp;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Damit sich deine Karte von selbst füllt, prüft die App bei größeren Ortswechseln, in welcher Stadt du bist. Gespeichert werden nur Stadt, Land und Zeitpunkt, keine Wege und keine Koordinaten.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Die App ordnet deinen Standort einer Stadt und einem Land zu. Die genaue Position wird sofort verworfen und nie gespeichert oder gesendet.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -328,8 +326,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GeoApp;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Damit sich deine Karte von selbst füllt, prüft die App bei größeren Ortswechseln, in welcher Stadt du bist. Gespeichert werden nur Stadt, Land und Zeitpunkt, keine Wege und keine Koordinaten.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Die App ordnet deinen Standort einer Stadt und einem Land zu. Die genaue Position wird sofort verworfen und nie gespeichert oder gesendet.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

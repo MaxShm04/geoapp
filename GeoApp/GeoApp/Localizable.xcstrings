@@ -1,0 +1,1446 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ km to center" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ km zur Mitte"
+          }
+        }
+      }
+    },
+    "%@ km to city center" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ km zur Stadtmitte"
+          }
+        }
+      }
+    },
+    "%lld cities" : {
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Stadt"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Städte"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld city"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld cities"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld countries" : {
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Land"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Länder"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld country"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld countries"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld regions" : {
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Region"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Regionen"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld region"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld regions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "A place appears here as soon as the app records it." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobald die App einen Ort erfasst, erscheint er hier."
+          }
+        }
+      }
+    },
+    "Active" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiv"
+          }
+        }
+      }
+    },
+    "Adds sample trips in Bavaria, from 12 days in Munich to short stops in small towns, to try the map and regions. Turning it off removes exactly these entries again. Real visits stay." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fügt Beispielreisen in Bayern hinzu, von 12 Tagen in München bis zu kurzen Stopps in Kleinstädten, um Karte und Regionen auszuprobieren. Ausschalten entfernt genau diese Einträge wieder, echte Besuche bleiben."
+          }
+        }
+      }
+    },
+    "All countries, cities, visit days and the diagnostic log will be removed permanently." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Länder, Städte, Besuchstage und das Diagnose-Log werden unwiderruflich entfernt."
+          }
+        }
+      }
+    },
+    "All regions" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Regionen"
+          }
+        }
+      }
+    },
+    "All set" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alles bereit"
+          }
+        }
+      }
+    },
+    "All visits in this city will be removed." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Besuche in dieser Stadt werden entfernt."
+          }
+        }
+      }
+    },
+    "All visits in this country and its cities will be removed." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Besuche in diesem Land und seine Städte werden entfernt."
+          }
+        }
+      }
+    },
+    "Allow Always" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Immer erlauben"
+          }
+        }
+      }
+    },
+    "Allow While Using" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beim Verwenden erlauben"
+          }
+        }
+      }
+    },
+    "Allow location “Always”" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standort „Immer“ erlauben"
+          }
+        }
+      }
+    },
+    "Alphabetical" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alphabetisch"
+          }
+        }
+      }
+    },
+    "Always" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Immer"
+          }
+        }
+      }
+    },
+    "Always still missing" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Immer fehlt noch"
+          }
+        }
+      }
+    },
+    "Back to country" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zurück zum Land"
+          }
+        }
+      }
+    },
+    "Back to world map" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zurück zur Weltkarte"
+          }
+        }
+      }
+    },
+    "CC BY 4.0 license" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lizenz CC BY 4.0"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        }
+      }
+    },
+    "Change in iOS Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In iOS-Einstellungen ändern"
+          }
+        }
+      }
+    },
+    "Check location" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuordnung prüfen"
+          }
+        }
+      }
+    },
+    "Cities" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Städte"
+          }
+        }
+      }
+    },
+    "City data: GeoNames (geonames.org), licensed under Creative Commons Attribution 4.0 International (CC BY 4.0)." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Städtedaten: GeoNames (geonames.org), lizenziert unter Creative Commons Namensnennung 4.0 International (CC BY 4.0)."
+          }
+        }
+      }
+    },
+    "Clear" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leeren"
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter"
+          }
+        }
+      }
+    },
+    "Countries" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Länder"
+          }
+        }
+      }
+    },
+    "Country borders: Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ländergrenzen: Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com."
+          }
+        }
+      }
+    },
+    "Data" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daten"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschen"
+          }
+        }
+      }
+    },
+    "Delete %@?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ löschen?"
+          }
+        }
+      }
+    },
+    "Delete all data" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Daten löschen"
+          }
+        }
+      }
+    },
+    "Delete all data?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Daten löschen?"
+          }
+        }
+      }
+    },
+    "Delete everything" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alles löschen"
+          }
+        }
+      }
+    },
+    "Delete individual countries and cities by swiping in the list." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einzelne Länder und Städte löschst du in der Liste per Wischen."
+          }
+        }
+      }
+    },
+    "Denied" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abgelehnt"
+          }
+        }
+      }
+    },
+    "Diagnostic Log" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diagnose-Log"
+          }
+        }
+      }
+    },
+    "Diagnostic log" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diagnose-Log"
+          }
+        }
+      }
+    },
+    "Diagnostics" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diagnose"
+          }
+        }
+      }
+    },
+    "District borders from geoBoundaries (geoboundaries.org) and Natural Earth, simplified for the app. The license applies to each country’s data." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grenzen der Kreise aus geoBoundaries (geoboundaries.org) und Natural Earth, vereinfacht für die App. Die Lizenz gilt jeweils für die Daten des Landes."
+          }
+        }
+      }
+    },
+    "Districts" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kreise und Bezirke"
+          }
+        }
+      }
+    },
+    "First %@ · last %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuerst %@ · zuletzt %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "First %1$@ · last %2$@"
+          }
+        }
+      }
+    },
+    "First, iOS asks whether the app may see your location while you use it. Your position is only matched to a city and then discarded." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuerst fragt iOS, ob die App deinen Standort beim Verwenden sehen darf. Die Position wird nur einer Stadt zugeordnet und dann verworfen."
+          }
+        }
+      }
+    },
+    "Free" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kostenlos"
+          }
+        }
+      }
+    },
+    "GeoNames" : {
+      "shouldTranslate" : false
+    },
+    "Get Pro" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro holen"
+          }
+        }
+      }
+    },
+    "In the background, the app quietly notes which countries and cities you have been to and shows them on a world map. Only city, country and time are stored, never your exact position, and none of it leaves your iPhone." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die App merkt sich im Hintergrund, in welchen Ländern und Städten du warst, und zeigt sie auf einer Weltkarte. Gespeichert werden nur Stadt, Land und Zeitpunkt, nie deine genaue Position, und nichts davon verlässt dein iPhone."
+          }
+        }
+      }
+    },
+    "Last visited" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuletzt besucht"
+          }
+        }
+      }
+    },
+    "Later" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Später"
+          }
+        }
+      }
+    },
+    "Let’s go" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los geht's"
+          }
+        }
+      }
+    },
+    "Licenses" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lizenzen"
+          }
+        }
+      }
+    },
+    "List" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste"
+          }
+        }
+      }
+    },
+    "Locating …" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suche Standort …"
+          }
+        }
+      }
+    },
+    "Location" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standort"
+          }
+        }
+      }
+    },
+    "Location change" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ortswechsel"
+          }
+        }
+      }
+    },
+    "Location is off" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standort ist aus"
+          }
+        }
+      }
+    },
+    "Location unavailable: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standort nicht verfügbar: %@"
+          }
+        }
+      }
+    },
+    "Log is empty" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log ist leer"
+          }
+        }
+      }
+    },
+    "Main roads in cities: © OpenStreetMap contributors, available under the Open Database License (ODbL)." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hauptstraßen in Großstädten: © OpenStreetMap-Mitwirkende, verfügbar unter der Open Database License (ODbL)."
+          }
+        }
+      }
+    },
+    "Manage subscription" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abo verwalten"
+          }
+        }
+      }
+    },
+    "Map" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karte"
+          }
+        }
+      }
+    },
+    "Map display with MapLibre Native (BSD 2-Clause license). The map shows only the data above, without map tiles from the network." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartendarstellung mit MapLibre Native (BSD-2-Clause-Lizenz). Die Karte zeigt nur die Daten oben, ohne Kartenkacheln aus dem Netz."
+          }
+        }
+      }
+    },
+    "MapLibre Native" : {
+      "shouldTranslate" : false
+    },
+    "MapLibre Native license text" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lizenztext MapLibre Native"
+          }
+        }
+      }
+    },
+    "Match current location" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuellen Ort zuordnen"
+          }
+        }
+      }
+    },
+    "Matches your location once, offline, to a city and a country. None of this is saved." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordnet deinen Standort einmal offline einer Stadt und einem Land zu. Nichts davon wird gespeichert."
+          }
+        }
+      }
+    },
+    "Natural Earth" : {
+      "shouldTranslate" : false
+    },
+    "Natural Earth is in the public domain. Country borders are used at a scale of 1:50 million, and 1:10 million for small countries." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Natural Earth ist gemeinfrei (Public Domain). Verwendet werden die Ländergrenzen im Maßstab 1:50 Mio., für Kleinstaaten 1:10 Mio."
+          }
+        }
+      }
+    },
+    "New entries appear while the diagnostic log is turned on." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue Einträge erscheinen, solange das Diagnose-Log eingeschaltet ist."
+          }
+        }
+      }
+    },
+    "No city with 15,000+ residents recorded nearby." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Stadt ab 15.000 Einwohnern in der Nähe erfasst."
+          }
+        }
+      }
+    },
+    "No city within %lld km" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Stadt im Umkreis von %lld km"
+          }
+        }
+      }
+    },
+    "No country found, for example at sea." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Land gefunden, zum Beispiel auf offenem Meer."
+          }
+        }
+      }
+    },
+    "No places yet" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Orte"
+          }
+        }
+      }
+    },
+    "Not asked yet" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch nicht gefragt"
+          }
+        }
+      }
+    },
+    "Off" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus"
+          }
+        }
+      }
+    },
+    "On" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An"
+          }
+        }
+      }
+    },
+    "On open" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beim Öffnen"
+          }
+        }
+      }
+    },
+    "Open iOS Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS-Einstellungen öffnen"
+          }
+        }
+      }
+    },
+    "OpenStreetMap" : {
+      "shouldTranslate" : false
+    },
+    "Other cities" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weitere Städte"
+          }
+        }
+      }
+    },
+    "Permission" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berechtigung"
+          }
+        }
+      }
+    },
+    "Places" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orte"
+          }
+        }
+      }
+    },
+    "Precise location" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genaue Position"
+          }
+        }
+      }
+    },
+    "Pro" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro"
+          }
+        }
+      }
+    },
+    "Pro adds upcoming features: your travel years, statistics and widgets. Your support keeps the app free of ads and tracking." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro bringt neue Funktionen: deine Reisejahre, Statistiken und Widgets. Deine Unterstützung hält die App frei von Werbung und Tracking."
+          }
+        }
+      }
+    },
+    "Pro is optional. Recording and the map stay free." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro ist optional. Erfassung und Karte bleiben kostenlos."
+          }
+        }
+      }
+    },
+    "Record places" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orte erfassen"
+          }
+        }
+      }
+    },
+    "Recording" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erfassung"
+          }
+        }
+      }
+    },
+    "Recording is turned off" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erfassung ist ausgeschaltet"
+          }
+        }
+      }
+    },
+    "Records when the app was woken, which city it found and how far it was to the city center. Without coordinates." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hält fest, wann die App geweckt wurde, welche Stadt sie gefunden hat und wie weit es zur Stadtmitte war. Ohne Koordinaten."
+          }
+        }
+      }
+    },
+    "Restore purchases" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käufe wiederherstellen"
+          }
+        }
+      }
+    },
+    "Restricted" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eingeschränkt"
+          }
+        }
+      }
+    },
+    "Running" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Läuft"
+          }
+        }
+      }
+    },
+    "Saved places could not be loaded. New places will be lost when the app quits. (%@)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespeicherte Orte ließen sich nicht laden. Neue Orte gehen beim Beenden verloren. (%@)"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
+          }
+        }
+      }
+    },
+    "Simplified for the app and cut to the area around the cities." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für die App vereinfacht und auf die Umgebung der Städte zugeschnitten."
+          }
+        }
+      }
+    },
+    "So the map fills in without your help, the app needs your location in the background too. It is only woken briefly for larger changes of place." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Damit sich die Karte ohne dein Zutun füllt, braucht die App den Standort auch im Hintergrund. Sie wird nur bei größeren Ortswechseln kurz geweckt."
+          }
+        }
+      }
+    },
+    "Sort" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sortierung"
+          }
+        }
+      }
+    },
+    "Status" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status"
+          }
+        }
+      }
+    },
+    "Step 1 of 2: While Using" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schritt 1 von 2: Beim Verwenden"
+          }
+        }
+      }
+    },
+    "Step 2 of 2: Always" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schritt 2 von 2: Immer"
+          }
+        }
+      }
+    },
+    "Swipe left to delete." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zum Löschen nach links wischen."
+          }
+        }
+      }
+    },
+    "Tap a highlighted country to see its regions and cities." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tippe auf ein farbiges Land, um seine Regionen und Städte zu sehen."
+          }
+        }
+      }
+    },
+    "Test data" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testdaten"
+          }
+        }
+      }
+    },
+    "Test data in Bavaria" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testdaten in Bayern"
+          }
+        }
+      }
+    },
+    "The app now records countries and cities on larger changes of place. You don’t need to do anything else." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die App erfasst ab jetzt Länder und Städte bei größeren Ortswechseln. Du musst nichts weiter tun."
+          }
+        }
+      }
+    },
+    "The app now records countries and cities. Precise location is off, though: iOS then shifts your location by a few kilometers, so cities may be off." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die App erfasst ab jetzt Länder und Städte. Genaue Position ist aber aus: iOS verschiebt den Standort dann um einige Kilometer, Städte können danebenliegen."
+          }
+        }
+      }
+    },
+    "The app records when you move a greater distance. Visits are a second way, which iOS reports when you stay in one place for a while. Both save only city, country and time." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die App erfasst bei größeren Ortswechseln. Aufenthalte sind ein zweiter Weg, den iOS meldet, wenn du länger an einem Ort bleibst. Beide speichern nur Stadt, Land und Zeitpunkt."
+          }
+        }
+      }
+    },
+    "The map fills in as you travel." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Karte füllt sich, sobald du unterwegs bist."
+          }
+        }
+      }
+    },
+    "To record in the background, the app needs the Always permission." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für die Erfassung im Hintergrund braucht die App die Berechtigung Immer."
+          }
+        }
+      }
+    },
+    "Turn on precise location" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genaue Position einschalten"
+          }
+        }
+      }
+    },
+    "Unknown" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbekannt"
+          }
+        }
+      }
+    },
+    "Uses the list of places with 15,000 or more residents and English names. The data was changed for the app: districts and suburbs are assigned to their city (for example, arrondissements to Paris, Stepney to London)." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwendet wird die Liste der Orte ab 15.000 Einwohnern mit englischen Namen. Für die App wurden die Daten verändert: Stadtteile und Vororte sind ihrer Stadt zugeordnet (zum Beispiel Arrondissements zu Paris, Stepney zu London)."
+          }
+        }
+      }
+    },
+    "Version" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        }
+      }
+    },
+    "View" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ansicht"
+          }
+        }
+      }
+    },
+    "View log" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log ansehen"
+          }
+        }
+      }
+    },
+    "Visit" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufenthalt"
+          }
+        }
+      }
+    },
+    "Visits" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufenthalte (Visits)"
+          }
+        }
+      }
+    },
+    "While using" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beim Verwenden"
+          }
+        }
+      }
+    },
+    "Without Always, the app only records while it is open. You can change this at any time in the iOS Settings under Location." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohne Immer erfasst die App nur, wenn sie geöffnet ist. Du kannst das jederzeit in den iOS-Einstellungen unter Standort ändern."
+          }
+        }
+      }
+    },
+    "Without location, the app cannot record places. You can allow it in the iOS Settings." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohne Standort kann die App keine Orte erfassen. Du kannst ihn in den iOS-Einstellungen erlauben."
+          }
+        }
+      }
+    },
+    "Without precise location, iOS shifts your location by a few kilometers. Cities can then be off, and at borders even the country." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohne genaue Position verschiebt iOS den Standort um einige Kilometer. Städte können dann danebenliegen, an Grenzen auch das Land."
+          }
+        }
+      }
+    },
+    "World map. %@ and %@ visited. The list tab shows them as a list." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weltkarte. %@ und %@ besucht. Der Tab „Liste“ zeigt sie als Liste."
+          }
+        }
+      }
+    },
+    "Your places stay on your iPhone." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Orte bleiben auf deinem iPhone."
+          }
+        }
+      }
+    },
+    "Your travel map fills in by itself" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Reisekarte füllt sich von selbst"
+          }
+        }
+      }
+    },
+    "already recorded today (%lld×)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "heute schon erfasst (%lld×)"
+          }
+        }
+      }
+    },
+    "approximate" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ungefähr"
+          }
+        }
+      }
+    },
+    "geonames.org" : {
+      "shouldTranslate" : false
+    },
+    "ignored: flight" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignoriert: Flug"
+          }
+        }
+      }
+    },
+    "ignored: inaccurate" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignoriert: ungenau"
+          }
+        }
+      }
+    },
+    "ignored: invalid accuracy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignoriert: ungültig"
+          }
+        }
+      }
+    },
+    "maplibre.org" : {
+      "shouldTranslate" : false
+    },
+    "naturalearthdata.com" : {
+      "shouldTranslate" : false
+    },
+    "new day" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "neuer Tag"
+          }
+        }
+      }
+    },
+    "no country" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kein Land"
+          }
+        }
+      }
+    },
+    "no location" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kein Standort"
+          }
+        }
+      }
+    },
+    "openstreetmap.org/copyright" : {
+      "shouldTranslate" : false
+    }
+  },
+  "version" : "1.0"
+}

@@ -62,7 +62,7 @@ final class VisitRecorder {
     /// Ein Fehler von Core Location, etwa kein Standort beim Öffnen. Nur fürs Diagnose-Log.
     func recordFailure(_ message: String, source: CaptureSource) {
         log.info("Kein Standort (\(source.rawValue, privacy: .public)): \(message, privacy: .public)")
-        addDiagnostic(DiagnosticEntry(timestamp: .now, source: source, outcome: "kein Standort"))
+        addDiagnostic(DiagnosticEntry(timestamp: .now, source: source, outcome: DiagnosticOutcome.noLocation))
         save()
     }
 
@@ -100,12 +100,12 @@ final class VisitRecorder {
                         reducedAccuracy: Bool) -> Outcome {
         let text: String
         switch outcome {
-        case .newDay: text = "neuer Tag"
-        case .sameDay(_, _, let count): text = "heute schon erfasst (\(count)×)"
-        case .rejected(.flight): text = "ignoriert: Flug"
-        case .rejected(.inaccurate): text = "ignoriert: ungenau"
-        case .rejected(.invalidAccuracy): text = "ignoriert: ungültig"
-        case .noCountry: text = "kein Land"
+        case .newDay: text = DiagnosticOutcome.newDay
+        case .sameDay(_, _, let count): text = DiagnosticOutcome.sameDay(count)
+        case .rejected(.flight): text = DiagnosticOutcome.flight
+        case .rejected(.inaccurate): text = DiagnosticOutcome.inaccurate
+        case .rejected(.invalidAccuracy): text = DiagnosticOutcome.invalidAccuracy
+        case .noCountry: text = DiagnosticOutcome.noCountry
         }
         // Nur Stadt, Land und Ergebnis ins System-Log, nie die Koordinate.
         log.info("\(source.rawValue, privacy: .public): \(text, privacy: .public) \(match?.city?.name ?? "", privacy: .public) \(match?.countryCode ?? "", privacy: .public)")

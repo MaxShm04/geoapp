@@ -5,15 +5,27 @@ import SwiftUI
 /// Einträge lassen sich per Wischen löschen.
 struct ListScreen: View {
     enum Kind: String, CaseIterable, Identifiable {
-        case countries = "Länder"
-        case cities = "Städte"
+        case countries
+        case cities
         var id: Self { self }
+        var title: LocalizedStringResource {
+            switch self {
+            case .countries: "Countries"
+            case .cities: "Cities"
+            }
+        }
     }
 
     enum Order: String, CaseIterable, Identifiable {
-        case lastVisit = "Zuletzt besucht"
-        case alphabetical = "Alphabetisch"
+        case lastVisit
+        case alphabetical
         var id: Self { self }
+        var title: LocalizedStringResource {
+            switch self {
+            case .lastVisit: "Last visited"
+            case .alphabetical: "Alphabetical"
+            }
+        }
     }
 
     @Environment(\.modelContext) private var context
@@ -28,12 +40,12 @@ struct ListScreen: View {
         NavigationStack {
             Group {
                 if countries.isEmpty {
-                    ContentUnavailableView("Noch keine Orte", systemImage: "mappin.slash",
-                                           description: Text("Sobald die App einen Ort erfasst, erscheint er hier."))
+                    ContentUnavailableView("No places yet", systemImage: "mappin.slash",
+                                           description: Text("A place appears here as soon as the app records it."))
                 } else {
                     List {
-                        Picker("Ansicht", selection: $kind) {
-                            ForEach(Kind.allCases) { Text($0.rawValue).tag($0) }
+                        Picker("View", selection: $kind) {
+                            ForEach(Kind.allCases) { Text($0.title).tag($0) }
                         }
                         .pickerStyle(.segmented)
                         .listRowBackground(Color.clear)
@@ -46,14 +58,14 @@ struct ListScreen: View {
                     }
                 }
             }
-            .navigationTitle("Orte")
+            .navigationTitle("Places")
             .toolbar {
                 Menu {
-                    Picker("Sortierung", selection: $order) {
-                        ForEach(Order.allCases) { Text($0.rawValue).tag($0) }
+                    Picker("Sort", selection: $order) {
+                        ForEach(Order.allCases) { Text($0.title).tag($0) }
                     }
                 } label: {
-                    Label("Sortierung", systemImage: "arrow.up.arrow.down")
+                    Label("Sort", systemImage: "arrow.up.arrow.down")
                 }
                 .disabled(countries.isEmpty)
             }
@@ -63,26 +75,26 @@ struct ListScreen: View {
                     .navigationBarTitleDisplayMode(.inline)
             }
             .alert(
-                countryToDelete.map { "\(CountryNames.name(for: $0.isoCode)) löschen?" } ?? "",
+                countryToDelete.map { String(localized: "Delete \(CountryNames.name(for: $0.isoCode))?") } ?? "",
                 isPresented: Binding(get: { countryToDelete != nil }, set: { if !$0 { countryToDelete = nil } })
             ) {
-                Button("Löschen", role: .destructive) {
+                Button("Delete", role: .destructive) {
                     if let code = countryToDelete?.isoCode { try? Deletion.deleteCountry(code, context: context) }
                 }
-                Button("Abbrechen", role: .cancel) {}
+                Button("Cancel", role: .cancel) {}
             } message: {
-                Text("Alle Besuche in diesem Land und seine Städte werden entfernt.")
+                Text("All visits in this country and its cities will be removed.")
             }
             .alert(
-                cityToDelete.map { "\($0.name) löschen?" } ?? "",
+                cityToDelete.map { String(localized: "Delete \(PlaceNames.city($0))?") } ?? "",
                 isPresented: Binding(get: { cityToDelete != nil }, set: { if !$0 { cityToDelete = nil } })
             ) {
-                Button("Löschen", role: .destructive) {
+                Button("Delete", role: .destructive) {
                     if let id = cityToDelete?.geonamesId { try? Deletion.deleteCity(id, context: context) }
                 }
-                Button("Abbrechen", role: .cancel) {}
+                Button("Cancel", role: .cancel) {}
             } message: {
-                Text("Alle Besuche in dieser Stadt werden entfernt.")
+                Text("All visits in this city will be removed.")
             }
         }
     }
@@ -109,17 +121,16 @@ struct ListScreen: View {
                              first: country.firstVisited, last: country.lastVisited)
                 }
                 .swipeActions {
-                    Button("Löschen", systemImage: "trash", role: .destructive) { countryToDelete = country }
+                    Button("Delete", systemImage: "trash", role: .destructive) { countryToDelete = country }
                 }
             }
         } footer: {
-            Text("Zum Löschen nach links wischen.")
+            Text("Swipe left to delete.")
         }
     }
 
     private func cityCount(in code: String) -> String {
-        let count = cities.filter { $0.countryCode == code }.count
-        return count == 1 ? "1 Stadt" : "\(count) Städte"
+        Self.cityCountText(cities.filter { $0.countryCode == code }.count)
     }
 
     // MARK: Städte
@@ -129,22 +140,28 @@ struct ListScreen: View {
         case .lastVisit:
             cities.sorted { $0.lastVisited > $1.lastVisited }
         case .alphabetical:
-            cities.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+            cities.map { (city: $0, name: PlaceNames.city($0)) }
+                .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+                .map { $0.city }
         }
     }
 
     private var cityRows: some View {
         Section {
             ForEach(sortedCities) { city in
-                VisitRow(title: city.name, subtitle: CountryNames.name(for: city.countryCode),
+                VisitRow(title: PlaceNames.city(city), subtitle: CountryNames.name(for: city.countryCode),
                          first: city.firstVisited, last: city.lastVisited)
                     .swipeActions {
-                        Button("Löschen", systemImage: "trash", role: .destructive) { cityToDelete = city }
+                        Button("Delete", systemImage: "trash", role: .destructive) { cityToDelete = city }
                     }
             }
         } footer: {
-            Text("Zum Löschen nach links wischen.")
+            Text("Swipe left to delete.")
         }
+    }
+
+    static func cityCountText(_ count: Int, locale: Locale = .current) -> String {
+        L10n.string("\(count) cities", locale: locale)
     }
 }
 
@@ -161,7 +178,7 @@ private struct CountryDetail: View {
                      selectedRegion: selectedRegion) { selectedRegion = $0 }
             .toolbar {
                 if selectedRegion != nil {
-                    Button("Alle Regionen") { selectedRegion = nil }
+                    Button("All regions") { selectedRegion = nil }
                 }
             }
     }

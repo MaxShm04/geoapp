@@ -45,7 +45,7 @@ struct CountrySheet: View {
         let grouped = Dictionary(grouping: cities) { regionId(of: $0) ?? "" }
         return grouped.compactMap { id, cities -> RegionSummary? in
             guard let region = RegionIndex.shared.region(id: id) else { return nil }
-            return RegionSummary(id: id, name: region.name, cities: cities, days: focus.regionDays[id] ?? 0)
+            return RegionSummary(id: id, name: PlaceNames.region(region), cities: cities, days: focus.regionDays[id] ?? 0)
         }
         .sorted { $0.lastVisited > $1.lastVisited }
     }
@@ -53,7 +53,7 @@ struct CountrySheet: View {
     var body: some View {
         List {
             if let selectedRegion, let region = RegionIndex.shared.region(id: selectedRegion) {
-                header(title: region.name, subtitle: CountryNames.name(for: focus.code))
+                header(title: PlaceNames.region(region), subtitle: CountryNames.name(for: focus.code))
                 citySection(cities.filter { regionId(of: $0) == selectedRegion })
             } else {
                 header(title: CountryNames.name(for: focus.code), subtitle: countryDates)
@@ -63,7 +63,7 @@ struct CountrySheet: View {
                 } else {
                     regionSection(summaries)
                     let withoutRegion = cities.filter { regionId(of: $0) == nil }
-                    if !withoutRegion.isEmpty { citySection(withoutRegion, title: "Weitere Städte") }
+                    if !withoutRegion.isEmpty { citySection(withoutRegion, title: String(localized: "Other cities")) }
                 }
             }
         }
@@ -76,7 +76,7 @@ struct CountrySheet: View {
         guard let country = countries.first else { return nil }
         let first = country.firstVisited.formatted(date: .abbreviated, time: .omitted)
         let last = country.lastVisited.formatted(date: .abbreviated, time: .omitted)
-        return first == last ? first : "Zuerst \(first) · zuletzt \(last)"
+        return first == last ? first : String(localized: "First \(first) · last \(last)")
     }
 
     private func header(title: String, subtitle: String?) -> some View {
@@ -96,14 +96,14 @@ struct CountrySheet: View {
     }
 
     private func regionSection(_ summaries: [RegionSummary]) -> some View {
-        Section(summaries.count == 1 ? "1 Region" : "\(summaries.count) Regionen") {
+        Section(String(localized: "\(summaries.count) regions")) {
             ForEach(summaries) { summary in
                 Button {
                     onSelectRegion(summary.id)
                 } label: {
                     HStack {
                         VisitRow(title: summary.name,
-                                 subtitle: summary.cities.count == 1 ? "1 Stadt" : "\(summary.cities.count) Städte",
+                                 subtitle: String(localized: "\(summary.cities.count) cities"),
                                  first: summary.firstVisited, last: summary.lastVisited)
                         Image(systemName: "chevron.right")
                             .font(.footnote.weight(.semibold))
@@ -117,13 +117,13 @@ struct CountrySheet: View {
     }
 
     private func citySection(_ cities: [City], title: String? = nil) -> some View {
-        Section(title ?? (cities.count == 1 ? "1 Stadt" : "\(cities.count) Städte")) {
+        Section(title ?? String(localized: "\(cities.count) cities")) {
             if cities.isEmpty {
-                Text("Keine Stadt ab 15.000 Einwohnern in der Nähe erfasst.")
+                Text("No city with 15,000+ residents recorded nearby.")
                     .foregroundStyle(.secondary)
             }
             ForEach(cities) { city in
-                VisitRow(title: city.name, first: city.firstVisited, last: city.lastVisited)
+                VisitRow(title: PlaceNames.city(city), first: city.firstVisited, last: city.lastVisited)
             }
         }
     }

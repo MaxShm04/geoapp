@@ -49,6 +49,29 @@ struct GeoLookupTests {
         #expect(match.countryCode == "MC")
     }
 
+    /// Überseegebiete sind eigene Gebiete wie bei ISO und GeoNames, sonst färbt Paris auch Südamerika ein.
+    @Test(arguments: [
+        (4.9224, -52.3135, "GF", "Cayenne"),
+        (-20.8789, 55.4481, "RE", "Saint-Denis"),
+        (14.6161, -61.0588, "MQ", "Fort-de-France"),
+        (16.2650, -61.5510, "GP", nil),
+        (-12.7806, 45.2279, "YT", "Mamoudzou"),
+        (12.1443, -68.2655, "BQ", nil),
+    ] as [(Double, Double, String, String?)])
+    func overseasTerritories(lat: Double, lon: Double, code: String, city: String?) throws {
+        let match = try #require(geo.resolve(latitude: lat, longitude: lon))
+        #expect(match.countryCode == code)
+        if let city { #expect(match.city?.name == city) }
+    }
+
+    /// Frankreich und die Niederlande enden in Europa.
+    @Test func motherlandsStayInEurope() throws {
+        for code in ["FR", "NL"] {
+            let bounds = try #require(geo.countries.shape(for: code)?.bbox)
+            #expect(bounds.minLon > -10 && bounds.minLat > 35, "\(code): \(bounds)")
+        }
+    }
+
     /// Petersdom. Kleinstaaten kommen aus 1:10m und haben Vorrang vor dem umgebenden Land.
     @Test func vatican() throws {
         let match = try #require(geo.resolve(latitude: 41.9033, longitude: 12.4535))

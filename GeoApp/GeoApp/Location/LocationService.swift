@@ -185,12 +185,12 @@ private final class BackgroundTask {
 extension CLAuthorizationStatus {
     var label: String {
         switch self {
-        case .notDetermined: "Noch nicht gefragt"
-        case .restricted: "Eingeschränkt"
-        case .denied: "Abgelehnt"
-        case .authorizedWhenInUse: "Beim Verwenden"
-        case .authorizedAlways: "Immer"
-        @unknown default: "Unbekannt"
+        case .notDetermined: String(localized: "Not asked yet")
+        case .restricted: String(localized: "Restricted")
+        case .denied: String(localized: "Denied")
+        case .authorizedWhenInUse: String(localized: "While using")
+        case .authorizedAlways: String(localized: "Always")
+        @unknown default: String(localized: "Unknown")
         }
     }
 }

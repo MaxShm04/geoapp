@@ -15,7 +15,7 @@ struct RegionTests {
     /// Nicht zu fein: Deutschland in Bundesländer, Frankreich in Regionen statt 101 Départements.
     /// Spanien ohne Ceuta und Melilla: Die Regionen sind auf den Länderumriss (1:50m) zugeschnitten,
     /// und dort gibt es die beiden Städte nicht.
-    @Test(arguments: [("DE", 16), ("FR", 18), ("GB", 12), ("US", 51), ("IT", 20), ("ES", 17)])
+    @Test(arguments: [("DE", 16), ("FR", 13), ("GB", 12), ("US", 51), ("IT", 20), ("ES", 17)])
     func regionCounts(cc: String, expected: Int) {
         #expect(regions.regions(in: cc).count == expected)
     }

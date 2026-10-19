@@ -5,8 +5,16 @@ public struct Region: Sendable, Identifiable {
     public let id: String
     public let countryCode: String
     public let name: String
+    /// Namen nach Sprachcode, z. B. `["de": "Bayern", "en": "Bavaria"]`. Leer, wenn die Daten keine haben.
+    public let names: [String: String]
     public let polygons: [Polygon]
     public let bbox: BoundingBox
+
+    /// Name der Region in `language` (z. B. `de` oder `de-DE`), sonst der englische Name, sonst `name`.
+    public func localizedName(language: String) -> String {
+        let code = normalizedLanguageCode(language)
+        return names[code] ?? names["en"] ?? name
+    }
 }
 
 /// Regionen für die Länderansicht aus `regions.json.z` (Natural Earth Admin-1, siehe tools/build_regions.py).
@@ -54,6 +62,7 @@ extension RegionIndex {
             let id: String
             let cc: String
             let name: String
+            let names: [String: String]?
             let polygons: [[[Double]]]
         }
         let regions: [Entry]
@@ -65,7 +74,8 @@ extension RegionIndex {
             let polygons = entry.polygons.map(Polygon.init(rings:))
             guard let first = polygons.first else { return nil }
             let bbox = polygons.dropFirst().reduce(first.bbox) { $0.union($1.bbox) }
-            return Region(id: entry.id, countryCode: entry.cc, name: entry.name, polygons: polygons, bbox: bbox)
+            return Region(id: entry.id, countryCode: entry.cc, name: entry.name, names: entry.names ?? [:],
+                          polygons: polygons, bbox: bbox)
         }
         self.init(regions: regions)
     }

@@ -136,8 +136,8 @@ struct VisitRecorderTests {
         let entries = try context.fetch(FetchDescriptor<DiagnosticEntry>(sortBy: [SortDescriptor(\.timestamp)]))
         #expect(entries.count == 2)
         #expect(entries.first?.cityName == "Paris")
-        #expect(entries.first?.outcome == "neuer Tag")
-        #expect(entries.last?.outcome == "kein Land")
+        #expect(entries.first?.outcome == "newDay")
+        #expect(entries.last?.outcome == "noCountry")
     }
 
     /// Das Log hält weiter jede Erfassung fest, auch wenn nur ein Tageseintrag gespeichert ist.
@@ -145,7 +145,7 @@ struct VisitRecorderTests {
         record(48.8566, 2.3522)
         record(48.8566, 2.3522, after: 1)
         let entries = try context.fetch(FetchDescriptor<DiagnosticEntry>(sortBy: [SortDescriptor(\.timestamp)]))
-        #expect(entries.map(\.outcome) == ["neuer Tag", "heute schon erfasst (2×)"])
+        #expect(entries.map(\.outcome) == ["newDay", "sameDay:2"])
     }
 
     @Test func reducedAccuracyIsNotedInTheLog() throws {

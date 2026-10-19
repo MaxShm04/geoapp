@@ -4,6 +4,7 @@
 Ausgabe nach GeoCore/Sources/GeoCore/Resources/:
   countries.json  Ländergrenzen (Natural Earth 1:50m, Kleinstaaten 1:10m)
   cities.tsv      Städte ab 15.000 Einwohnern (GeoNames), englische Namen, Einwohner, Region
+  city_names.tsv  Städtenamen in den Sprachen CITY_NAME_LANGS, nur wo sie vom englischen abweichen
   regions.json.z  Regionen für die Länderansicht (Natural Earth Admin-1, siehe build_regions.py)
   CityDetail/     Wasser, Parks, Straßen für Großstädte (OpenStreetMap, eigenes Skript build_citydetail.py)
   Districts/      Kreise pro Land für die Detailansicht (siehe build_districts.py)
@@ -30,6 +31,22 @@ OUT = TOOLS.parent / "GeoCore" / "Sources" / "GeoCore" / "Resources"
 # GeoNames für die Städte dort verwendet, damit Land und Stadt zusammenpassen.
 NO_ISO_CODE = {"SOL": "SO", "CYN": "CY", "KAS": "IN"}
 
+# Überseegebiete, die Natural Earth zum Mutterland zählt, ISO und GeoNames aber als eigenes Gebiet
+# führen. Ohne Trennung färbt ein Besuch in Paris auch Französisch-Guayana und La Réunion ein.
+# Mutterland: [(Code, englischer Name, Ausschnitt min_lon, min_lat, max_lon, max_lat)]
+OVERSEAS = {
+    "FR": [
+        ("GF", "French Guiana", (-55.0, 1.5, -51.0, 6.5)),
+        ("GP", "Guadeloupe", (-62.0, 15.8, -60.9, 16.6)),
+        ("MQ", "Martinique", (-61.3, 14.3, -60.7, 15.0)),
+        ("RE", "Réunion", (55.0, -21.5, 56.0, -20.8)),
+        ("YT", "Mayotte", (44.9, -13.1, 45.4, -12.5)),
+    ],
+    "NL": [
+        ("BQ", "Caribbean Netherlands", (-68.5, 11.9, -62.9, 17.7)),
+    ],
+}
+
 # Einträge mit demselben Gemeindecode gelten als Teil der größten Stadt dieser Gemeinde
 # (Arrondissements, Stadtteile), sofern sie nicht weiter als das hier entfernt liegen.
 MERGE_MAX_KM = 20.0
@@ -51,6 +68,9 @@ METRO_MAX_SIZE_RATIO = 0.5
 
 # Wüstungen, zerstörte oder historische Orte.
 SKIP_FEATURE_CODES = {"PPLH", "PPLQ", "PPLW"}
+
+# Sprachen, in denen Städtenamen in city_names.tsv stehen (Wave 2 folgt aus denselben Daten).
+CITY_NAME_LANGS = ("de", "fr", "es", "it", "nl", "pt")
 
 
 def country_code(props: dict) -> str:
@@ -76,6 +96,23 @@ def bbox_area(polygons: list) -> float:
     return (max(xs) - min(xs)) * (max(ys) - min(ys))
 
 
+def split_overseas(merged: dict[str, dict]) -> None:
+    """Löst die Überseegebiete (OVERSEAS) als eigene Einträge aus ihrem Mutterland heraus."""
+    for parent, territories in OVERSEAS.items():
+        entry = merged[parent]
+        for code, name, (min_lon, min_lat, max_lon, max_lat) in territories:
+            def inside(polygon: list) -> bool:
+                outer = polygon[0]
+                lon = (min(outer[0::2]) + max(outer[0::2])) / 2
+                lat = (min(outer[1::2]) + max(outer[1::2])) / 2
+                return min_lon <= lon <= max_lon and min_lat <= lat <= max_lat
+            parts = [p for p in entry["polygons"] if inside(p)]
+            if not parts:
+                raise SystemExit(f"Überseegebiet {code} nicht in {parent} gefunden")
+            entry["polygons"] = [p for p in entry["polygons"] if not inside(p)]
+            merged.setdefault(code, {"code": code, "name": name, "polygons": []})["polygons"].extend(parts)
+
+
 def build_countries() -> dict[str, str]:
     """Schreibt countries.json und gibt die Zuordnung ADM0_A3 -> Ländercode zurück."""
     data = json.loads((RAW / "ne_50m_admin_0_countries.geojson").read_text())
@@ -92,6 +129,7 @@ def build_countries() -> dict[str, str]:
         if props.get("HOMEPART") == 1 and props["ADM0_A3"] not in NO_ISO_CODE:
             entry["name"] = props["NAME_EN"]
         entry["polygons"].extend(flat_rings(p) for p in polygons_of(feature))
+    split_overseas(merged)
 
     # Kleinstaaten (Vatikan, Monaco, San Marino, ...) sind in 1:50m zu grob, dafür 1:10m.
     fine = json.loads((RAW / "ne_10m_admin_0_countries.geojson").read_text())
@@ -128,19 +166,29 @@ def haversine_km(lat1, lon1, lat2, lon2) -> float:
     return 2 * 6371.0 * math.asin(math.sqrt(a))
 
 
-def english_names(ids: set[str]) -> dict[str, str]:
-    """Bevorzugter englischer Name je geonameid aus alternateNamesV2."""
-    names: dict[str, str] = {}
+def alternate_names(ids: set[str]) -> tuple[dict[str, str], dict[tuple[str, str], str]]:
+    """Bevorzugter englischer Name je geonameid und Namen je (geonameid, Sprache) aus alternateNamesV2.
+
+    Je Sprache gewinnt der bevorzugte Name, sonst der nicht kurze, sonst der erste in der Datei.
+    Umgangssprachliche und historische Namen fallen überall weg."""
+    english: dict[str, str] = {}
+    best: dict[tuple[str, str], tuple[tuple[bool, bool], str]] = {}
     with open(RAW / "alternateNamesV2.txt", encoding="utf-8") as f:
         for line in f:
             cols = line.rstrip("\n").split("\t")
             # alternateNameId, geonameid, isolanguage, name, isPreferred, isShort, isColloquial, isHistoric, from, to
-            if cols[2] != "en" or cols[1] not in ids:
+            if cols[1] not in ids or cols[6] == "1" or cols[7] == "1":
                 continue
-            if cols[6] == "1" or cols[7] == "1" or cols[4] != "1":
-                continue
-            names.setdefault(cols[1], cols[3])
-    return names
+            lang = cols[2]
+            if lang == "en":
+                if cols[4] == "1":
+                    english.setdefault(cols[1], cols[3])
+            elif lang in CITY_NAME_LANGS and cols[3]:
+                rank = (cols[4] != "1", cols[5] == "1")
+                key = (cols[1], lang)
+                if key not in best or rank < best[key][0]:
+                    best[key] = (rank, cols[3])
+    return english, {key: name for key, (_, name) in best.items()}
 
 
 def metro_radius_km(pop: int) -> float:
@@ -223,7 +271,7 @@ def build_cities(regions: Regions, districts: Districts) -> None:
         parent[child] = root
 
     keepers = [r for r in rows if r["id"] not in parent]
-    names = english_names({r["id"] for r in keepers})
+    names, local_names = alternate_names({r["id"] for r in keepers})
 
     # Einwohner einer Stadt inklusive ihrer Stadtteile und geschluckten Orte.
     population = {r["id"]: r["pop"] for r in keepers}
@@ -234,6 +282,7 @@ def build_cities(regions: Regions, districts: Districts) -> None:
     # Zeilen: id, parent, cc, lat, lon, name, einwohner, region, kreis. Zusätzliche Bezugspunkte
     # (Stadtteile) haben eine parent-ID und sonst nur Koordinaten, eigenständige Städte ein leeres parent-Feld.
     lines = []
+    local_lines = []
     without_region = 0
     for r in sorted(keepers, key=lambda r: int(r["id"])):
         name = names.get(r["id"], r["name"]).replace("\t", " ")
@@ -241,11 +290,18 @@ def build_cities(regions: Regions, districts: Districts) -> None:
         district = districts.district_id(r["cc"], r["lat"], r["lon"]) or ""
         without_region += not region
         lines.append(f'{r["id"]}\t\t{r["cc"]}\t{r["lat"]:.4f}\t{r["lon"]:.4f}\t{name}\t{population[r["id"]]}\t{region}\t{district}')
+        # Nur Namen, die vom englischen abweichen; Munich bleibt in Französisch ohne Zeile.
+        for lang in sorted(CITY_NAME_LANGS):
+            local = local_names.get((r["id"], lang), "").replace("\t", " ")
+            if local and local != name:
+                local_lines.append(f'{r["id"]}\t{lang}\t{local}')
     for r in sorted((r for r in rows if r["id"] in parent), key=lambda r: int(r["id"])):
         lines.append(f'{r["id"]}\t{parent[r["id"]]}\t{r["cc"]}\t{r["lat"]:.4f}\t{r["lon"]:.4f}\t\t\t\t')
     (OUT / "cities.tsv").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (OUT / "city_names.tsv").write_text("\n".join(local_lines) + "\n", encoding="utf-8")
     print(f"cities.tsv: {len(keepers)} Städte, {len(parent)} zusätzliche Bezugspunkte, "
           f"{sum(1 for r in keepers if r['id'] in names)} englische Namen, {without_region} ohne Region")
+    print(f"city_names.tsv: {len(local_lines)} Namen in {len(CITY_NAME_LANGS)} Sprachen")
 
 
 def main() -> None:

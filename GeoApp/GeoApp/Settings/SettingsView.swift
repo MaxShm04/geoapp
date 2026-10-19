@@ -4,6 +4,9 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(LocationService.self) private var location
+    @Environment(ProStore.self) private var store
+    @State private var showsPaywall = false
+    @State private var showsManageSubscriptions = false
     @AppStorage(AppSettings.trackingEnabled) private var trackingEnabled = true
     @AppStorage(AppSettings.visitsEnabled) private var visitsEnabled = true
     @AppStorage(AppSettings.diagnosticsEnabled) private var diagnosticsEnabled = false
@@ -15,52 +18,69 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    LabeledContent("Berechtigung", value: location.authorization.label)
-                    if location.authorization == .authorizedAlways || location.authorization == .authorizedWhenInUse {
-                        LabeledContent("Genaue Position", value: location.hasReducedAccuracy ? "Aus" : "An")
+                    LabeledContent("Status", value: store.isPro ? String(localized: "Active") : String(localized: "Free"))
+                    if store.isPro {
+                        Button("Manage subscription") { showsManageSubscriptions = true }
+                            .manageSubscriptionsSheet(isPresented: $showsManageSubscriptions)
+                    } else {
+                        Button("Get Pro") { showsPaywall = true }
                     }
-                    if location.authorization != .authorizedAlways || location.hasReducedAccuracy {
-                        Button("In iOS-Einstellungen ändern", action: openSettings)
+                    Button("Restore purchases") {
+                        Task { await store.restore() }
                     }
                 } header: {
-                    Text("Standort")
+                    Text("Pro")
+                } footer: {
+                    Text("Pro is optional. Recording and the map stay free.")
+                }
+
+                Section {
+                    LabeledContent("Permission", value: location.authorization.label)
+                    if location.authorization == .authorizedAlways || location.authorization == .authorizedWhenInUse {
+                        LabeledContent("Precise location", value: location.hasReducedAccuracy ? String(localized: "Off") : String(localized: "On"))
+                    }
+                    if location.authorization != .authorizedAlways || location.hasReducedAccuracy {
+                        Button("Change in iOS Settings", action: openSettings)
+                    }
+                } header: {
+                    Text("Location")
                 } footer: {
                     if location.authorization != .authorizedAlways {
-                        Text("Für die Erfassung im Hintergrund braucht die App die Berechtigung Immer.")
+                        Text("To record in the background, the app needs the Always permission.")
                     } else if location.hasReducedAccuracy {
-                        Text("Ohne genaue Position verschiebt iOS den Standort um einige Kilometer. Städte können dann danebenliegen, an Grenzen auch das Land.")
+                        Text("Without precise location, iOS shifts your location by a few kilometers. Cities can then be off, and at borders even the country.")
                     }
                 }
 
                 Section {
-                    LabeledContent("Status", value: location.isMonitoring ? "Läuft" : "Aus")
-                    Toggle("Orte erfassen", isOn: $trackingEnabled)
-                    Toggle("Aufenthalte (Visits)", isOn: $visitsEnabled)
+                    LabeledContent("Status", value: location.isMonitoring ? String(localized: "Running") : String(localized: "Off"))
+                    Toggle("Record places", isOn: $trackingEnabled)
+                    Toggle("Visits", isOn: $visitsEnabled)
                         .disabled(!trackingEnabled)
                 } header: {
-                    Text("Erfassung")
+                    Text("Recording")
                 } footer: {
-                    Text("Die App erfasst bei größeren Ortswechseln. Aufenthalte sind ein zweiter Weg, den iOS meldet, wenn du länger an einem Ort bleibst. Beide speichern nur Stadt, Land und Zeitpunkt.")
+                    Text("The app records when you move a greater distance. Visits are a second way, which iOS reports when you stay in one place for a while. Both save only city, country and time.")
                 }
                 .onChange(of: trackingEnabled) { location.applyTrackingSettings() }
                 .onChange(of: visitsEnabled) { location.applyTrackingSettings() }
 
                 Section {
-                    Toggle("Diagnose-Log", isOn: $diagnosticsEnabled)
-                    NavigationLink("Log ansehen") { DiagnosticLogView() }
+                    Toggle("Diagnostic log", isOn: $diagnosticsEnabled)
+                    NavigationLink("View log") { DiagnosticLogView() }
                 } header: {
-                    Text("Diagnose")
+                    Text("Diagnostics")
                 } footer: {
-                    Text("Hält fest, wann die App geweckt wurde, welche Stadt sie gefunden hat und wie weit es zur Stadtmitte war. Ohne Koordinaten.")
+                    Text("Records when the app was woken, which city it found and how far it was to the city center. Without coordinates.")
                 }
 
                 #if DEBUG
                 Section {
-                    Toggle("Testdaten in Bayern", isOn: $mockDataEnabled)
+                    Toggle("Test data in Bavaria", isOn: $mockDataEnabled)
                 } header: {
-                    Text("Testdaten")
+                    Text("Test data")
                 } footer: {
-                    Text("Fügt Beispielreisen in Bayern hinzu, von 12 Tagen in München bis zu kurzen Stopps in Kleinstädten, um Karte und Regionen auszuprobieren. Ausschalten entfernt genau diese Einträge wieder, echte Besuche bleiben.")
+                    Text("Adds sample trips in Bavaria, from 12 days in Munich to short stops in small towns, to try the map and regions. Turning it off removes exactly these entries again. Real visits stay.")
                 }
                 .onChange(of: mockDataEnabled) { _, enabled in
                     if enabled { MockData.enable(context: context) } else { MockData.disable(context: context) }
@@ -68,40 +88,43 @@ struct SettingsView: View {
                 #endif
 
                 Section {
-                    Button("Aktuellen Ort zuordnen") { location.probeCurrentLocation() }
+                    Button("Match current location") { location.probeCurrentLocation() }
                         .disabled(location.probe == .running)
                     if let probe = location.probe {
                         ProbeResultRow(result: probe)
                     }
                 } header: {
-                    Text("Zuordnung prüfen")
+                    Text("Check location")
                 } footer: {
-                    Text("Ordnet deinen Standort einmal offline einer Stadt und einem Land zu. Nichts davon wird gespeichert.")
+                    Text("Matches your location once, offline, to a city and a country. None of this is saved.")
                 }
 
                 Section {
-                    Button("Alle Daten löschen", role: .destructive) { confirmsDeleteAll = true }
+                    Button("Delete all data", role: .destructive) { confirmsDeleteAll = true }
                 } header: {
-                    Text("Daten")
+                    Text("Data")
                 } footer: {
-                    Text("Einzelne Länder und Städte löschst du in der Liste per Wischen.")
+                    Text("Delete individual countries and cities by swiping in the list.")
                 }
 
                 Section {
-                    NavigationLink("Lizenzen") { LicensesView() }
+                    NavigationLink("Licenses") { LicensesView() }
                     LabeledContent("Version", value: Self.version)
                 }
             }
             .tint(.accentColor)
-            .navigationTitle("Einstellungen")
-            .alert("Alle Daten löschen?", isPresented: $confirmsDeleteAll) {
-                Button("Alles löschen", role: .destructive) {
+            .sheet(isPresented: $showsPaywall) {
+                PaywallView()
+            }
+            .navigationTitle("Settings")
+            .alert("Delete all data?", isPresented: $confirmsDeleteAll) {
+                Button("Delete everything", role: .destructive) {
                     try? Deletion.deleteAll(context: context)
                     mockDataEnabled = false
                 }
-                Button("Abbrechen", role: .cancel) {}
+                Button("Cancel", role: .cancel) {}
             } message: {
-                Text("Alle Länder, Städte, Besuchstage und das Diagnose-Log werden unwiderruflich entfernt.")
+                Text("All countries, cities, visit days and the diagnostic log will be removed permanently.")
             }
         }
     }
@@ -122,24 +145,24 @@ private struct ProbeResultRow: View {
         case .running:
             HStack {
                 ProgressView()
-                Text("Suche Standort …").foregroundStyle(.secondary)
+                Text("Locating …").foregroundStyle(.secondary)
             }
         case .match(let match):
             VStack(alignment: .leading, spacing: 4) {
-                Text(match.city?.name ?? "Keine Stadt im Umkreis von \(Int(GeoLookup.cityRadiusKm)) km")
+                Text(match.city.map { PlaceNames.city(id: $0.id, fallback: $0.name) } ?? String(localized: "No city within \(Int(GeoLookup.cityRadiusKm)) km"))
                     .font(.headline)
                 Text(CountryNames.name(for: match.countryCode))
                 if let km = match.distanceToCityCenterKm {
-                    Text("\(km.formatted(.number.precision(.fractionLength(1)))) km zur Stadtmitte")
+                    Text("\(km.formatted(.number.precision(.fractionLength(1)))) km to city center")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
             }
         case .noCountry:
-            Text("Kein Land gefunden, zum Beispiel auf offenem Meer.")
+            Text("No country found, for example at sea.")
                 .foregroundStyle(.secondary)
         case .failed(let message):
-            Text("Standort nicht verfügbar: \(message)")
+            Text("Location unavailable: \(message)")
                 .foregroundStyle(.secondary)
         }
     }

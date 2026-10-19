@@ -396,11 +396,16 @@ struct WorldMapView: UIViewRepresentable {
                     entry.view.setLabelPosition(nil)
                     continue
                 }
-                let free = CityDotView.LabelPosition.allCases.first { position in
+                func isFree(_ position: CityDotView.LabelPosition) -> Bool {
                     let rect = entry.view.labelFrame(at: entry.point, position: position).insetBy(dx: -3, dy: -1)
                     return !placed.contains { $0.intersects(rect) }
                         && !dotRects.contains { $0.0 != entry.pin.id && $0.1.intersects(rect) }
                 }
+                // Lieber eine Stelle, an der der Name ganz auf dem Bildschirm liegt (Straßburg am rechten Rand).
+                let screen = map.bounds.insetBy(dx: 4, dy: 0)
+                let free = CityDotView.LabelPosition.allCases.first { position in
+                    isFree(position) && screen.contains(entry.view.labelFrame(at: entry.point, position: position))
+                } ?? CityDotView.LabelPosition.allCases.first(where: isFree)
                 let position = free ?? (entry.view.isSelected ? .below : nil)
                 entry.view.setLabelPosition(position)
                 if let position { placed.append(entry.view.labelFrame(at: entry.point, position: position)) }

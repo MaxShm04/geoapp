@@ -82,7 +82,7 @@ struct CountryFocus: Equatable {
 
         let pins = countryCities.map { city -> CityPin in
             let data = cityData[city.geonamesId] ?? nil
-            return CityPin(id: city.geonamesId, name: city.name,
+            return CityPin(id: city.geonamesId, name: PlaceNames.city(city),
                            latitude: city.centerLatitude, longitude: city.centerLongitude,
                            regionId: data?.regionId, districtId: data?.districtId,
                            population: data?.population ?? 0, days: daysByCity[city.geonamesId]?.count ?? 0)

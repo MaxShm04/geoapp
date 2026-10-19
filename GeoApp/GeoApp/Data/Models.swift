@@ -124,10 +124,10 @@ final class DiagnosticEntry {
 extension CaptureSource {
     var label: String {
         switch self {
-        case .significantChange: "Ortswechsel"
-        case .visit: "Aufenthalt"
-        case .manual: "Beim Öffnen"
-        case .demo: "Testdaten"
+        case .significantChange: String(localized: "Location change")
+        case .visit: String(localized: "Visit")
+        case .manual: String(localized: "On open")
+        case .demo: String(localized: "Test data")
         }
     }
 

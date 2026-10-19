@@ -13,6 +13,7 @@ let package = Package(
             resources: [
                 .copy("Resources/countries.json"),
                 .copy("Resources/cities.tsv"),
+                .copy("Resources/city_names.tsv"),
                 .copy("Resources/regions.json.z"),
                 .copy("Resources/Districts"),
                 .copy("Resources/CityDetail"),

@@ -29,13 +29,15 @@ struct OnboardingView: View {
             Image(systemName: "globe.europe.africa")
                 .font(.system(size: 64, weight: .light))
                 .foregroundStyle(.tint)
-            Text("Deine Reisekarte füllt sich von selbst")
+                .accessibilityHidden(true)
+            Text("Your travel map fills in by itself")
                 .font(.title2.bold())
                 .multilineTextAlignment(.center)
-            Text("Die App merkt sich im Hintergrund, in welchen Ländern und Städten du warst, und zeigt sie auf einer Weltkarte. Gespeichert werden nur Stadt, Land und Zeitpunkt, nie deine genaue Position, und nichts davon verlässt dein iPhone.")
+                .accessibilityAddTraits(.isHeader)
+            Text("In the background, the app quietly notes which countries and cities you have been to and shows them on a world map. Only city, country and time are stored, never your exact position, and none of it leaves your iPhone.")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
-            Button("Weiter") { showsPermission = true }
+            Button("Continue") { showsPermission = true }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
         }
@@ -55,7 +57,13 @@ private struct PermissionStep: View {
     var body: some View {
         content
             .onChange(of: scenePhase) { _, phase in
-                if phase == .active { awaitingAlwaysAnswer = false }
+                guard phase == .active, awaitingAlwaysAnswer else { return }
+                // Die neue Berechtigung kommt erst kurz nach der Rückkehr aus dem Dialog an. Sonst
+                // blitzt "Immer fehlt noch" auf, obwohl gerade "Immer" erlaubt wurde.
+                Task {
+                    try? await Task.sleep(for: .seconds(0.5))
+                    awaitingAlwaysAnswer = false
+                }
             }
     }
 
@@ -74,9 +82,11 @@ private struct PermissionStep: View {
             Image(systemName: symbol)
                 .font(.system(size: 56, weight: .light))
                 .foregroundStyle(.tint)
+                .accessibilityHidden(true)
             Text(title)
                 .font(.title2.bold())
                 .multilineTextAlignment(.center)
+                .accessibilityAddTraits(.isHeader)
             Text(message)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
@@ -96,54 +106,54 @@ private struct PermissionStep: View {
         }
     }
 
-    private var title: String {
+    private var title: LocalizedStringResource {
         switch authorization {
-        case .notDetermined: "Schritt 1 von 2: Beim Verwenden"
-        case .authorizedWhenInUse where stuckOnWhenInUse: "Immer fehlt noch"
-        case .authorizedWhenInUse: "Schritt 2 von 2: Immer"
-        case .authorizedAlways: "Alles bereit"
-        default: "Standort ist aus"
+        case .notDetermined: "Step 1 of 2: While Using"
+        case .authorizedWhenInUse where stuckOnWhenInUse: "Always still missing"
+        case .authorizedWhenInUse: "Step 2 of 2: Always"
+        case .authorizedAlways: "All set"
+        default: "Location is off"
         }
     }
 
-    private var message: String {
+    private var message: LocalizedStringResource {
         switch authorization {
         case .notDetermined:
-            "Zuerst fragt iOS, ob die App deinen Standort beim Verwenden sehen darf. Die Position wird nur einer Stadt zugeordnet und dann verworfen."
+            "First, iOS asks whether the app may see your location while you use it. Your position is only matched to a city and then discarded."
         case .authorizedWhenInUse where stuckOnWhenInUse:
-            "Ohne Immer erfasst die App nur, wenn sie geöffnet ist. Du kannst das jederzeit in den iOS-Einstellungen unter Standort ändern."
+            "Without Always, the app only records while it is open. You can change this at any time in the iOS Settings under Location."
         case .authorizedWhenInUse:
-            "Damit sich die Karte ohne dein Zutun füllt, braucht die App den Standort auch im Hintergrund. Sie wird nur bei größeren Ortswechseln kurz geweckt."
+            "So the map fills in without your help, the app needs your location in the background too. It is only woken briefly for larger changes of place."
         case .authorizedAlways where location.hasReducedAccuracy:
-            "Die App erfasst ab jetzt Länder und Städte. Genaue Position ist aber aus: iOS verschiebt den Standort dann um einige Kilometer, Städte können danebenliegen."
+            "The app now records countries and cities. Precise location is off, though: iOS then shifts your location by a few kilometers, so cities may be off."
         case .authorizedAlways:
-            "Die App erfasst ab jetzt Länder und Städte bei größeren Ortswechseln. Du musst nichts weiter tun."
+            "The app now records countries and cities on larger changes of place. You don’t need to do anything else."
         default:
-            "Ohne Standort kann die App keine Orte erfassen. Du kannst ihn in den iOS-Einstellungen erlauben."
+            "Without location, the app cannot record places. You can allow it in the iOS Settings."
         }
     }
 
     @ViewBuilder private var actions: some View {
         switch authorization {
         case .notDetermined:
-            primary("Beim Verwenden erlauben") { location.requestWhenInUse() }
+            primary("Allow While Using") { location.requestWhenInUse() }
         case .authorizedWhenInUse where stuckOnWhenInUse:
-            primary("iOS-Einstellungen öffnen", action: openSettings)
-            Button("Später", action: onFinish)
+            primary("Open iOS Settings", action: openSettings)
+            Button("Later", action: onFinish)
         case .authorizedWhenInUse:
-            primary("Immer erlauben", action: askForAlways)
+            primary("Allow Always", action: askForAlways)
         case .authorizedAlways:
-            primary("Los geht's", action: onFinish)
+            primary("Let’s go", action: onFinish)
             if location.hasReducedAccuracy {
-                Button("Genaue Position einschalten", action: openSettings)
+                Button("Turn on precise location", action: openSettings)
             }
         default:
-            primary("iOS-Einstellungen öffnen", action: openSettings)
-            Button("Später", action: onFinish)
+            primary("Open iOS Settings", action: openSettings)
+            Button("Later", action: onFinish)
         }
     }
 
-    private func primary(_ title: String, action: @escaping () -> Void) -> some View {
+    private func primary(_ title: LocalizedStringKey, action: @escaping () -> Void) -> some View {
         Button(title, action: action)
             .buttonStyle(.borderedProminent)
             .controlSize(.large)

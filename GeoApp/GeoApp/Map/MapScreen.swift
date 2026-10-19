@@ -30,6 +30,19 @@ struct MapScreen: View {
                 onFocusFinished: { if selectedCountry != nil { showsSheet = true } }
             )
             .ignoresSafeArea()
+            // Ohne gewähltes Land ersetzt ein Element mit Zusammenfassung die Karte für VoiceOver.
+            // Mit gewähltem Land bleibt die Standardbedienung. Ein Modifier mit Bedingung auf der Karte
+            // selbst ginge nicht, `accessibilityLabel` nimmt kein optionales Text.
+            .accessibilityHidden(selectedCountry == nil)
+            .overlay {
+                if selectedCountry == nil {
+                    Color.clear
+                        .allowsHitTesting(false)
+                        .accessibilityElement()
+                        .accessibilityLabel(Self.accessibilitySummary(countries: countries.count, cities: cities.count))
+                        .accessibilityHint("Tap a highlighted country to see its regions and cities.")
+                }
+            }
             .overlay(alignment: .top) {
                 if selectedCountry == nil {
                     VStack(spacing: 8) {
@@ -81,23 +94,24 @@ struct MapScreen: View {
             .padding(.vertical, 8)
             .background(.regularMaterial, in: Capsule())
             .padding(.top, 8)
+            .accessibilityElement(children: .combine)
     }
 
     /// Leise Hinweise unter dem Zähler: Erfassung läuft nicht im Hintergrund, oder noch nichts erfasst.
     @ViewBuilder private var hint: some View {
         if !trackingEnabled {
-            hintCapsule("Erfassung ist ausgeschaltet", systemImage: "pause.circle")
+            hintCapsule("Recording is turned off", systemImage: "pause.circle")
         } else if location.authorization != .authorizedAlways {
             Button(action: openSettings) {
-                hintCapsule("Standort „Immer“ erlauben", systemImage: "location.slash")
+                hintCapsule("Allow location “Always”", systemImage: "location.slash")
             }
             .buttonStyle(.plain)
         } else if countries.isEmpty {
-            hintCapsule("Die Karte füllt sich, sobald du unterwegs bist.", systemImage: nil)
+            hintCapsule("The map fills in as you travel.", systemImage: nil)
         }
     }
 
-    private func hintCapsule(_ text: String, systemImage: String?) -> some View {
+    private func hintCapsule(_ text: LocalizedStringKey, systemImage: String?) -> some View {
         Group {
             if let systemImage { Label(text, systemImage: systemImage) } else { Text(text) }
         }
@@ -106,6 +120,7 @@ struct MapScreen: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
         .background(.regularMaterial, in: Capsule())
+        .accessibilityElement(children: .combine)
     }
 
     /// In der Region zurück zum Land, im Land zurück zur Welt.
@@ -120,14 +135,25 @@ struct MapScreen: View {
                 .contentTransition(.symbolEffect(.replace))
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(selectedRegion != nil ? "Zurück zum Land" : "Zurück zur Weltkarte")
+        .accessibilityLabel(backLabel)
         .padding(.leading, 16)
         .padding(.top, 4)
     }
 
-    static func counterText(countries: Int, cities: Int) -> String {
-        let countryWord = countries == 1 ? "Land" : "Länder"
-        let cityWord = cities == 1 ? "Stadt" : "Städte"
-        return "\(countries) \(countryWord) · \(cities) \(cityWord)"
+    /// VoiceOver-Name des Zurück-Knopfs: im Land zurück zur Weltkarte, in der Region zurück zum Land.
+    private var backLabel: LocalizedStringKey {
+        selectedRegion != nil ? "Back to country" : "Back to world map"
+    }
+
+    static func counterText(countries: Int, cities: Int, locale: Locale = .current) -> String {
+        L10n.string("\(countries) countries", locale: locale) + " · " + L10n.string("\(cities) cities", locale: locale)
+    }
+
+    /// VoiceOver-Zusammenfassung der Weltkarte, etwa "World map. 5 countries and 12 cities visited. …".
+    static func accessibilitySummary(countries: Int, cities: Int, locale: Locale = .current) -> String {
+        let countriesText = L10n.string("\(countries) countries", locale: locale)
+        let citiesText = L10n.string("\(cities) cities", locale: locale)
+        return L10n.string("World map. \(countriesText) and \(citiesText) visited. The list tab shows them as a list.",
+                           locale: locale)
     }
 }

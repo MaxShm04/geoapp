@@ -27,6 +27,6 @@ struct VisitRow: View {
     private var dates: String {
         let firstText = first.formatted(date: .abbreviated, time: .omitted)
         let lastText = last.formatted(date: .abbreviated, time: .omitted)
-        return firstText == lastText ? firstText : "Zuerst \(firstText) · zuletzt \(lastText)"
+        return firstText == lastText ? firstText : String(localized: "First \(firstText) · last \(lastText)")
     }
 }

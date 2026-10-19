@@ -5,6 +5,9 @@ Einheiten selbst (Deutschland: 16 Bundesländer, USA: 51 Staaten) oder ihre Bün
 Earth in den Feldern `region`/`region_sub` (Frankreich: Regionen statt 101 Départements,
 Großbritannien: 16 statt 232 Einheiten). Kleine Länder bekommen keine Regionen.
 
+Jede Region trägt `names` (Sprachcode -> Name). Einzelne Einheiten übernehmen Natural Earth
+`name_xx`, Bündelungen haben nur `en`.
+
 Die Flächen einer Gruppe werden vereinigt, auf den Länderumriss aus countries.json zugeschnitten
 (Lücken gehen an den Nachbarn, siehe `fit_to_outline`) und alle Regionen eines Landes gemeinsam
 vereinfacht, ohne die Außenkante zu verändern. So decken die Regionen ihr Land genau ab und enden
@@ -42,6 +45,10 @@ SIMPLIFY_MIN, SIMPLIFY_MAX = 0.004, 0.08
 # Liegt eine Stadt durch die Vereinfachung knapp außerhalb aller Regionen, zählt die nächste
 # Region ihres Landes innerhalb dieser Entfernung (in Grad, ~10 km).
 NEAREST_MAX_DEG = 0.1
+# Sprachen der Regionsnamen (`names` je Region), aus Natural Earth name_xx.
+REGION_LANGS = ("en", "de", "fr", "es", "it", "nl", "pt")
+
+
 def _fit(count: int) -> float:
     """Wie gut eine Anzahl Regionen passt: 0 im Zielbereich, sonst der Abstand dazu."""
     if GROUPS_MIN <= count <= GROUPS_MAX:
@@ -118,8 +125,13 @@ class Regions:
                 name = props[level]
             else:
                 name = props.get("name_de") or props.get("name") or group_key
+            # Einzelne Einheiten haben Übersetzungen bei Natural Earth; Gruppen nur den englischen Namen.
+            if level == "units":
+                localized = {lang: props.get(f"name_{lang}") for lang in REGION_LANGS}
+            else:
+                localized = {"en": name}
             geometry = shapely.union_all([shapes[units.index(m)] for m in members])
-            names.append((group_key, name))
+            names.append((group_key, name, {lang: value for lang, value in localized.items() if value}))
             geometries.append(geometry)
 
         # Auf den Länderumriss zuschneiden, dann gemeinsam vereinfachen: Nachbarn behalten ihre
@@ -128,13 +140,14 @@ class Regions:
         tolerance = min(max((max_x - min_x) * SIMPLIFY_PER_DEGREE_WIDTH, SIMPLIFY_MIN), SIMPLIFY_MAX)
         if code in self.outlines:
             geometries = fit_to_outline(geometries, self.outlines[code])
-        for (group_key, name), geometry in zip(names, simplify_coverage(geometries, tolerance)):
+        for (group_key, name, localized), geometry in zip(names, simplify_coverage(geometries, tolerance)):
             if geometry.is_empty:
                 continue
             self.regions.append({
                 "id": f"{code}:{group_key}",
                 "cc": code,
                 "name": name,
+                "names": localized,
                 "geometry": geometry,
             })
 
@@ -160,5 +173,6 @@ class Regions:
                 for polygon in polygons if not polygon.is_empty
             ]
             if rings:
-                out.append({"id": region["id"], "cc": region["cc"], "name": region["name"], "polygons": rings})
+                out.append({"id": region["id"], "cc": region["cc"], "name": region["name"],
+                            "names": region["names"], "polygons": rings})
         path.write_bytes(deflate(json.dumps({"regions": out}, separators=(",", ":"), ensure_ascii=False)))

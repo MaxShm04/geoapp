@@ -11,11 +11,11 @@ struct RootView: View {
             if onboardingDone {
                 TabView {
                     MapScreen()
-                        .tabItem { Label("Karte", systemImage: "map") }
+                        .tabItem { Label("Map", systemImage: "map") }
                     ListScreen()
-                        .tabItem { Label("Liste", systemImage: "list.bullet") }
+                        .tabItem { Label("List", systemImage: "list.bullet") }
                     SettingsView()
-                        .tabItem { Label("Einstellungen", systemImage: "gearshape") }
+                        .tabItem { Label("Settings", systemImage: "gearshape") }
                 }
             } else {
                 OnboardingView { onboardingDone = true }
@@ -23,7 +23,7 @@ struct RootView: View {
         }
         .safeAreaInset(edge: .top) {
             if let error = Store.openError {
-                Label("Gespeicherte Orte ließen sich nicht laden. Neue Orte gehen beim Beenden verloren. (\(error))",
+                Label("Saved places could not be loaded. New places will be lost when the app quits. (\(error))",
                       systemImage: "exclamationmark.triangle")
                     .font(.footnote)
                     .padding(12)

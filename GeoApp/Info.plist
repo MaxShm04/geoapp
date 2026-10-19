@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>So your map fills in by itself, the app checks which city you are in whenever you move a larger distance. Only the city, the country and the time are stored, no routes and no coordinates.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The app matches your location to a city and a country. The exact position is discarded right away and is never stored or sent.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
