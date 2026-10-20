@@ -64,6 +64,7 @@ struct PlaceDetailView: View {
 
     var body: some View {
         let days = PlaceDays.make(days: place.days(in: visits), currentYear: currentYear, isPro: store.isPro)
+        let places = place.placesByDay(in: visits)
         List {
             Section {
                 Text(summary(days))
@@ -82,8 +83,8 @@ struct PlaceDetailView: View {
             }
 
             switch tab {
-            case .days: dateSections(days)
-            case .calendar: calendarSections(days)
+            case .days: dateSections(days, places: places)
+            case .calendar: calendarSections(days, places: places)
             }
 
             if !days.lockedYears.isEmpty {
@@ -121,15 +122,21 @@ struct PlaceDetailView: View {
 
     // MARK: Liste
 
-    @ViewBuilder private func dateSections(_ days: PlaceDays) -> some View {
+    @ViewBuilder private func dateSections(_ days: PlaceDays, places: [Int: DayPlaces]) -> some View {
         ForEach(days.years, id: \.year) { year in
             Section {
                 ForEach(year.stays, id: \.self) { stay in
-                    HStack(alignment: .firstTextBaseline) {
-                        Text(Self.stayText(stay))
-                        Spacer()
-                        Text(L10n.string("\(stay.dayCount) days", locale: .current))
-                            .font(.subheadline)
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text(Self.stayText(stay))
+                            Spacer()
+                            Text(L10n.string("\(stay.dayCount) days", locale: .current))
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                        // Städte des Aufenthalts, etwa „Verona and Venice“.
+                        Text(Self.places(of: stay, in: places).text())
+                            .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
                     .accessibilityElement(children: .combine)
@@ -144,6 +151,17 @@ struct PlaceDetailView: View {
         }
     }
 
+    /// Alle Städte eines Aufenthalts, Tag für Tag.
+    static func places(of stay: Stay, in places: [Int: DayPlaces]) -> DayPlaces {
+        var days: [DayPlaces] = []
+        var day = stay.first
+        while day <= stay.last {
+            if let entry = places[day] { days.append(entry) }
+            day = DayKey.adding(1, to: day)
+        }
+        return DayPlaces.merged(days)
+    }
+
     /// "Tue, 12 May" für einen Tag, "12 – 23 May" für mehrere. Das Jahr steht im Abschnittskopf.
     static func stayText(_ stay: Stay, calendar: Calendar = .current) -> String {
         guard let first = DayKey.date(stay.first, calendar: calendar),
@@ -156,11 +174,11 @@ struct PlaceDetailView: View {
 
     // MARK: Kalender
 
-    @ViewBuilder private func calendarSections(_ days: PlaceDays) -> some View {
+    @ViewBuilder private func calendarSections(_ days: PlaceDays, places: [Int: DayPlaces]) -> some View {
         let visited = Set(days.shownDays)
         ForEach(days.months, id: \.self) { month in
             Section(Self.monthTitle(month)) {
-                MonthGrid(month: month, visited: visited)
+                MonthGrid(month: month, visited: visited, places: places)
                     .padding(.vertical, 4)
             }
         }
@@ -184,10 +202,13 @@ struct PlaceDetailView: View {
 }
 
 /// Monatsblatt: Wochentage oben, jeder Besuchstag als Zahl in einem gefüllten Kreis.
+/// Ein Tipp auf einen Besuchstag zeigt in einer kleinen Blase die Städte dieses Tages.
 struct MonthGrid: View {
     let month: Int
     let visited: Set<Int>
+    var places: [Int: DayPlaces] = [:]
 
+    @State private var selectedDay: Int?
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 0), count: 7)
 
     var body: some View {
@@ -197,21 +218,25 @@ struct MonthGrid: View {
                 Text(symbol)
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(.secondary)
+                    .accessibilityHidden(true)
             }
             ForEach(Array(PlaceCalendar.monthGrid(month: month, firstWeekday: calendar.firstWeekday).enumerated()),
                     id: \.offset) { _, day in
                 if let day {
-                    cell(day, isVisited: visited.contains(PlaceCalendar.dayKey(month: month, day: day)))
+                    let key = PlaceCalendar.dayKey(month: month, day: day)
+                    if visited.contains(key) {
+                        visitedCell(day, key: key)
+                    } else {
+                        number(day, isVisited: false).accessibilityHidden(true)
+                    }
                 } else {
-                    Color.clear.frame(height: 34)
+                    Color.clear.frame(height: 34).accessibilityHidden(true)
                 }
             }
         }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(accessibilityText)
     }
 
-    private func cell(_ day: Int, isVisited: Bool) -> some View {
+    private func number(_ day: Int, isVisited: Bool) -> some View {
         Text(String(day))
             .font(.callout.weight(isVisited ? .semibold : .regular))
             .monospacedDigit()
@@ -222,11 +247,24 @@ struct MonthGrid: View {
             }
     }
 
-    /// "Visited on 3 May, 4 May and 12 May".
-    private var accessibilityText: String {
-        let days = visited.filter { PlaceCalendar.month(of: $0) == month }.sorted()
-        let names = days.compactMap { DayKey.date($0)?.formatted(.dateTime.day().month(.wide)) }
-        return String(localized: "Visited on \(names.formatted(.list(type: .and)))")
+    private func visitedCell(_ day: Int, key: Int) -> some View {
+        let dayPlaces = places[key] ?? DayPlaces()
+        return Button { selectedDay = key } label: {
+            number(day, isVisited: true)
+        }
+        // Eigener Stil, sonst löst ein Tipp in der Listenzeile alle Tage der Zeile aus.
+        .buttonStyle(.plain)
+        .accessibilityLabel("\(Self.dateText(key)), \(dayPlaces.text())")
+        .popover(isPresented: Binding(get: { selectedDay == key }, set: { if !$0 { selectedDay = nil } }),
+                 attachmentAnchor: .rect(.bounds), arrowEdge: .bottom) {
+            DayBubble(date: Self.dateText(key), places: dayPlaces)
+                .presentationCompactAdaptation(.popover)
+        }
+    }
+
+    /// "Tuesday, 12 May".
+    static func dateText(_ key: Int) -> String {
+        DayKey.date(key)?.formatted(.dateTime.weekday(.wide).day().month(.wide)) ?? ""
     }
 
     /// Sehr kurze Wochentagsnamen, beginnend mit `calendar.firstWeekday`.
@@ -234,5 +272,31 @@ struct MonthGrid: View {
         let symbols = calendar.veryShortStandaloneWeekdaySymbols
         let start = (calendar.firstWeekday - 1) % symbols.count
         return Array(symbols[start...] + symbols[..<start])
+    }
+}
+
+/// Kleine Blase über dem Kalender: Datum und die Städte des Tages, eine je Zeile.
+private struct DayBubble: View {
+    let date: String
+    let places: DayPlaces
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(date)
+                .font(.subheadline.weight(.semibold))
+            if places.cityIds.isEmpty {
+                Text("No city nearby")
+                    .foregroundStyle(.secondary)
+            } else {
+                ForEach(places.cityIds, id: \.self) { id in
+                    Label(PlaceNames.city(id: id), systemImage: "mappin")
+                        .labelStyle(.titleAndIcon)
+                }
+            }
+        }
+        .font(.subheadline)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .frame(minWidth: 180, alignment: .leading)
     }
 }

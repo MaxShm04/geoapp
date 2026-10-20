@@ -1,196 +1,196 @@
 # Roadmap: Country & City Tracker
 
-Oct 15, 2026 · Adopted scope
+Oct 20, 2026 · Current plan
 
-**Decided:** Validation (Phase 0), Time & stories, Everywhere (sync and devices), Year in review, translation into further languages, and subscription plans.
-**Not adopted for now:** Photo import, manual entry and JSON backup (from the former Phase 1), the Nomad tools (Schengen and residency day counters), and the depth features (detail packs, landmarks, globe, poster). See the end of this file.
+**Next, in this order:** (1) trips after a move, (2) better "stayed vs. passed through" detection with suggestions and manual entry, (3) Google Timeline import, (4) year in review, (5) rethink pricing, (6) legal, (7) name and icon.
+**Not scheduled:** iCloud sync, iPad, Apple Watch, wave-3 languages (see "Later"). Ideas we decided against are at the end of this file.
 
 ## Where the app stands today
 
-The prototype from the briefing is essentially complete:
+| Area | State | Since |
+| --- | --- | --- |
+| Capture | Significant Location Changes, CLVisits and a capture on app open; filters for accuracy and flights. Background capture can only be checked on a real iPhone | Prototype |
+| Offline geocoding | Countries (Natural Earth, overseas territories split from FR/NL), regions, districts for 151 countries, cities ≥ 15,000 inhabitants (GeoNames) | Prototype, fix Oct 18 |
+| Data | `DayVisit`: one entry per place per day, never coordinates. SwiftData store in the App Group (for widgets), schema V2 | Phase 2 |
+| Map | World → country → region → city detail. Tap a city or area for the place view: days list and calendar, delete a place there | Phase 2 + beta-menu |
+| Trips & statistics | Home region detection (overridable), trips, day-gap filling, statistics, places list (searchable) on the Trips screen | Phase 2 |
+| Widgets & Shortcuts | Counter, new places, map widget; "How many countries this year?" | Phase 2 |
+| Languages | English source, German, French, Spanish, Italian, Dutch, Portuguese (Brazil). The wave-2 languages are Claude drafts awaiting native review. City and region names in the device language | Phase 1 + wave 2 |
+| Pro | StoreKit 2 subscriptions (monthly, yearly), paywall, gates: all years, full statistics and extra widgets are Pro. Local StoreKit config for testing | Phase 1–2 |
+| Testing aids | Beta menu (Debug builds only): show/hide test controls, unlock Pro, act as not subscribed, test data | beta-menu |
 
-| Area | Current state |
-| --- | --- |
-| Capture | Significant Location Changes, CLVisits and a capture on app open; filters for accuracy and flights (`VisitRules`) |
-| Offline geocoding | Countries (Natural Earth), regions (admin‑1), districts for 151 countries, cities ≥ 15,000 inhabitants (GeoNames) |
-| Data | `DayVisit`: one entry per place per day, with region/district, capture count and source. No raw coordinates. Versioned schema (V1 → V2) |
-| Map | MapLibre without tiles: world → country → region, OSM details for 269 large cities |
-| Lists & control | Countries/cities, swipe to delete, delete everything, diagnostic log, location probe |
-
-`DayVisit` is the base for everything below: year filter, trips, statistics and the year in review are all derived from it.
+Plans, decisions and test specs of the finished phases: `docs/phases/phase-1.md`, `docs/phases/phase-2.md`.
 
 ---
 
-## Timeline
+## Sequence
 
 ```
-                 2026              │ 2027
-                 Oct  Nov  Dec     │ Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
-Phase 0  Validation      ████░             │
-Phase 1  Languages & subscriptions ░████████████
-Phase 2  Time & stories                         ████████████
-Phase 3  Everywhere                                         ████████████████
-Phase 4  Year in review 2027                                                    ██████████  ★ Dec 1
-Ongoing  More languages                                 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+Now ──► 1 Trips after a move ──► 2 Stayed vs. passed through ─┐
+        5 Pricing decision (can run in parallel) ─────────────┤
+        6 Legal ─┬─ needed for external TestFlight ───────────┤
+        7 Name + icon ┘                                        ▼
+                                                   ★ Test phase (TestFlight, real trips)
+                                                               │
+                                          3 Google Timeline import (after test phase)
+                                          4 Year in review 2027 (ready Dec 1, 2027)
 ```
 
-### Phase 0: Validate the prototype (now until early Nov 2026)
-
-Goal: answer the briefing's question with real data before building features.
-
-| Task | Effort |
-| --- | --- |
-| Finish the two-week everyday test, compare SLC vs. visits, measure battery use (target < 2 %/day) | S |
-| Minimum stay (rule 5, phase 2): distinguish "passed through" from "stayed", show passed-through towns faded | M |
-| Close day gaps: on days without a capture, assume the person stayed where they were last seen (needed for statistics and the year in review) | S |
-| Reliability view in the diagnostic log: captures per day, days without a capture | S |
-
-**Gate:** ≥ 90 % of the cities actually visited were captured. If not, keep working on capture first.
-
-### Phase 1: Languages & subscriptions → App Store launch (Nov 2026 – Jan 2027)
-
-Goal: the app can be released internationally and earns money from day one.
-
-**Localization groundwork (German + English)**
-
-| Task | Notes | Effort |
-| --- | --- | --- |
-| String Catalog (`Localizable.xcstrings`) | All UI strings are currently hard-coded in German; German becomes one language among several | M |
-| Plural rules | `MapScreen.counterText` and the "1 Stadt / n Städte" texts are built by hand. Switch to catalog plurals (some languages have more than two forms) | S |
-| City names in the device language | Today `build_data.py` takes only the English name from `alternateNamesV2`. Extract names for all supported languages at build time and pick by `Locale` at runtime | M |
-| Region and district names | `build_regions.py` / `build_districts.py` currently prefer `name_de`. Keep all available `name_xx` fields instead | S–M |
-| Country names | Already use the device language (`CountryNames`) | done |
-| Info.plist permission texts | `InfoPlist.xcstrings`, so the location prompts are localized too | S |
-
-**Subscriptions**
-
-| Task | Notes | Effort |
-| --- | --- | --- |
-| StoreKit 2 integration | `Product`, `Transaction.currentEntitlements`, verification on the device, no server | M |
-| Paywall screen | Calm, in the app's style; shown when a Pro feature is used, never at launch | S–M |
-| "Manage subscription" & "Restore" in settings | Required by App Review | S |
-| StoreKit configuration file for local testing | Test the purchase flow in the simulator | S |
-
-**Launch requirements** (needed for subscriptions to be sold at all)
-
-- App name, icon, App Store texts and screenshots in German and English
-- Privacy label "Data Not Collected"
-- Accessibility pass (VoiceOver alternative to the map: the list)
-- TestFlight beta with 20–50 travelers, then launch
-
-Pro has little content at launch. Pro could open as an "early supporter" price, or the paywall could stay hidden until Phase 2. Decide before release.
-
-### Phase 2: Time & stories (Feb – Apr 2027)
-
-Goal: give people reasons to open the app, without push notifications. This phase builds the main Pro content.
-
-| Feature | Description | Effort |
-| --- | --- | --- |
-| Year filter on the map | "This year", "2026", "all", derived from `DayVisit.day` | S |
-| Trips & timeline | Detect trips: consecutive days away from the home region, e.g. "Italy, 12–19 May, 6 cities" | M |
-| Home region detection | The region with the most days over the last 90 days; can be overridden in settings | S |
-| Statistics | Days per country and year, new places this year, travel days per month, longest trip | S–M |
-| Widgets | Small map, counter, "new places this year". Requires moving the store into an App Group (see technical notes) | M |
-| Shortcuts / App Intents | "How many countries this year?" | S |
-
-### Phase 3: Everywhere (May – Aug 2027)
-
-Goal: the data lives on every device and survives a lost phone.
-
-| Feature | Description | Effort |
-| --- | --- | --- |
-| iCloud sync & backup | CloudKit private database via SwiftData, no server of our own. Needs schema V3 (see technical notes) | L |
-| iPad layout | Map and list side by side | S–M |
-| Apple Watch | Complication with the counter; no capture on the Watch | M |
-| Google Timeline import | Parse a Takeout/on-device export locally. The only way to fill in the past in the adopted scope | M |
-
-### Phase 4: Year in review (Sep – Nov 2027, release Dec 1, 2027)
-
-Goal: the most important marketing moment of the year. The first one with a full year of data.
-
-| Feature | Description | Effort |
-| --- | --- | --- |
-| Year in review | A calm card series: countries, cities, new places, longest trip, days away, the year's map | M |
-| Share as image | Cards rendered locally (map via MapLibre snapshot), shared via the share sheet | S |
-| Localized from day one | All cards in every supported language | S |
-| Look back at earlier years | Each year with data gets its own review in the statistics | S |
-
-Note: the 2026 review would only cover a few weeks after install. A short version ("Your first weeks") is optional for Dec 2026; the full feature launches for 2027.
-
-### Ongoing: more languages (from Phase 2)
-
-Once the String Catalog is in place, each language is mostly translation and review work.
-
-| Wave | Languages | When |
-| --- | --- | --- |
-| 1 | German, English | Phase 1 (launch) |
-| 2 | French, Spanish, Italian, Dutch, Portuguese (Brazil) | Phase 2 |
-| 3 | Japanese, Korean, Chinese (Simplified), Polish, Turkish | Phase 3, order based on App Store download data by country |
-| Later | Arabic, Hebrew | Needs a right-to-left layout check of map overlays and sheets |
-
-Per language: UI strings, permission texts, App Store texts and screenshots, subscription names and the year-in-review cards. Draft translations with Claude, then a review by a native speaker (e.g. from the TestFlight group).
+The numbering follows Max's priorities. Steps 6 and 7 are small but block the test phase: an external TestFlight build needs an app name, an icon and a privacy policy URL. Step 5 must be decided before the products are created in App Store Connect.
 
 ---
 
-## Subscription plans
+## 1. Trips after a move
+
+**Problem:** Trips are computed against the *current* home region for the whole history. Someone who moved from Munich to London sees their old everyday life in Munich as one long "trip" (Phase 2, open item D5).
+
+**Plan:**
+- **Home region over time** instead of a single value: detect home periods automatically, e.g. the region with the most nights in a sliding 90-day window. A new period starts when another region keeps the majority for several weeks.
+- **Manual correction** in Settings: a short list "Home since …" where Max can add a move with a date or correct a detected one. The current single override becomes the first entry. Existing values are migrated.
+- Trips, statistics ("days away") and the year in review use the home region that was valid *on that day*.
+
+**Open questions:** how many weeks before a new home counts (start: 6 weeks)? How to treat long stays abroad, e.g. a 3-month semester: a move, or a long trip? Proposal: detection only suggests a move, and Max confirms it.
+
+**Effort:** M. Logic in `GeoCore/Time/HomeRegion.swift` and `Trips.swift`, UI in `HomeRegionView`.
+
+## 2. Stayed vs. passed through (better detection, suggestions, manual entry)
+
+**Problem:** A single capture on a train or motorway counts the same as a week in that city. The briefing's rule 5 (minimum stay) has not been built yet.
+
+**Signals available without storing coordinates:**
+
+| Signal | Meaning |
+| --- | --- |
+| CLVisit with arrival and departure | Strongest signal for a real stay, with duration |
+| `firstSeen`–`lastSeen` span and `captureCount` of a `DayVisit` | Several captures over a longer span → stayed |
+| Speed at capture time (`CLLocation.speed`) | Fast single capture (e.g. > 8 m/s) → passing by train/car |
+| Capture on app open | Max had the phone in hand there → likely a real visit |
+| Night stay (capture late evening and next morning) | Clearly stayed |
+
+**Plan:**
+- Classify each place-day when it is recorded: **stayed**, **passed through** or **uncertain**. Store only the result (a small status field, no speed, no coordinates).
+- **Passed through** places appear faded on the map and count separately ("passed through 12 towns"). They don't count as visited cities by default; a setting decides.
+- **Uncertain** places go into a quiet suggestions list ("Were you in Fulda on 12 May?" → yes / no), never as push notifications.
+- **Add manually:** a place (city or country only) on a day or a date range, chosen from the city list with search. New `CaptureSource` `.userAdded` (new bit in `sourceMask`, never renumber existing ones).
+- Thresholds are starting values for the test phase and are tuned with real data from the diagnostic log.
+
+**Technical note:** the status field needs **schema V3**. If iCloud sync comes later, it needs another V3-type change (no unique constraints). Plan both together if the timing allows, otherwise V3 now and V4 for sync.
+
+**Effort:** L (classification M, suggestions UI S–M, manual entry M).
+
+## ★ Test phase (TestFlight)
+
+- Internal testing with Max's own devices first, then external TestFlight with 20–50 travelers (needs steps 6 and 7).
+- Replaces the two-week everyday test from the briefing. **Gate:** ≥ 90 % of actually visited cities captured, battery use under 2 %/day, the classification from step 2 rarely wrong.
+- Native speakers in the group review the wave-2 translations.
+- Validate the prices from step 5.
+
+## 3. Google Timeline import (after the test phase)
+
+- Google Timeline now lives on the phone; users export it as JSON from Google Maps / Android settings. The file is parsed **locally**, every point is mapped to country and city with the existing offline lookup and discarded right away, just like live capture.
+- Imported days get `CaptureSource` `.timelineImport` and run through the same classification as step 2.
+- **Pro moment:** free preview ("23 countries and 140 cities found"), saving the import is Pro.
+- Why after the test phase: capture and classification must be reliable first, otherwise years of history are classified wrongly.
+
+**Effort:** M.
+
+## 4. Year in review (not during the test phase)
+
+- Target **Dec 1, 2027**, the first year with a full year of data. No review for 2026, since only a few weeks of data and the test phase run then.
+- Calm card series: countries, cities, new places, longest trip, days away, the map of the year. Rendered locally, shared as images, in all languages.
+- Free: compact version with the app name. Pro: full series, no branding, earlier years.
+
+**Effort:** M.
+
+## 5. Rethink pricing
+
+Current build: monthly (≈ €1.99) and yearly (≈ €12.99, 7-day trial) subscriptions.
+
+**Option under discussion: yearly + one-time purchase (lifetime)**
+
+| | For | Against |
+| --- | --- | --- |
+| Yearly subscription | Recurring revenue, finances updates and data refreshes | Some privacy-minded users dislike subscriptions |
+| One-time (lifetime) | Fits the privacy audience; no server, so no running cost per user | No recurring revenue; price must be high enough (rule of thumb: 2.5–3× yearly, e.g. €29.99–34.99) |
+| Monthly | Lowest entry barrier | Little value for an app opened occasionally; makes the paywall busier |
+
+**Recommendation:** yearly + lifetime, drop monthly. Decide before step 6/7 and before creating the products in App Store Connect.
+
+**Technical impact:** a non-consumable product `de.max.geoapp.pro.lifetime`; `ProRules` accepts it (never expires, Family Sharing on); the paywall needs a custom layout, since `SubscriptionStoreView` only shows subscriptions; update `Products.storekit`, tests and the beta menu.
+
+## 6. Legal
+
+To clarify (no legal advice here; have it checked by someone qualified):
+- **Privacy policy** (required by Apple even for "Data Not Collected"): what the app processes on the device, location permissions, no transfer, StoreKit via Apple. Replace the placeholder URL in `ProStore.Links`.
+- **Terms of use:** Apple's standard EULA is enough to start; own terms only if needed.
+- **Provider identity:** EU trader status (Digital Services Act) in App Store Connect; check whether a legal notice (Impressum) is needed for the app and its website.
+- **Data licences:** GeoNames (CC BY 4.0) and OpenStreetMap (ODbL) attribution in the app (already in Licenses), Natural Earth (public domain), MapLibre (BSD). Check ODbL obligations for the derived city detail data.
+- **App Store privacy label:** "Data Not Collected".
+
+**Effort:** S (writing), plus external review.
+
+## 7. Name and icon
+
+- Name: short, calm, works in all seven languages, free in the App Store and as a trademark (check DPMA/EUIPO). Bundle ID `de.max.geoapp` stays; only the display name changes.
+- Icon: in the app's style (flat, one accent color, map motif), light, dark and tinted variants for iOS.
+- Then App Store texts and screenshots per language.
+
+**Effort:** S–M.
+
+---
+
+## Later (not scheduled)
+
+| Feature | Note |
+| --- | --- |
+| iCloud sync & backup | CloudKit private database, no server of our own. Needs a schema without unique constraints and deduplication after each sync (see technical notes) |
+| iPad layout | Map and list side by side |
+| Apple Watch | Complication with the counter, no capture on the Watch |
+| Wave-3 languages | Japanese, Korean, Chinese (Simplified), Polish, Turkish, ordered by App Store download data |
+
+---
+
+## Pro (current state, step 5 may change the plans)
 
 ### Principles
 
 1. **Privacy stays the product.** No ads, no analytics or ad SDKs, no data sales.
-2. **The core promise is free.** Automatic capture, world map, countries, cities, regions and lists cost nothing.
-3. **People pay for "more out of your data", not for "your data".** Viewing and deleting your own entries is always free.
-4. **No server needed.** StoreKit 2 checks subscriptions on the device; there are no running costs per user.
-
-### Plans (starting points, to be validated in TestFlight)
-
-| Plan | Price | Notes |
-| --- | --- | --- |
-| Free | €0 | Full automatic map |
-| Pro monthly | approx. €1.99/month | Low barrier to entry |
-| Pro annual | approx. €12.99/year | 7-day trial; the default choice on the paywall (about 45 % cheaper than monthly) |
-
-- Family Sharing for both plans.
-- Prices with App Store regional price tiers.
-- Offer codes for promotions (e.g. year in review season, gifts).
+2. **The core promise is free.** Automatic capture, world map, countries, cities, regions, place view and lists cost nothing.
+3. **People pay for "more out of your data", not for "your data".** Viewing, adding and deleting your own entries is always free.
+4. **No server needed.** StoreKit 2 checks purchases on the device; no running costs per user.
 
 ### Free vs. Pro
 
-| Feature | Free | Pro | Phase |
-| --- | :---: | :---: | :---: |
-| Automatic capture, world map, countries, cities, regions, districts | ✓ | ✓ | today |
-| Lists, delete, diagnostic log | ✓ | ✓ | today |
-| All languages | ✓ | ✓ | 1 |
-| Year filter, trips, timeline | Current year | All years | 2 |
-| Statistics | Overview | Full detail, per year | 2 |
-| Widgets | 1 widget | All widgets | 2 |
-| Shortcuts | ✓ | ✓ | 2 |
-| iCloud sync & backup | | ✓ | 3 |
-| iPad | ✓ | ✓ | 3 |
-| Apple Watch complication | | ✓ | 3 |
-| Google Timeline import | Preview ("23 countries, 140 cities found") | Save the import | 3 |
-| Year in review | Compact version, shared with the app name | Full card series, without branding, earlier years | 4 |
+| Feature | Free | Pro | State |
+| --- | :---: | :---: | --- |
+| Automatic capture, map, countries, cities, regions, districts, place view | ✓ | ✓ | built |
+| Places list, delete, diagnostic log | ✓ | ✓ | built |
+| All languages | ✓ | ✓ | built |
+| Trips and timeline | Current year | All years | built |
+| Statistics | Overview | Full detail, per year | built |
+| Widgets | 1 widget | All widgets | built |
+| Shortcuts | ✓ | ✓ | built |
+| Suggestions and manual entry (step 2) | ✓ | ✓ | planned |
+| Google Timeline import (step 3) | Preview | Save the import | planned |
+| Year in review (step 4) | Compact, with app name | Full series, no branding, earlier years | planned |
 
-**Strongest paywall moments in the adopted scope:** the Timeline import preview (Phase 3) and the year in review in December (Phase 4). Until Phase 2 ships, Pro has little to offer, so plan launch pricing accordingly (see Phase 1).
+The map has no year filter any more (removed Oct 20, 2026); it always shows all years.
 
 ---
 
 ## Technical notes
 
-- **Localization of the data:** city names come from `tools/build_data.py` as English names only; regions and districts are built with German names (`name_de`). Both pipelines must keep all language variants, and the resources grow accordingly. Store them compressed per language or as a name table next to the IDs.
-- **CloudKit + SwiftData:** CloudKit sync does not support `@Attribute(.unique)`. `Country.isoCode`, `City.geonamesId` and `DayVisit.key` rely on it today. iCloud sync therefore needs schema V3 without unique constraints, with defaults for all attributes, plus a deduplication step after each sync (`DayVisits.Entry.merge` already contains the merge logic).
-- **App Group for widgets/Watch:** the SwiftData store has to move from the app container into an App Group container in Phase 2. Plan this together with schema V3 so the store only moves once, or do the move first and keep it separate from the schema change.
-- **New capture source:** `CaptureSource` gets `.timelineImport` with a new bit in `sourceMask` (16). Never renumber the existing ones.
-- **Statistics need gap closing** from Phase 0, otherwise days without a capture are missing from the counts and the year in review.
-- **Subscriptions without a server:** `Transaction.currentEntitlements` and `Transaction.updates` are enough. Keep the Pro status in memory, no account.
+- **Schema changes:** steps 1 (home periods, if stored in SwiftData) and 2 (status field, `.userAdded`) need a new schema version with a migration stage. Never change a model without one, or existing stores no longer open.
+- **CloudKit + SwiftData (later):** CloudKit does not support `@Attribute(.unique)`, which `Country.isoCode`, `City.geonamesId` and `DayVisit.key` rely on. Sync needs a schema without unique constraints, defaults for all attributes and a deduplication step after each sync (`DayVisits.Entry.merge` has the merge logic).
+- **Capture sources:** next free bits in `sourceMask` for `.userAdded` and `.timelineImport`. Never renumber existing ones.
+- **Known data issues:** a capture in the Venice lagoon finds no country; grouped regions in FR/IT/ES/JP/SI/GB keep their local name in every language ("Lazio").
+- **Subscriptions without a server:** Pro follows StoreKit's current entitlements (no comparison with the device clock), re-checked on launch, on foreground and when the paywall or Settings appear.
 
 ---
 
-## Not adopted for now
+## Decided against (for now)
 
-These ideas from the first draft are parked and can be reconsidered later:
-
-- **Former Phase 1 features:** photo import, adding and correcting visits by hand, JSON export/import. Note: without photo import or manual entry, the map starts empty after install; Google Timeline import (Phase 3) is the only way to fill in the past.
-- **Nomad tools:** Schengen 90/180 calculator, residency day counter, PDF/CSV report, threshold notifications.
-- **Depth:** detail packs (small towns, more city details), places of interest (UNESCO, national parks, US states), globe view, color themes, poster and print partner.
-- **Lifetime purchase:** replaced by monthly and annual subscriptions.
+- **Photo import** and **JSON export/import:** not planned. Google Timeline import (step 3) and manual entry (step 2) fill in the past.
+- **Nomad tools:** Schengen 90/180 calculator, residency day counter, PDF/CSV reports.
+- **Depth features:** detail packs, places of interest, globe view, color themes, poster and print partner.
 - **Never:** ads, tracking SDKs, accounts with our own server, social feed, badges and streaks.

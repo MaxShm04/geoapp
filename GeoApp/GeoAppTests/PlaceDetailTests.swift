@@ -6,8 +6,9 @@ import Testing
 private let munichID = 2867714
 private let salzburgID = 2766824
 
-private func visit(_ day: Int, _ country: String, city: Int? = nil, region: String? = nil, district: String? = nil) -> DayVisit {
-    let at = Date(timeIntervalSince1970: 0)
+private func visit(_ day: Int, _ country: String, city: Int? = nil, region: String? = nil, district: String? = nil,
+                   hour: Double = 0) -> DayVisit {
+    let at = Date(timeIntervalSince1970: hour * 3600)
     let key = [String(day), country, city.map(String.init) ?? "-", district ?? region ?? "-", "real"].joined(separator: "|")
     return DayVisit(key: key, day: day, countryCode: country, geonamesId: city, regionId: region, districtId: district,
                     firstSeen: at, lastSeen: at, captureCount: 1, sourceMask: 1, isDemo: false)
@@ -93,6 +94,43 @@ struct PlaceDetailTests {
     @Test func emptyPlace() {
         let empty = PlaceDays.make(days: [], currentYear: 2026, isPro: false)
         #expect(empty.years.isEmpty && empty.lockedYears.isEmpty && empty.totalDays == 0)
+    }
+
+    /// Städte je Tag für Kalender-Blase und Liste: in der Reihenfolge des ersten Besuchs, nur innerhalb des Orts.
+    @Test func placesByDay() {
+        let hamburg = 2911298, berlin = 2950159
+        let visits = [
+            visit(20260510, "DE", city: hamburg, hour: 14),
+            visit(20260510, "DE", city: munichID, hour: 8),
+            visit(20260510, "AT", city: salzburgID, hour: 11),
+            visit(20260511, "DE"),
+            visit(20260512, "DE", city: berlin, hour: 9),
+            visit(20260512, "DE", hour: 18),
+        ]
+        let byDay = PlaceRef.country("DE").placesByDay(in: visits)
+        #expect(byDay[20260510] == DayPlaces(cityIds: [munichID, hamburg], countryOnly: false))
+        #expect(byDay[20260511] == DayPlaces(cityIds: [], countryOnly: true))
+        #expect(byDay[20260512] == DayPlaces(cityIds: [berlin], countryOnly: true))
+        #expect(byDay.count == 3)
+
+        #expect(PlaceRef.city(munichID).placesByDay(in: visits) == [20260510: DayPlaces(cityIds: [munichID], countryOnly: false)])
+
+        let merged = DayPlaces.merged([byDay[20260510]!, byDay[20260511]!, byDay[20260512]!])
+        #expect(merged == DayPlaces(cityIds: [munichID, hamburg, berlin], countryOnly: true))
+    }
+
+    /// Text unter einem Aufenthalt und in der Blase: Städtenamen, sonst „keine Stadt in der Nähe“.
+    @Test func dayPlacesText() {
+        let en = Locale(identifier: "en")
+        let de = Locale(identifier: "de")
+        let name = { (id: Int) in ["1": "Munich", "2": "Hamburg", "3": "Berlin", "4": "Bonn", "5": "Kiel"][String(id)] ?? "?" }
+        #expect(DayPlaces(cityIds: [1], countryOnly: false).text(locale: en, name: name) == "Munich")
+        #expect(DayPlaces(cityIds: [1, 2], countryOnly: true).text(locale: en, name: name) == "Munich and Hamburg")
+        #expect(DayPlaces(cityIds: [1, 2, 3, 4, 5], countryOnly: false).text(locale: en, name: name)
+                == "Munich, Hamburg, Berlin and 2 more")
+        #expect(DayPlaces(cityIds: [], countryOnly: true).text(locale: en, name: name) == "No city nearby")
+        #expect(DayPlaces(cityIds: [], countryOnly: true).text(locale: de, name: name) == "Keine Stadt in der Nähe")
+        #expect(DayPlaces(cityIds: [1, 2], countryOnly: false).text(locale: de, name: name) == "Munich und Hamburg")
     }
 
     /// Suche in der Liste: Groß- und Kleinschreibung und Akzente egal, Städte auch über ihr Land.

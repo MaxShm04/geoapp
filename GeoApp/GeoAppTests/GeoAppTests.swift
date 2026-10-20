@@ -298,10 +298,82 @@ struct CountryFocusTests {
     }
 }
 
-/// Testdaten in Bayern ein- und ausschalten, ohne echte Besuche anzufassen.
+/// Testdaten ein- und ausschalten: alle Szenarien vorhanden, echte Besuche bleiben unberührt.
 @MainActor
 struct MockDataTests {
-    @Test func enableAddsBavariaAndDisableRestoresRealData() throws {
+    private static let now = Calendar.current.date(from: DateComponents(year: 2026, month: 10, day: 20, hour: 12))!
+    private static let today = DayKey.today(now: now)
+
+    /// Der Container muss so lange leben wie der Test, sonst stürzen Zugriffe auf seine Modelle ab.
+    private let container: ModelContainer
+    private let visits: [DayVisit]
+    private let journal: Journal
+
+    init() throws {
+        container = try Store.inMemory()
+        MockData.enable(context: container.mainContext, now: Self.now)
+        visits = try container.mainContext.fetch(FetchDescriptor<DayVisit>())
+        journal = Journal.make(visits: visits, homeOverride: nil, today: Self.today)
+    }
+
+    @Test func homeAndYears() throws {
+        let munichRegion = try #require(GeoLookup.shared.cities.city(id: 2867714)?.regionId)
+        #expect(journal.home == munichRegion)
+        #expect(Set(visits.map { DayKey.year($0.day) }) == [2023, 2024, 2025, 2026])
+        #expect(visits.allSatisfy { $0.isDemo })
+        #expect(visits.allSatisfy { $0.day <= Self.today }, "Nichts in der Zukunft")
+    }
+
+    @Test func trips() throws {
+        let trips = journal.trips
+        #expect(trips.contains { Set($0.countryCodes).isSuperset(of: ["AT", "IT"]) }, "Mehrere Länder in einer Reise")
+        #expect(trips.filter { $0.countryCodes.contains("IT") }.count >= 2, "Italien zweimal mit Pause")
+        #expect(trips.contains { DayKey.year($0.startDay) != DayKey.year($0.endDay) }, "Reise über Silvester")
+        #expect(trips.contains { $0.dayCount >= 10 }, "Lange Reise")
+        #expect(trips.contains { $0.dayCount <= 3 && !$0.isOngoing && $0.cityIds.contains(2911298) }, "Kurze Reise (Hamburg)")
+        #expect(trips.contains { $0.isOngoing }, "Laufende Reise")
+        #expect(Set(trips.map { DayKey.year($0.startDay) }).isSuperset(of: [2023, 2024, 2025, 2026]))
+    }
+
+    /// Salzburg an einem Tag mit München morgens und abends: kein Teil einer Reise.
+    @Test func dayTripIsNoTrip() throws {
+        let salzburgDays = Set(visits.filter { $0.geonamesId == 2766824 }.map(\.day))
+        #expect(salzburgDays.count == 1)
+        let day = try #require(salzburgDays.first)
+        #expect(visits.contains { $0.day == day && $0.geonamesId == 2867714 })
+        #expect(!journal.trips.contains { $0.startDay <= day && day <= $0.endDay })
+    }
+
+    @Test func placesAndRegions() throws {
+        let byDay = Dictionary(grouping: visits, by: \.day)
+        #expect(byDay.values.contains { Set($0.compactMap(\.geonamesId)).count >= 2 }, "Mehrere Städte an einem Tag")
+        #expect(visits.contains { $0.countryCode == "IS" && $0.geonamesId == nil }, "Tag nur mit Land")
+        #expect(visits.contains { $0.countryCode == "RE" }, "Übersee")
+
+        let munichRegion = try #require(GeoLookup.shared.cities.city(id: 2867714)?.regionId)
+        let cities = try container.mainContext.fetch(FetchDescriptor<GeoApp.City>())
+        let bavarian = cities.filter { GeoLookup.shared.cities.city(id: $0.geonamesId)?.regionId == munichRegion }
+        #expect(bavarian.count >= 6, "Mehrere Städte in einer Region")
+        let germanRegions = Set(visits.filter { $0.countryCode == "DE" }.compactMap(\.regionId))
+        #expect(germanRegions.count >= 3, "Mehrere Regionen in Deutschland")
+        #expect(Set(cities.map(\.countryCode)) == ["AT", "CH", "DE", "DK", "FR", "IS", "IT", "PT", "RE"])
+    }
+
+    /// Lissabon: ein Tag ohne Erfassung mitten in der Reise, den die Lückenfüllung schließt.
+    @Test func gapDayIsFilled() throws {
+        let recorded = Set(visits.filter { $0.countryCode == "PT" }.map(\.day))
+        let inferred = journal.days.filter { $0.isInferred && $0.countryCode == "PT" }.map(\.day)
+        #expect(inferred.contains { !recorded.contains($0) })
+    }
+
+    @Test func currentYearHasNewPlaces() throws {
+        let stats = journal.statistics(year: 2026)
+        #expect(stats.newCountryCodes.contains("DK"))
+        #expect(stats.newCityIds.contains(2911298))   // Hamburg
+        #expect(!stats.newCountryCodes.contains("DE"))
+    }
+
+    @Test func disableRestoresRealData() throws {
         let container = try Store.inMemory()
         let context = container.mainContext
         let real = Date(timeIntervalSince1970: 1_700_000_000)
@@ -309,13 +381,8 @@ struct MockDataTests {
             .record(latitude: 48.137, longitude: 11.575, horizontalAccuracy: 50, speed: -1,
                     timestamp: real, source: .visit)   // echter Besuch in München
 
-        MockData.enable(context: context)
-        let cities = try context.fetch(FetchDescriptor<GeoApp.City>())
-        #expect(cities.count > 15)
-        let focus = CountryFocus.make(code: "DE", cities: cities, visits: try context.fetch(FetchDescriptor<DayVisit>()))
-        #expect(focus.pins.first?.name == "Munich")
-        #expect((focus.pins.first?.days ?? 0) >= 12)
-        #expect(focus.pins.contains { !$0.isProminent })   // auch kleine Orte
+        MockData.enable(context: context, now: Self.now)
+        #expect(try context.fetchCount(FetchDescriptor<DayVisit>()) > 300)
 
         MockData.disable(context: context)
         let remaining = try context.fetch(FetchDescriptor<GeoApp.City>())

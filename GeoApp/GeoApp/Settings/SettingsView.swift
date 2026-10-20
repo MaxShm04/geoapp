@@ -13,7 +13,9 @@ struct SettingsView: View {
     @AppStorage(AppSettings.diagnosticsEnabled) private var diagnosticsEnabled = false
     @Environment(\.modelContext) private var context
     @State private var confirmsDeleteAll = false
+    #if DEBUG
     @AppStorage(AppSettings.mockDataEnabled) private var mockDataEnabled = false
+    #endif
     @Query private var visits: [DayVisit]
     @AppStorage(AppSettings.homeRegionOverride) private var homeOverride = ""
     #if DEBUG
@@ -112,11 +114,11 @@ struct SettingsView: View {
 
                     #if DEBUG
                     Section {
-                        Toggle("Test data in Bavaria", isOn: $mockDataEnabled)
+                        Toggle("Sample travels", isOn: $mockDataEnabled)
                     } header: {
                         Text("Test data")
                     } footer: {
-                        Text("Adds sample trips in Bavaria, from 12 days in Munich to short stops in small towns, to try the map and regions. Turning it off removes exactly these entries again. Real visits stay.")
+                        Text("Adds four years of sample travels with Munich as home: day trips, trips through several countries, a trip over New Year, Iceland without a city nearby, Réunion and the current year. Turning it off removes exactly these entries again. Real visits stay.")
                     }
                     .onChange(of: mockDataEnabled) { _, enabled in
                         if enabled { MockData.enable(context: context) } else { MockData.disable(context: context) }
@@ -159,7 +161,9 @@ struct SettingsView: View {
             .alert("Delete all data?", isPresented: $confirmsDeleteAll) {
                 Button("Delete everything", role: .destructive) {
                     try? Deletion.deleteAll(context: context)
+                    #if DEBUG
                     mockDataEnabled = false
+                    #endif
                 }
                 Button("Cancel", role: .cancel) {}
             } message: {

@@ -1056,43 +1056,43 @@
         }
       }
     },
-    "Adds sample trips in Bavaria, from 12 days in Munich to short stops in small towns, to try the map and regions. Turning it off removes exactly these entries again. Real visits stay." : {
+    "Adds four years of sample travels with Munich as home: day trips, trips through several countries, a trip over New Year, Iceland without a city nearby, Réunion and the current year. Turning it off removes exactly these entries again. Real visits stay." : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fügt Beispielreisen in Bayern hinzu, von 12 Tagen in München bis zu kurzen Stopps in Kleinstädten, um Karte und Regionen auszuprobieren. Ausschalten entfernt genau diese Einträge wieder, echte Besuche bleiben."
+            "value" : "Fügt vier Jahre Beispielreisen mit München als Zuhause hinzu: Tagesausflüge, Reisen durch mehrere Länder, eine Reise über Silvester, Island ohne Stadt in der Nähe, Réunion und das laufende Jahr. Ausschalten entfernt genau diese Einträge wieder. Echte Besuche bleiben."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Añade viajes de ejemplo en Baviera, desde 12 días en Múnich hasta paradas cortas en pueblos, para probar el mapa y las regiones. Al desactivarlo se eliminan exactamente esas entradas. Las visitas reales se mantienen."
+            "value" : "Añade cuatro años de viajes de ejemplo con Múnich como hogar: excursiones de un día, viajes por varios países, un viaje en Nochevieja, Islandia sin ciudad cerca, Reunión y el año actual. Al desactivarlo se eliminan exactamente estas entradas. Las visitas reales se mantienen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ajoute des voyages d’exemple en Bavière, de 12 jours à Munich à de courtes étapes dans de petites villes, pour essayer la carte et les régions. Désactiver retire exactement ces entrées. Les vraies visites restent."
+            "value" : "Ajoute quatre ans de voyages d’exemple avec Munich comme domicile : excursions d’une journée, voyages dans plusieurs pays, un voyage au Nouvel An, l’Islande sans ville à proximité, La Réunion et l’année en cours. Le désactiver supprime exactement ces entrées. Les vraies visites restent."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aggiunge viaggi di esempio in Baviera, da 12 giorni a Monaco a brevi soste in piccole città, per provare la mappa e le regioni. Disattivandolo si rimuovono esattamente queste voci. Le visite reali restano."
+            "value" : "Aggiunge quattro anni di viaggi di esempio con Monaco come casa: gite di un giorno, viaggi in più paesi, un viaggio a Capodanno, l’Islanda senza città vicine, la Riunione e l’anno in corso. Disattivandolo si rimuovono esattamente queste voci. Le visite reali restano."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Voegt voorbeeldreizen in Beieren toe, van 12 dagen in München tot korte stops in kleine steden, om de kaart en regio’s uit te proberen. Uitzetten verwijdert precies deze items weer. Echte bezoeken blijven staan."
+            "value" : "Voegt vier jaar voorbeeldreizen toe met München als thuis: dagtochten, reizen door meerdere landen, een reis rond oud en nieuw, IJsland zonder stad in de buurt, Réunion en het huidige jaar. Uitzetten verwijdert precies deze items weer. Echte bezoeken blijven."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adiciona viagens de exemplo na Baviera, de 12 dias em Munique a paradas curtas em cidades pequenas, para testar o mapa e as regiões. Desativar remove exatamente essas entradas. As visitas reais continuam."
+            "value" : "Adiciona quatro anos de viagens de exemplo com Munique como casa: bate-voltas, viagens por vários países, uma viagem no Ano-Novo, a Islândia sem cidade por perto, a Reunião e o ano atual. Ao desativar, exatamente essas entradas são removidas. As visitas reais continuam."
           }
         }
       }
@@ -4725,6 +4725,46 @@
         }
       }
     },
+    "No city nearby" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Stadt in der Nähe"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ninguna ciudad cerca"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune ville à proximité"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessuna città vicina"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen stad in de buurt"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhuma cidade por perto"
+          }
+        }
+      }
+    },
     "No city with 15,000+ residents recorded nearby." : {
       "localizations" : {
         "de" : {
@@ -6052,6 +6092,47 @@
         }
       }
     },
+    "Sample travels" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beispielreisen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viajes de ejemplo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voyages d’exemple"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viaggi di esempio"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voorbeeldreizen"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viagens de exemplo"
+          }
+        }
+      }
+    },
     "Saved places could not be loaded. New places will be lost when the app quits. (%@)" : {
       "localizations" : {
         "de" : {
@@ -6609,47 +6690,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dados de teste"
-          }
-        }
-      }
-    },
-    "Test data in Bavaria" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Testdaten in Bayern"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Datos de prueba en Baviera"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Données de test en Bavière"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dati di prova in Baviera"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Testgegevens in Beieren"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dados de teste na Baviera"
           }
         }
       }
@@ -7615,46 +7655,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Visita"
-          }
-        }
-      }
-    },
-    "Visited on %@" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Besucht am %@"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Visitado el %@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Visité le %@"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Visitato il %@"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bezocht op %@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Visitado em %@"
           }
         }
       }

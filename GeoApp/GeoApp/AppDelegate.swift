@@ -14,16 +14,13 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         Task {
             await Store.bootstrap()
             #if DEBUG
-            // Für Tests im Simulator: `-enableMockData YES` schaltet die Testdaten wie der Schalter ein.
-            if UserDefaults.standard.bool(forKey: "enableMockData"),
-               !UserDefaults.standard.bool(forKey: AppSettings.mockDataEnabled) {
+            // Für Tests im Simulator: `-enableMockData YES` (oder das ältere `-enableMockTrips YES`)
+            // schaltet die Testdaten wie der Schalter in den Einstellungen ein.
+            let defaults = UserDefaults.standard
+            if defaults.bool(forKey: "enableMockData") || defaults.bool(forKey: "enableMockTrips"),
+               !defaults.bool(forKey: AppSettings.mockDataEnabled) {
                 MockData.enable(context: Store.shared.mainContext)
-                UserDefaults.standard.set(true, forKey: AppSettings.mockDataEnabled)
-            }
-            if UserDefaults.standard.bool(forKey: "enableMockTrips"),
-               !UserDefaults.standard.bool(forKey: AppSettings.mockDataEnabled) {
-                MockData.enableTrips(context: Store.shared.mainContext)
-                UserDefaults.standard.set(true, forKey: AppSettings.mockDataEnabled)
+                defaults.set(true, forKey: AppSettings.mockDataEnabled)
             }
             #endif
         }

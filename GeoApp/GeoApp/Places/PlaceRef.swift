@@ -49,31 +49,78 @@ enum PlaceRef: Hashable, Identifiable {
         }
     }
 
-    /// Verschiedene Tage an diesem Ort, neueste zuerst. Ohne gespeicherte (oder mit veralteter) Region
-    /// bzw. Kreis zählt der der Stadtmitte, wie auf der Karte (`CountryFocus`).
+    /// Verschiedene Tage an diesem Ort, neueste zuerst.
     func days(in visits: [DayVisit]) -> [Int] {
-        let matching: [DayVisit]
+        PlaceCalendar.distinctDays(matching(visits).map(\.day))
+    }
+
+    /// Städte je Tag innerhalb dieses Orts, für die Kalender-Blase und die Liste der Aufenthalte.
+    func placesByDay(in visits: [DayVisit]) -> [Int: DayPlaces] {
+        Dictionary(grouping: matching(visits), by: \.day).mapValues { dayVisits in
+            var places = DayPlaces()
+            for visit in dayVisits.sorted(by: { $0.firstSeen < $1.firstSeen }) {
+                if let id = visit.geonamesId {
+                    if !places.cityIds.contains(id) { places.cityIds.append(id) }
+                } else {
+                    places.countryOnly = true
+                }
+            }
+            return places
+        }
+    }
+
+    /// Tageseinträge an diesem Ort. Ohne gespeicherte (oder mit veralteter) Region bzw. Kreis zählt der
+    /// der Stadtmitte, wie auf der Karte (`CountryFocus`).
+    private func matching(_ visits: [DayVisit]) -> [DayVisit] {
         switch self {
         case .city(let id):
-            matching = visits.filter { $0.geonamesId == id }
+            return visits.filter { $0.geonamesId == id }
         case .country(let code):
-            matching = visits.filter { $0.countryCode == code }
+            return visits.filter { $0.countryCode == code }
         case .region(let id):
-            matching = visits.filter { ($0.regionId ?? Self.cityCenter(of: $0)?.regionId) == id }
+            return visits.filter { ($0.regionId ?? Self.cityCenter(of: $0)?.regionId) == id }
         case .district(let id):
             let country = String(id.split(separator: ":").first ?? "")
             let known = Set(DistrictIndex.shared.districts(in: country).map(\.id))
-            matching = visits.filter { visit in
+            return visits.filter { visit in
                 guard visit.countryCode == country else { return false }
                 let stored = visit.districtId.flatMap { known.contains($0) ? $0 : nil }
                 return (stored ?? Self.cityCenter(of: visit)?.districtId) == id
             }
         }
-        return PlaceCalendar.distinctDays(matching.map(\.day))
     }
 
     private static func cityCenter(of visit: DayVisit) -> GeoCore.City? {
         visit.geonamesId.flatMap { GeoLookup.shared.cities.city(id: $0) }
+    }
+}
+
+/// Die Städte eines Tages (oder Aufenthalts) an einem Ort, in der Reihenfolge des ersten Besuchs.
+/// `countryOnly`: mindestens ein Eintrag ohne Stadt in der Nähe.
+struct DayPlaces: Equatable {
+    var cityIds: [Int] = []
+    var countryOnly = false
+
+    /// Alle Städte mehrerer Tage, ohne Doppelte.
+    static func merged(_ days: [DayPlaces]) -> DayPlaces {
+        var result = DayPlaces()
+        for day in days {
+            for id in day.cityIds where !result.cityIds.contains(id) { result.cityIds.append(id) }
+            result.countryOnly = result.countryOnly || day.countryOnly
+        }
+        return result
+    }
+
+    /// „Munich and Hamburg“, ab vier Städten „Munich, Hamburg, Berlin and 2 more“, ohne Stadt „No city nearby“.
+    func text(locale: Locale = .current, name: ((Int) -> String)? = nil) -> String {
+        let name = name ?? { PlaceNames.city(id: $0) }
+        guard !cityIds.isEmpty else { return L10n.string("No city nearby", locale: locale) }
+        let shown = cityIds.count > 3 ? Array(cityIds.prefix(3)) : cityIds
+        if shown.count < cityIds.count {
+            let list = shown.map(name).joined(separator: ", ")
+            return L10n.string("\(list) and \(cityIds.count - shown.count) more", locale: locale)
+        }
+        return shown.map(name).formatted(.list(type: .and).locale(locale))
     }
 }
 
