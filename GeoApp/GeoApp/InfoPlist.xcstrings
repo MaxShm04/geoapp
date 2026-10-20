@@ -16,6 +16,36 @@
             "state" : "translated",
             "value" : "So your map fills in by itself, the app checks which city you are in whenever you move a larger distance. Only the city, the country and the time are stored, no routes and no coordinates."
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para que tu mapa se llene solo, la app comprueba en qué ciudad estás cada vez que te desplazas una distancia mayor. Solo se guardan la ciudad, el país y la hora, ni rutas ni coordenadas."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour que ta carte se remplisse toute seule, l’app vérifie dans quelle ville tu te trouves chaque fois que tu te déplaces sur une plus grande distance. Seuls la ville, le pays et l’heure sont enregistrés, ni trajets ni coordonnées."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perché la tua mappa si riempia da sola, l’app controlla in quale città ti trovi ogni volta che ti sposti di una distanza maggiore. Vengono salvati solo città, paese e ora, niente percorsi e niente coordinate."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zodat je kaart zich vanzelf vult, kijkt de app in welke stad je bent zodra je een grotere afstand aflegt. Alleen de stad, het land en het tijdstip worden opgeslagen, geen routes en geen coördinaten."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para seu mapa se preencher sozinho, o app verifica em que cidade você está sempre que se desloca uma distância maior. Só a cidade, o país e o horário são salvos, sem rotas e sem coordenadas."
+          }
         }
       }
     },
@@ -33,6 +63,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The app matches your location to a city and a country. The exact position is discarded right away and is never stored or sent."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La app asigna tu ubicación a una ciudad y un país. La posición exacta se descarta enseguida y nunca se guarda ni se envía."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’app associe ta position à une ville et à un pays. La position exacte est supprimée aussitôt et n’est jamais enregistrée ni envoyée."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’app associa la tua posizione a una città e a un paese. La posizione esatta viene scartata subito e non viene mai salvata né inviata."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De app koppelt je locatie aan een stad en een land. De exacte positie wordt meteen weggegooid en nooit opgeslagen of verstuurd."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O app associa sua localização a uma cidade e a um país. A posição exata é descartada na hora e nunca é salva nem enviada."
           }
         }
       }

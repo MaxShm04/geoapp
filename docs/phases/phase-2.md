@@ -174,7 +174,7 @@ Status: ☐ open · ◐ in progress · ☑ done (reviewed by the main model)
 | T20 | Settings: home region (automatic / override picker) | impl | `Settings/HomeRegionView.swift`, `SettingsView.swift` | manual check | ☑ |
 | T21 | Catalog sync + German for all new strings, widget catalog, shortcut phrases — **main model** | impl | `*.xcstrings` | 5, 6, 66, 67 | ☑ |
 | T22 | Simulator check en/de, light/dark: map filter, trips, statistics, settings, paywall, widgets, Shortcut — **main model** | verify | — | — | ☑ |
-| T23 | Optional: wave-2 languages (fr, es, it, nl, pt-BR) | impl | catalogs | 67 | — deferred (see Open items) |
+| T23 | Optional: wave-2 languages (fr, es, it, nl, pt-BR) | impl | catalogs | 67 | ☑ drafts added in a follow-up session, native review pending (see Open items) |
 
 ## Handed back to Max (not in this phase)
 
@@ -185,6 +185,15 @@ Status: ☐ open · ◐ in progress · ☑ done (reviewed by the main model)
 ## Open items for later
 
 - Wave-2 languages (fr, es, it, nl, pt-BR) deferred: four catalogs now (`Localizable` app + widget, `InfoPlist`, `AppShortcuts`) plus the store texts; draft + native review fits a separate session. Geo names for these languages already exist in the data (Phase 1, D4).
+- **Wave-2 drafts added (2026-10-19, T23 follow-up session), native review pending for all five.** French, Spanish, Italian, Dutch and Portuguese (Brazil, locale `pt-BR`) are complete in all four catalogs: app `Localizable` (176 translatable keys; the 9 `shouldTranslate: false` keys untouched), widget `Localizable` (14), `InfoPlist` (2 permission texts), `AppShortcuts` (3 phrases, each with `${applicationName}`). The languages are in `knownRegions`. Every string is a Claude draft with state `translated`; none has been seen by a native speaker yet (ROADMAP: draft with Claude, review by native speakers, e.g. the TestFlight group). Store texts, screenshots and subscription names for these languages are not done. Choices a reviewer should check:
+  - Address: informal everywhere (fr *tu*, es *tú*, it *tu*, nl *je*, pt-BR *você*). French apps often use *vous*, so that is the first thing to confirm.
+  - Terms: recording = fr *enregistrer/enregistrement*, es/pt *registrar/registro*, it *registrare/registrazione*, nl *registreren/registratie*; trip = *voyage / viaje / viaggio / reis / viagem*; home region = *région de résidence / región de residencia / regione di residenza / thuisregio / região de residência*. The diagnostic log is "log" in es/it/pt so it does not clash with *registro* (recording); fr uses *journal de diagnostic*.
+  - iOS wording follows Apple's terms where known (fr *Réglages*, es/pt *Ajustes*, it *Impostazioni*, nl *Instellingen*; precise location = *Position exacte / Ubicación exacta / Posizione esatta / Exacte locatie / Localização exata*), but the in-app permission button texts are our own, not Apple's exact strings.
+  - Plurals follow CLDR: fr/es/it/pt-BR have `one`/`many`/`other` (`many` = "1 000 000 de villes" style), nl `one`/`other`. In fr and pt-BR the `one` form also covers 0 ("0 ville", "0 cidade"); correct for French, worth a look for Brazilian Portuguese.
+  - French uses no-break spaces before `: ? !` and inside « ».
+  - Shortcut phrases use a straight apostrophe in Italian ("quest'anno") for Siri; the UI uses ’.
+  - `L10n.string(_:locale:)` looks up `<languageCode>.lproj`, i.e. `pt.lproj`, which does not exist for `pt-BR`; it then falls back to the main bundle, which picks `pt-BR` when the device language is Portuguese (Brazil), so the Shortcut answer is still right on device. `LocalizationTests.catalogComplete` still checks only `de`.
+  - Checked: core tests (89) and app tests green; the built app and widget contain `es/fr/it/nl/pt-BR.lproj` with compiled plurals (`many` included). Simulator (iPhone 17, `-AppleLanguages`): map screen in fr, nl, pt-BR, Settings in es, Trips in it. All looked right, no truncation in the tab bar (Italian "Impostazioni" is the longest). Widgets, paywall and the Shortcut were not checked in the new languages.
 - Venice: a capture at the GeoNames center of Venice (in the lagoon) finds no country, so it records nothing (seen with the simulator test data; Verona/Florence/Rome are fine). Phase-0-style geocoding issue, not Phase 2 logic; gap closing covers such days in statistics.
 - Grouped Italian/French/… regions still show local names ("Toscana", "Veneto") in English (Phase 1 open item), now also visible in the home region list.
 - The locked state of the New places/Map widgets was not seen on screen (the simulator had a Pro test purchase by then); logic is `kind == .counter || isPro` with the same `ProRules` as the app (case 58). Running the Shortcut from Spotlight showed no dialog in the simulator; the intent is registered (Spotlight top hit) and its logic is tested (cases 64–66).
