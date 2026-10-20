@@ -3,7 +3,7 @@ import SwiftUI
 @main
 struct GeoAppApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-    @State private var proStore = ProStore()
+    @State private var proStore = ProStore(betaDefaults: BetaSettings.sharedDefaults)
 
     var body: some Scene {
         WindowGroup {

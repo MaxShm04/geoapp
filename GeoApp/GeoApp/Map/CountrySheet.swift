@@ -6,20 +6,27 @@ import SwiftUI
 /// Blatt unter der Länderansicht.
 /// Im Land: Name, Zeitraum und die besuchten Regionen (in kleinen Ländern direkt die Städte).
 /// In der Region: die Städte der Region.
+/// Ein Tipp auf eine Stadt oder auf „Days“ im Kopf öffnet die Ortsansicht darüber.
 struct CountrySheet: View {
     let focus: CountryFocus
     let selectedRegion: String?
+    @Binding var place: PlaceRef?
     let onSelectRegion: (String?) -> Void
+    /// Das Land wurde in der Ortsansicht gelöscht.
+    let onDeleteCountry: () -> Void
 
     @Query private var countries: [Country]
     @Query private var cities: [City]
     /// Region je Stadt, einmal aus den Punkten gebaut.
     private let regionIds: [Int: String]
 
-    init(focus: CountryFocus, selectedRegion: String?, onSelectRegion: @escaping (String?) -> Void) {
+    init(focus: CountryFocus, selectedRegion: String?, place: Binding<PlaceRef?>,
+         onSelectRegion: @escaping (String?) -> Void, onDeleteCountry: @escaping () -> Void) {
         self.focus = focus
         self.selectedRegion = selectedRegion
+        self._place = place
         self.onSelectRegion = onSelectRegion
+        self.onDeleteCountry = onDeleteCountry
         self.regionIds = Dictionary(focus.pins.compactMap { pin in pin.regionId.map { (pin.id, $0) } },
                                     uniquingKeysWith: { first, _ in first })
         let code = focus.code
@@ -53,10 +60,11 @@ struct CountrySheet: View {
     var body: some View {
         List {
             if let selectedRegion, let region = RegionIndex.shared.region(id: selectedRegion) {
-                header(title: PlaceNames.region(region), subtitle: CountryNames.name(for: focus.code))
+                header(title: PlaceNames.region(region), subtitle: CountryNames.name(for: focus.code),
+                       place: .region(region.id))
                 citySection(cities.filter { regionId(of: $0) == selectedRegion })
             } else {
-                header(title: CountryNames.name(for: focus.code), subtitle: countryDates)
+                header(title: CountryNames.name(for: focus.code), subtitle: countryDates, place: .country(focus.code))
                 let summaries = regionSummaries
                 if summaries.isEmpty {
                     citySection(cities)
@@ -70,6 +78,11 @@ struct CountrySheet: View {
         .listSectionSpacing(.compact)
         .scrollContentBackground(.hidden)
         .animation(.default, value: selectedRegion)
+        .sheet(item: $place) { place in
+            PlaceSheet(place: place, onDeleted: {
+                if case .country = place { onDeleteCountry() }
+            })
+        }
     }
 
     private var countryDates: String? {
@@ -79,16 +92,24 @@ struct CountrySheet: View {
         return first == last ? first : String(localized: "First \(first) · last \(last)")
     }
 
-    private func header(title: String, subtitle: String?) -> some View {
+    private func header(title: String, subtitle: String?, place: PlaceRef) -> some View {
         Section {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.title2.bold())
-                if let subtitle {
-                    Text(subtitle)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+            HStack(alignment: .center) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(title)
+                        .font(.title2.bold())
+                    if let subtitle {
+                        Text(subtitle)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                 }
+                Spacer()
+                Button { self.place = place } label: {
+                    Label("Days", systemImage: "calendar")
+                }
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
             }
             .listRowBackground(Color.clear)
             .listRowInsets(EdgeInsets(top: 8, leading: 20, bottom: 0, trailing: 20))
@@ -123,7 +144,18 @@ struct CountrySheet: View {
                     .foregroundStyle(.secondary)
             }
             ForEach(cities) { city in
-                VisitRow(title: PlaceNames.city(city), first: city.firstVisited, last: city.lastVisited)
+                Button {
+                    place = .city(city.geonamesId)
+                } label: {
+                    HStack {
+                        VisitRow(title: PlaceNames.city(city), first: city.firstVisited, last: city.lastVisited)
+                        Image(systemName: "chevron.right")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(.tertiary)
+                    }
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
             }
         }
     }

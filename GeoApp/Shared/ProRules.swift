@@ -22,4 +22,9 @@ nonisolated enum ProRules {
                 && (fact.expires.map { $0 > now } ?? true)
         }
     }
+
+    /// Pro gilt mit gültigem Abo oder, nur in Debug-Builds, mit der Freischaltung aus dem Beta-Menü.
+    static func unlocked(entitled: Bool, betaOverride: Bool) -> Bool {
+        entitled || (BetaSettings.isAvailable && betaOverride)
+    }
 }

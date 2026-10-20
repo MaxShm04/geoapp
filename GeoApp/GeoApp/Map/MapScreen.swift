@@ -4,6 +4,8 @@ import SwiftUI
 
 /// Startbildschirm: Zähler oben, Weltkarte darunter. Ein Tipp auf ein besuchtes Land zoomt
 /// in die Länderansicht mit Regionen, ein Tipp auf eine Region zeigt alle Städte dort.
+/// Ein Tipp auf eine Stadt oder ein zweiter Tipp in die gewählte Region öffnet die Ortsansicht
+/// (wann man dort war). Der Knopf neben dem Zähler öffnet alle Orte als Liste.
 struct MapScreen: View {
     @Query private var countries: [Country]
     @Query private var cities: [City]
@@ -15,6 +17,9 @@ struct MapScreen: View {
     @State private var selectedCountry: String?
     @State private var selectedRegion: String?
     @State private var showsSheet = false
+    @State private var showsPlaces = false
+    /// Ortsansicht für eine Stadt, einen Kreis, eine Region oder das Land, über dem Länderblatt.
+    @State private var place: PlaceRef?
 
     /// Höhe des Blatts in der kleinsten Stufe. Die Karte lässt darüber Platz für das Land.
     private static let sheetHeight: CGFloat = 220
@@ -29,6 +34,7 @@ struct MapScreen: View {
                 bottomInset: Self.sheetHeight,
                 onSelectCountry: selectCountry,
                 onSelectRegion: selectRegion,
+                onSelectPlace: { place = $0 },
                 onFocusFinished: { if selectedCountry != nil { showsSheet = true } }
             )
             .ignoresSafeArea()
@@ -63,7 +69,8 @@ struct MapScreen: View {
             .toolbar(selectedCountry == nil ? .visible : .hidden, for: .tabBar)
             .sheet(isPresented: $showsSheet, onDismiss: { selectCountry(nil) }) {
                 if let focus {
-                    CountrySheet(focus: focus, selectedRegion: selectedRegion, onSelectRegion: selectRegion)
+                    CountrySheet(focus: focus, selectedRegion: selectedRegion, place: $place,
+                                 onSelectRegion: selectRegion, onDeleteCountry: { selectCountry(nil) })
                         .presentationDetents([.height(Self.sheetHeight), .medium, .large])
                         .presentationBackgroundInteraction(.enabled(upThrough: .medium))
                         .presentationDragIndicator(.visible)
@@ -81,7 +88,10 @@ struct MapScreen: View {
             selectedRegion = nil
             selectedCountry = code
         }
-        if code == nil { showsSheet = false }
+        if code == nil {
+            showsSheet = false
+            place = nil
+        }
     }
 
     private func selectRegion(_ id: String?) {
@@ -96,8 +106,22 @@ struct MapScreen: View {
                      years: YearFilter.availableYears(days: visits.map(\.day), currentYear: currentYear),
                      currentYear: currentYear,
                      isPro: store.isPro)
+            placesButton
         }
         .padding(.top, 8)
+    }
+
+    /// Öffnet alle Länder und Städte als durchsuchbare Liste.
+    private var placesButton: some View {
+        Button { showsPlaces = true } label: {
+            Image(systemName: "list.bullet")
+                .font(.body.weight(.semibold))
+                .frame(width: 38, height: 38)
+                .background(.regularMaterial, in: Circle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Places")
+        .sheet(isPresented: $showsPlaces) { PlacesList() }
     }
 
     private var counter: some View {
@@ -200,7 +224,7 @@ struct MapScreen: View {
     static func accessibilitySummary(countries: Int, cities: Int, locale: Locale = .current) -> String {
         let countriesText = L10n.string("\(countries) countries", locale: locale)
         let citiesText = L10n.string("\(cities) cities", locale: locale)
-        return L10n.string("World map. \(countriesText) and \(citiesText) visited. The list tab shows them as a list.",
+        return L10n.string("World map. \(countriesText) and \(citiesText) visited. The Places button lists them.",
                            locale: locale)
     }
 }

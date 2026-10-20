@@ -16,6 +16,22 @@ struct SettingsView: View {
     @AppStorage(AppSettings.mockDataEnabled) private var mockDataEnabled = false
     @Query private var visits: [DayVisit]
     @AppStorage(AppSettings.homeRegionOverride) private var homeOverride = ""
+    #if DEBUG
+    @AppStorage(BetaSettings.testControlsKey) private var testControlsSwitch = true
+    #else
+    private let testControlsSwitch = true
+    #endif
+
+    /// Testdaten, Ortsprüfung und Diagnose-Log; in Debug über das Beta-Menü ausblendbar.
+    private var showsTestControls: Bool {
+        BetaSettings.showsTestControls(switchOn: testControlsSwitch)
+    }
+
+    private var proStatus: String {
+        if store.isEntitled { return String(localized: "Active") }
+        if store.isPro { return String(localized: "Unlocked (beta)") }
+        return String(localized: "Free")
+    }
 
     /// Tagebuch für das Heimatgebiet in der Zeile unten.
     private var journal: Journal {
@@ -26,8 +42,8 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    LabeledContent("Status", value: store.isPro ? String(localized: "Active") : String(localized: "Free"))
-                    if store.isPro {
+                    LabeledContent("Status", value: proStatus)
+                    if store.isEntitled {
                         Button("Manage subscription") { showsManageSubscriptions = true }
                             .manageSubscriptionsSheet(isPresented: $showsManageSubscriptions)
                     } else {
@@ -85,38 +101,40 @@ struct SettingsView: View {
                 .onChange(of: trackingEnabled) { location.applyTrackingSettings() }
                 .onChange(of: visitsEnabled) { location.applyTrackingSettings() }
 
-                Section {
-                    Toggle("Diagnostic log", isOn: $diagnosticsEnabled)
-                    NavigationLink("View log") { DiagnosticLogView() }
-                } header: {
-                    Text("Diagnostics")
-                } footer: {
-                    Text("Records when the app was woken, which city it found and how far it was to the city center. Without coordinates.")
-                }
-
-                #if DEBUG
-                Section {
-                    Toggle("Test data in Bavaria", isOn: $mockDataEnabled)
-                } header: {
-                    Text("Test data")
-                } footer: {
-                    Text("Adds sample trips in Bavaria, from 12 days in Munich to short stops in small towns, to try the map and regions. Turning it off removes exactly these entries again. Real visits stay.")
-                }
-                .onChange(of: mockDataEnabled) { _, enabled in
-                    if enabled { MockData.enable(context: context) } else { MockData.disable(context: context) }
-                }
-                #endif
-
-                Section {
-                    Button("Match current location") { location.probeCurrentLocation() }
-                        .disabled(location.probe == .running)
-                    if let probe = location.probe {
-                        ProbeResultRow(result: probe)
+                if showsTestControls {
+                    Section {
+                        Toggle("Diagnostic log", isOn: $diagnosticsEnabled)
+                        NavigationLink("View log") { DiagnosticLogView() }
+                    } header: {
+                        Text("Diagnostics")
+                    } footer: {
+                        Text("Records when the app was woken, which city it found and how far it was to the city center. Without coordinates.")
                     }
-                } header: {
-                    Text("Check location")
-                } footer: {
-                    Text("Matches your location once, offline, to a city and a country. None of this is saved.")
+
+                    #if DEBUG
+                    Section {
+                        Toggle("Test data in Bavaria", isOn: $mockDataEnabled)
+                    } header: {
+                        Text("Test data")
+                    } footer: {
+                        Text("Adds sample trips in Bavaria, from 12 days in Munich to short stops in small towns, to try the map and regions. Turning it off removes exactly these entries again. Real visits stay.")
+                    }
+                    .onChange(of: mockDataEnabled) { _, enabled in
+                        if enabled { MockData.enable(context: context) } else { MockData.disable(context: context) }
+                    }
+                    #endif
+
+                    Section {
+                        Button("Match current location") { location.probeCurrentLocation() }
+                            .disabled(location.probe == .running)
+                        if let probe = location.probe {
+                            ProbeResultRow(result: probe)
+                        }
+                    } header: {
+                        Text("Check location")
+                    } footer: {
+                        Text("Matches your location once, offline, to a city and a country. None of this is saved.")
+                    }
                 }
 
                 Section {
@@ -124,7 +142,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Data")
                 } footer: {
-                    Text("Delete individual countries and cities by swiping in the list.")
+                    Text("To delete a single country or city, open it on the map or in Places.")
                 }
 
                 Section {
@@ -137,6 +155,7 @@ struct SettingsView: View {
                 PaywallView()
             }
             .navigationTitle("Settings")
+            .betaMenuButton()
             .alert("Delete all data?", isPresented: $confirmsDeleteAll) {
                 Button("Delete everything", role: .destructive) {
                     try? Deletion.deleteAll(context: context)

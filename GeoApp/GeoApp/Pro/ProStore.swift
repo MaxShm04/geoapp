@@ -1,6 +1,7 @@
 import Foundation
 import Observation
 import StoreKit
+import WidgetKit
 
 /// Pro-Abo: schaltet die Pro-Funktionen frei. Der Zustand lebt nur im Arbeitsspeicher.
 @MainActor @Observable
@@ -20,17 +21,46 @@ final class ProStore {
         ProRules.isPro(facts: facts, now: now)
     }
 
-    private(set) var isPro = false
+    /// Gültiges Abo laut StoreKit.
+    private(set) var isEntitled = false
+    #if DEBUG
+    /// Pro-Freischaltung aus dem Beta-Menü, nur in Debug-Builds einkompiliert.
+    private(set) var betaProOverride = false
+    /// Pro-Funktionen frei: Abo oder Beta-Freischaltung (`ProRules.unlocked`).
+    var isPro: Bool { ProRules.unlocked(entitled: isEntitled, betaOverride: betaProOverride) }
+    #else
+    /// Pro-Funktionen frei: nur mit gültigem Abo.
+    var isPro: Bool { isEntitled }
+    #endif
     private(set) var products: [Product] = []
     private(set) var productsUnavailable = false
 
     @ObservationIgnored private var updatesTask: Task<Void, Never>?
+    #if DEBUG
+    /// Wo die Beta-Freischaltung liegt; `nil` = ohne Freischaltung (etwa in Tests).
+    @ObservationIgnored private let betaDefaults: UserDefaults?
+    #endif
 
-    init() {}
+    /// `betaDefaults` wirkt nur in Debug-Builds; Release ignoriert den Wert.
+    init(betaDefaults: UserDefaults? = nil) {
+        #if DEBUG
+        self.betaDefaults = betaDefaults
+        betaProOverride = BetaSettings.proOverride(in: betaDefaults)
+        #endif
+    }
 
     func refresh(facts: [EntitlementFact], now: Date = .now) {
-        isPro = Self.isPro(facts: facts, now: now)
+        isEntitled = Self.isPro(facts: facts, now: now)
     }
+
+    #if DEBUG
+    /// Schaltet Pro lokal frei oder wieder ab und lädt die Widgets neu, die den Wert aus der App Group lesen.
+    func setBetaProOverride(_ on: Bool) {
+        betaProOverride = on
+        BetaSettings.setProOverride(on, in: betaDefaults)
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+    #endif
 
     /// Lädt die Produkte, Monatsabo zuerst.
     func loadProducts() async {

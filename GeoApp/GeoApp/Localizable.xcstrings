@@ -45,6 +45,12 @@
         "es" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ y %lld más"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -52,12 +58,6 @@
                 }
               },
               "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%@ y %lld más"
-                }
-              },
-              "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%@ y %lld más"
@@ -69,6 +69,12 @@
         "fr" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ et %lld autres"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -80,12 +86,6 @@
                   "state" : "translated",
                   "value" : "%@ et %lld autres"
                 }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%@ et %lld autres"
-                }
               }
             }
           }
@@ -93,6 +93,12 @@
         "it" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ e altri %lld di luoghi"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -103,12 +109,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%@ e altri %lld luoghi"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%@ e altri %lld di luoghi"
                 }
               }
             }
@@ -135,6 +135,12 @@
         "pt-BR" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%@ e mais %lld"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -142,12 +148,6 @@
                 }
               },
               "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%@ e mais %lld"
-                }
-              },
-              "many" : {
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%@ e mais %lld"
@@ -279,6 +279,12 @@
         "es" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de ciudades"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -290,12 +296,6 @@
                   "state" : "translated",
                   "value" : "%lld ciudades"
                 }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de ciudades"
-                }
               }
             }
           }
@@ -303,6 +303,12 @@
         "fr" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de villes"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -314,12 +320,6 @@
                   "state" : "translated",
                   "value" : "%lld villes"
                 }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de villes"
-                }
               }
             }
           }
@@ -327,6 +327,12 @@
         "it" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld di città"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -337,12 +343,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld città"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld di città"
                 }
               }
             }
@@ -369,6 +369,12 @@
         "pt-BR" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de cidades"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -379,12 +385,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld cidades"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de cidades"
                 }
               }
             }
@@ -433,6 +433,12 @@
         "es" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de países"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -444,12 +450,6 @@
                   "state" : "translated",
                   "value" : "%lld países"
                 }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de países"
-                }
               }
             }
           }
@@ -457,6 +457,12 @@
         "fr" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de pays"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -468,12 +474,6 @@
                   "state" : "translated",
                   "value" : "%lld pays"
                 }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de pays"
-                }
               }
             }
           }
@@ -481,6 +481,12 @@
         "it" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld di paesi"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -491,12 +497,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld paesi"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld di paesi"
                 }
               }
             }
@@ -523,6 +523,12 @@
         "pt-BR" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de países"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -533,12 +539,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld países"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de países"
                 }
               }
             }
@@ -587,6 +587,12 @@
         "es" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de días"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -598,12 +604,6 @@
                   "state" : "translated",
                   "value" : "%lld días"
                 }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de días"
-                }
               }
             }
           }
@@ -611,6 +611,12 @@
         "fr" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de jours"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -622,12 +628,6 @@
                   "state" : "translated",
                   "value" : "%lld jours"
                 }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de jours"
-                }
               }
             }
           }
@@ -635,6 +635,12 @@
         "it" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld di giorni"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -645,12 +651,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld giorni"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld di giorni"
                 }
               }
             }
@@ -677,6 +677,12 @@
         "pt-BR" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de dias"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -687,12 +693,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld dias"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de dias"
                 }
               }
             }
@@ -741,6 +741,12 @@
         "es" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de regiones"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -752,12 +758,6 @@
                   "state" : "translated",
                   "value" : "%lld regiones"
                 }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de regiones"
-                }
               }
             }
           }
@@ -765,6 +765,12 @@
         "fr" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de régions"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -776,12 +782,6 @@
                   "state" : "translated",
                   "value" : "%lld régions"
                 }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de régions"
-                }
               }
             }
           }
@@ -789,6 +789,12 @@
         "it" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld di regioni"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -799,12 +805,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld regioni"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld di regioni"
                 }
               }
             }
@@ -831,6 +831,12 @@
         "pt-BR" : {
           "variations" : {
             "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de regiões"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -841,12 +847,6 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld regiões"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld de regiões"
                 }
               }
             }
@@ -975,6 +975,7 @@
       }
     },
     "Adds sample trips in Bavaria, from 12 days in Munich to short stops in small towns, to try the map and regions. Turning it off removes exactly these entries again. Real visits stay." : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1050,46 +1051,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Todos os países, cidades, dias de visita e o log de diagnóstico serão removidos permanentemente."
-          }
-        }
-      }
-    },
-    "All regions" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alle Regionen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Todas las regiones"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toutes les régions"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tutte le regioni"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alle regio’s"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Todas as regiões"
           }
         }
       }
@@ -1375,46 +1336,6 @@
         }
       }
     },
-    "Allow While Using" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Beim Verwenden erlauben"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Permitir al usar la app"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Autoriser pendant l’utilisation"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Consenti durante l’uso"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toestaan bij gebruik"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Permitir durante o uso"
-          }
-        }
-      }
-    },
     "Allow location “Always”" : {
       "localizations" : {
         "de" : {
@@ -1455,6 +1376,46 @@
         }
       }
     },
+    "Allow While Using" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beim Verwenden erlauben"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir al usar la app"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autoriser pendant l’utilisation"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consenti durante l’uso"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toestaan bij gebruik"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir durante o uso"
+          }
+        }
+      }
+    },
     "Alphabetical" : {
       "localizations" : {
         "de" : {
@@ -1491,6 +1452,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alfabética"
+          }
+        }
+      }
+    },
+    "already recorded today (%lld×)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "heute schon erfasst (%lld×)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ya registrado hoy (%lld×)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "déjà enregistré aujourd’hui (%lld×)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "già registrato oggi (%lld×)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vandaag al geregistreerd (%lld×)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "já registrado hoje (%lld×)"
           }
         }
       }
@@ -1571,6 +1572,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ainda falta “Sempre”"
+          }
+        }
+      }
+    },
+    "approximate" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ungefähr"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aproximada"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "approximative"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "approssimativa"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bij benadering"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aproximada"
           }
         }
       }
@@ -1735,42 +1776,82 @@
         }
       }
     },
-    "CC BY 4.0 license" : {
+    "Beta" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lizenz CC BY 4.0"
+            "value" : "Beta"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Licencia CC BY 4.0"
+            "value" : "Beta"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Licence CC BY 4.0"
+            "value" : "Bêta"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Licenza CC BY 4.0"
+            "value" : "Beta"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Licentie CC BY 4.0"
+            "value" : "Bèta"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Licença CC BY 4.0"
+            "value" : "Beta"
+          }
+        }
+      }
+    },
+    "Calendar" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kalender"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendario"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendrier"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendario"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kalender"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendário"
           }
         }
       }
@@ -1811,6 +1892,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancelar"
+          }
+        }
+      }
+    },
+    "CC BY 4.0 license" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lizenz CC BY 4.0"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licencia CC BY 4.0"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licence CC BY 4.0"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licenza CC BY 4.0"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licentie CC BY 4.0"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licença CC BY 4.0"
           }
         }
       }
@@ -2255,6 +2376,46 @@
         }
       }
     },
+    "Dates from earlier years are part of Pro." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tage aus früheren Jahren sind Teil von Pro."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las fechas de años anteriores son parte de Pro."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les dates des années précédentes font partie de Pro."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le date degli anni precedenti fanno parte di Pro."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datums uit eerdere jaren horen bij Pro."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As datas de anos anteriores fazem parte do Pro."
+          }
+        }
+      }
+    },
     "Days" : {
       "localizations" : {
         "de" : {
@@ -2615,42 +2776,42 @@
         }
       }
     },
-    "Delete individual countries and cities by swiping in the list." : {
+    "Delete this place" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Einzelne Länder und Städte löschst du in der Liste per Wischen."
+            "value" : "Diesen Ort löschen"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Para eliminar países y ciudades sueltos, desliza en la lista."
+            "value" : "Eliminar este lugar"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Supprime des pays et des villes un par un en les balayant dans la liste."
+            "value" : "Supprimer ce lieu"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Per eliminare singoli paesi e città, scorri nella lista."
+            "value" : "Elimina questo luogo"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Losse landen en steden verwijder je door in de lijst te vegen."
+            "value" : "Verwijder deze plek"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Para apagar países e cidades individualmente, deslize na lista."
+            "value" : "Apagar este lugar"
           }
         }
       }
@@ -2736,7 +2897,7 @@
         }
       }
     },
-    "Diagnostic Log" : {
+    "Diagnostic log" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2776,7 +2937,7 @@
         }
       }
     },
-    "Diagnostic log" : {
+    "Diagnostic Log" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2932,6 +3093,86 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Distritos"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fertig"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fine"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gereed"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Earlier years" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frühere Jahre"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Años anteriores"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Années précédentes"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anni precedenti"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eerdere jaren"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anos anteriores"
           }
         }
       }
@@ -3146,6 +3387,9 @@
     "GeoNames" : {
       "shouldTranslate" : false
     },
+    "geonames.org" : {
+      "shouldTranslate" : false
+    },
     "Get Pro" : {
       "localizations" : {
         "de" : {
@@ -3302,6 +3546,126 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Região de residência: %@. Você pode alterá-la em Ajustes."
+          }
+        }
+      }
+    },
+    "ignored: flight" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignoriert: Flug"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignorado: vuelo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignoré : vol"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignorato: volo"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "genegeerd: vlucht"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignorado: voo"
+          }
+        }
+      }
+    },
+    "ignored: inaccurate" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignoriert: ungenau"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignorado: impreciso"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignoré : imprécis"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignorato: impreciso"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "genegeerd: onnauwkeurig"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignorado: impreciso"
+          }
+        }
+      }
+    },
+    "ignored: invalid accuracy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignoriert: ungültig"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignorado: precisión no válida"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignoré : précision non valide"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignorato: precisione non valida"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "genegeerd: ongeldige nauwkeurigheid"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ignorado: precisão inválida"
           }
         }
       }
@@ -3502,46 +3866,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Licenças"
-          }
-        }
-      }
-    },
-    "List" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Liste"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lista"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Liste"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Elenco"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lijst"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lista"
           }
         }
       }
@@ -4029,6 +4353,9 @@
         }
       }
     },
+    "maplibre.org" : {
+      "shouldTranslate" : false
+    },
     "Match current location" : {
       "localizations" : {
         "de" : {
@@ -4228,6 +4555,49 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "O Natural Earth é de domínio público. As fronteiras dos países são usadas na escala 1:50 milhões, e 1:10 milhões para países pequenos."
+          }
+        }
+      }
+    },
+    "naturalearthdata.com" : {
+      "shouldTranslate" : false
+    },
+    "new day" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "neuer Tag"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "día nuevo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nouveau jour"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nuovo giorno"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nieuwe dag"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "novo dia"
           }
         }
       }
@@ -4432,6 +4802,46 @@
         }
       }
     },
+    "no country" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kein Land"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ningún país"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aucun pays"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nessun paese"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geen land"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nenhum país"
+          }
+        }
+      }
+    },
     "No country found, for example at sea." : {
       "localizations" : {
         "de" : {
@@ -4468,6 +4878,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nenhum país encontrado, por exemplo em alto-mar."
+          }
+        }
+      }
+    },
+    "no location" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kein Standort"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin ubicación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aucune position"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nessuna posizione"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geen locatie"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sem localização"
           }
         }
       }
@@ -4992,6 +5442,46 @@
         }
       }
     },
+    "Only in debug builds from Xcode. App Store and TestFlight builds don’t include this menu." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur in Debug-Builds aus Xcode. Builds für App Store und TestFlight enthalten dieses Menü nicht."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo en compilaciones de depuración desde Xcode. Las compilaciones de App Store y TestFlight no incluyen este menú."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uniquement dans les builds de débogage depuis Xcode. Les builds App Store et TestFlight n’incluent pas ce menu."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo nelle build di debug da Xcode. Le build per App Store e TestFlight non includono questo menu."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alleen in debugbuilds vanuit Xcode. Builds voor de App Store en TestFlight bevatten dit menu niet."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Somente em builds de depuração pelo Xcode. Builds da App Store e do TestFlight não incluem este menu."
+          }
+        }
+      }
+    },
     "Open iOS Settings" : {
       "localizations" : {
         "de" : {
@@ -5033,6 +5523,9 @@
       }
     },
     "OpenStreetMap" : {
+      "shouldTranslate" : false
+    },
+    "openstreetmap.org/copyright" : {
       "shouldTranslate" : false
     },
     "Other cities" : {
@@ -5635,6 +6128,46 @@
         }
       }
     },
+    "Show test controls" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testschalter zeigen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar controles de prueba"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher les commandes de test"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra controlli di prova"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testknoppen tonen"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar controles de teste"
+          }
+        }
+      }
+    },
     "Simplified for the app and cut to the area around the cities." : {
       "localizations" : {
         "de" : {
@@ -5955,46 +6488,6 @@
         }
       }
     },
-    "Swipe left to delete." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zum Löschen nach links wischen."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Desliza a la izquierda para eliminar."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Balaie vers la gauche pour supprimer."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Scorri a sinistra per eliminare."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Veeg naar links om te verwijderen."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Deslize para a esquerda para apagar."
-          }
-        }
-      }
-    },
     "Tap a highlighted country to see its regions and cities." : {
       "localizations" : {
         "de" : {
@@ -6116,6 +6609,7 @@
       }
     },
     "Test data in Bavaria" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -6151,6 +6645,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dados de teste na Baviera"
+          }
+        }
+      }
+    },
+    "Test data, the location check and the diagnostic log in Settings. Turn off to see Settings as a regular user." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testdaten, Zuordnung prüfen und Diagnose-Log in den Einstellungen. Ausschalten, um die Einstellungen wie ein normaler Nutzer zu sehen."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datos de prueba, la comprobación de ubicación y el log de diagnóstico en Ajustes. Desactívalo para ver Ajustes como un usuario normal."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Données de test, vérification de la position et journal de diagnostic dans les Réglages. Désactivez pour voir les Réglages comme un utilisateur normal."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dati di prova, verifica della posizione e log di diagnostica nelle Impostazioni. Disattiva per vedere le Impostazioni come un utente normale."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testgegevens, de locatiecontrole en het diagnoselog in Instellingen. Zet uit om Instellingen te zien zoals een gewone gebruiker."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dados de teste, a verificação de localização e o log de diagnóstico nos Ajustes. Desative para ver os Ajustes como um usuário comum."
           }
         }
       }
@@ -6351,6 +6885,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Este ano"
+          }
+        }
+      }
+    },
+    "To delete a single country or city, open it on the map or in Places." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um ein einzelnes Land oder eine Stadt zu löschen, öffne es auf der Karte oder unter „Orte“."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para eliminar un país o una ciudad, ábrelo en el mapa o en “Lugares”."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour supprimer un pays ou une ville, ouvre-le sur la carte ou dans « Lieux »."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per eliminare un paese o una città, aprilo sulla mappa o in “Luoghi”."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open een land of stad op de kaart of in ‘Plekken’ om het te verwijderen."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para apagar um país ou uma cidade, abra-o no mapa ou em “Lugares”."
           }
         }
       }
@@ -6635,6 +7209,126 @@
         }
       }
     },
+    "Unlock Pro" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro freischalten"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloquear Pro"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déverrouiller Pro"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sblocca Pro"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro ontgrendelen"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloquear Pro"
+          }
+        }
+      }
+    },
+    "Unlocked (beta)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freigeschaltet (Beta)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloqueado (beta)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déverrouillé (bêta)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbloccato (beta)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ontgrendeld (bèta)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloqueado (beta)"
+          }
+        }
+      }
+    },
+    "Unlocks all Pro features on this device, including the widgets. Nothing is purchased." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schaltet alle Pro-Funktionen auf diesem Gerät frei, auch die Widgets. Es wird nichts gekauft."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloquea todas las funciones Pro en este dispositivo, también los widgets. No se compra nada."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déverrouille toutes les fonctions Pro sur cet appareil, widgets compris. Aucun achat n’est effectué."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sblocca tutte le funzioni Pro su questo dispositivo, inclusi i widget. Non viene acquistato nulla."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ontgrendelt alle Pro-functies op dit apparaat, ook de widgets. Er wordt niets gekocht."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desbloqueia todos os recursos Pro neste dispositivo, inclusive os widgets. Nada é comprado."
+          }
+        }
+      }
+    },
     "Uses the list of places with 15,000 or more residents and English names. The data was changed for the app: districts and suburbs are assigned to their city (for example, arrondissements to Paris, Stepney to London)." : {
       "localizations" : {
         "de" : {
@@ -6831,6 +7525,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Visita"
+          }
+        }
+      }
+    },
+    "Visited on %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Besucht am %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visitado el %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visité le %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visitato il %@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bezocht op %@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visitado em %@"
           }
         }
       }
@@ -7035,42 +7769,42 @@
         }
       }
     },
-    "World map. %@ and %@ visited. The list tab shows them as a list." : {
+    "World map. %@ and %@ visited. The Places button lists them." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Weltkarte. %@ und %@ besucht. Der Tab „Liste“ zeigt sie als Liste."
+            "value" : "Weltkarte. %@ und %@ besucht. Der Knopf „Orte“ listet sie auf."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mapa del mundo. %1$@ y %2$@ visitados. La pestaña “Lista” los muestra en una lista."
+            "value" : "Mapa del mundo. %1$@ y %2$@ visitados. El botón “Lugares” los muestra en una lista."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Carte du monde. %1$@ et %2$@ visités. L’onglet « Liste » les affiche sous forme de liste."
+            "value" : "Carte du monde. %1$@ et %2$@ visités. Le bouton « Lieux » les affiche sous forme de liste."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mappa del mondo. %1$@ e %2$@ visitati. La scheda “Elenco” li mostra in un elenco."
+            "value" : "Mappa del mondo. %1$@ e %2$@ visitati. Il pulsante “Luoghi” li mostra in un elenco."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wereldkaart. %1$@ en %2$@ bezocht. Het tabblad ‘Lijst’ toont ze als lijst."
+            "value" : "Wereldkaart. %1$@ en %2$@ bezocht. De knop ‘Plekken’ toont ze als lijst."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mapa-múndi. %1$@ e %2$@ visitados. A aba “Lista” os mostra em uma lista."
+            "value" : "Mapa-múndi. %1$@ e %2$@ visitados. O botão “Lugares” os mostra em uma lista."
           }
         }
       }
@@ -7111,6 +7845,160 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Filtro por ano"
+          }
+        }
+      }
+    },
+    "You’ve been to %lld countries in %@." : {
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Du warst %2$@ in %1$lld Land."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Du warst %2$@ in %1$lld Ländern."
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "You’ve been to %lld country in %@."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "You’ve been to %lld countries in %@."
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Has estado en %lld de países en %@."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Has estado en %lld país en %@."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Has estado en %lld países en %@."
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tu as visité %lld de pays en %@."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tu as visité %lld pays en %@."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tu as visité %lld pays en %@."
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hai visitato %lld di paesi nel %@."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hai visitato %lld paese nel %@."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hai visitato %lld paesi nel %@."
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Je bent in %2$@ in %1$lld land geweest."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Je bent in %2$@ in %1$lld landen geweest."
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Você esteve em %lld de países em %@."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Você esteve em %lld país em %@."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Você esteve em %lld países em %@."
+                }
+              }
+            }
           }
         }
       }
@@ -7274,492 +8162,6 @@
           }
         }
       }
-    },
-    "You’ve been to %lld countries in %@." : {
-      "localizations" : {
-        "de" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Du warst %2$@ in %1$lld Land."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Du warst %2$@ in %1$lld Ländern."
-                }
-              }
-            }
-          }
-        },
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "You’ve been to %lld country in %@."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "You’ve been to %lld countries in %@."
-                }
-              }
-            }
-          }
-        },
-        "es" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Has estado en %lld país en %@."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Has estado en %lld países en %@."
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Has estado en %lld de países en %@."
-                }
-              }
-            }
-          }
-        },
-        "fr" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Tu as visité %lld pays en %@."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Tu as visité %lld pays en %@."
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Tu as visité %lld de pays en %@."
-                }
-              }
-            }
-          }
-        },
-        "it" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Hai visitato %lld paese nel %@."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Hai visitato %lld paesi nel %@."
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Hai visitato %lld di paesi nel %@."
-                }
-              }
-            }
-          }
-        },
-        "nl" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Je bent in %2$@ in %1$lld land geweest."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Je bent in %2$@ in %1$lld landen geweest."
-                }
-              }
-            }
-          }
-        },
-        "pt-BR" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Você esteve em %lld país em %@."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Você esteve em %lld países em %@."
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Você esteve em %lld de países em %@."
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "already recorded today (%lld×)" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "heute schon erfasst (%lld×)"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ya registrado hoy (%lld×)"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "déjà enregistré aujourd’hui (%lld×)"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "già registrato oggi (%lld×)"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vandaag al geregistreerd (%lld×)"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "já registrado hoje (%lld×)"
-          }
-        }
-      }
-    },
-    "approximate" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ungefähr"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "aproximada"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "approximative"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "approssimativa"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "bij benadering"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "aproximada"
-          }
-        }
-      }
-    },
-    "geonames.org" : {
-      "shouldTranslate" : false
-    },
-    "ignored: flight" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignoriert: Flug"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignorado: vuelo"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignoré : vol"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignorato: volo"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "genegeerd: vlucht"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignorado: voo"
-          }
-        }
-      }
-    },
-    "ignored: inaccurate" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignoriert: ungenau"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignorado: impreciso"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignoré : imprécis"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignorato: impreciso"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "genegeerd: onnauwkeurig"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignorado: impreciso"
-          }
-        }
-      }
-    },
-    "ignored: invalid accuracy" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignoriert: ungültig"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignorado: precisión no válida"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignoré : précision non valide"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignorato: precisione non valida"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "genegeerd: ongeldige nauwkeurigheid"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ignorado: precisão inválida"
-          }
-        }
-      }
-    },
-    "maplibre.org" : {
-      "shouldTranslate" : false
-    },
-    "naturalearthdata.com" : {
-      "shouldTranslate" : false
-    },
-    "new day" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "neuer Tag"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "día nuevo"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "nouveau jour"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "nuovo giorno"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "nieuwe dag"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "novo dia"
-          }
-        }
-      }
-    },
-    "no country" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "kein Land"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ningún país"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "aucun pays"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "nessun paese"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "geen land"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "nenhum país"
-          }
-        }
-      }
-    },
-    "no location" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "kein Standort"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "sin ubicación"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "aucune position"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "nessuna posizione"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "geen locatie"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "sem localização"
-          }
-        }
-      }
-    },
-    "openstreetmap.org/copyright" : {
-      "shouldTranslate" : false
     }
   },
   "version" : "1.0"

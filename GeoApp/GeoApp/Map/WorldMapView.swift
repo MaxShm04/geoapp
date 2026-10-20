@@ -21,6 +21,8 @@ struct WorldMapView: UIViewRepresentable {
     let bottomInset: CGFloat
     let onSelectCountry: (String?) -> Void
     let onSelectRegion: (String?) -> Void
+    /// Tipp auf eine Stadt oder zweiter Tipp in die gewählte Region: Ortsansicht öffnen.
+    let onSelectPlace: (PlaceRef) -> Void
     let onFocusFinished: () -> Void
 
     @Environment(\.colorScheme) private var colorScheme
@@ -443,13 +445,18 @@ struct WorldMapView: UIViewRepresentable {
 
         // MARK: Tippen
 
-        /// Welt: Tipp auf ein besuchtes Land zoomt hinein.
+        /// Welt: Tipp auf ein besuchtes Land zoomt hinein. Tipp auf eine Stadt öffnet ihre Ortsansicht.
         /// Land: Tipp auf eine besuchte Region zoomt in die Region, Tipp aufs Meer zurück zur Welt.
+        /// Region: ein weiterer Tipp hinein öffnet die Ortsansicht des Kreises (ohne Besuche dort die der Region).
         /// Die Tipp-Koordinate ist ein Kartenpunkt, kein Standort, und wird nicht gespeichert.
         @objc func handleTap(_ gesture: UITapGestureRecognizer) {
             guard let map = gesture.view as? MLNMapView else { return }
             let point = gesture.location(in: map)
-            if map.hitTest(point, with: nil)?.firstSuperview(of: MLNAnnotationView.self) != nil { return }
+            if let dot = map.hitTest(point, with: nil)?.firstSuperview(of: MLNAnnotationView.self) {
+                // Tipp auf eine Stadt: Ortsansicht. MapLibre wählt den Punkt hier nicht zuverlässig aus.
+                if let city = dot.annotation as? CityAnnotation { parent.onSelectPlace(.city(city.pin.id)) }
+                return
+            }
 
             let coordinate = map.convert(point, toCoordinateFrom: map)
             let code = GeoLookup.shared.countryCode(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -457,7 +464,15 @@ struct WorldMapView: UIViewRepresentable {
             if let focus = parent.focus, code == focus.code {
                 let region = RegionIndex.shared.region(in: focus.code, lat: coordinate.latitude, lon: coordinate.longitude)
                 if let region, (focus.regionDays[region.id] ?? 0) > 0 {
-                    if region.id != parent.selectedRegion { parent.onSelectRegion(region.id) }
+                    if region.id != parent.selectedRegion {
+                        parent.onSelectRegion(region.id)
+                    } else if let district = DistrictIndex.shared.district(in: focus.code, lat: coordinate.latitude,
+                                                                           lon: coordinate.longitude),
+                              district.regionId == region.id, (focus.districtDays[district.id] ?? 0) > 0 {
+                        parent.onSelectPlace(.district(district.id))
+                    } else {
+                        parent.onSelectPlace(.region(region.id))
+                    }
                 } else if parent.selectedRegion != nil {
                     parent.onSelectRegion(nil)
                 }
@@ -620,6 +635,12 @@ final class CityDotView: MLNAnnotationView {
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) is not supported") }
+
+    /// Der Punkt ist nur 6 bis 11 pt groß. Tipps zählen in etwa 44 pt um seine Mitte.
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let slop = max(0, (44 - dotSize) / 2)
+        return bounds.insetBy(dx: -slop, dy: -slop).contains(point)
+    }
 
     func configure(pin: CityPin) {
         dotSize = pin.isProminent ? 11 : 6

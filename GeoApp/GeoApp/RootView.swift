@@ -18,8 +18,6 @@ struct RootView: View {
                         .tabItem { Label("Trips", systemImage: "suitcase") }
                     StatisticsScreen()
                         .tabItem { Label("Statistics", systemImage: "chart.bar") }
-                    ListScreen()
-                        .tabItem { Label("List", systemImage: "list.bullet") }
                     SettingsView()
                         .tabItem { Label("Settings", systemImage: "gearshape") }
                 }

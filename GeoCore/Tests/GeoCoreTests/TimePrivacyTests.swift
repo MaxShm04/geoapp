@@ -34,6 +34,8 @@ struct TimePrivacyTests {
                  cityIds: [2950159], isOngoing: false),
             YearStatistics(year: 2026, countryCodes: ["DE"]),
             CountryDays(code: "DE", days: 3),
+            Stay(first: 20260101, last: 20260103),
+            YearStays(year: 2026, stays: []),
         ]
 
         for value in values {

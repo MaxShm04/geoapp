@@ -135,15 +135,15 @@ struct LocalizationTests {
     }
 
     @Test func cityCountGerman() {
-        #expect(ListScreen.cityCountText(0, locale: de) == "0 Städte")
-        #expect(ListScreen.cityCountText(1, locale: de) == "1 Stadt")
-        #expect(ListScreen.cityCountText(3, locale: de) == "3 Städte")
+        #expect(PlacesList.cityCountText(0, locale: de) == "0 Städte")
+        #expect(PlacesList.cityCountText(1, locale: de) == "1 Stadt")
+        #expect(PlacesList.cityCountText(3, locale: de) == "3 Städte")
     }
 
     @Test func cityCountEnglish() {
-        #expect(ListScreen.cityCountText(0, locale: en) == "0 cities")
-        #expect(ListScreen.cityCountText(1, locale: en) == "1 city")
-        #expect(ListScreen.cityCountText(3, locale: en) == "3 cities")
+        #expect(PlacesList.cityCountText(0, locale: en) == "0 cities")
+        #expect(PlacesList.cityCountText(1, locale: en) == "1 city")
+        #expect(PlacesList.cityCountText(3, locale: en) == "3 cities")
     }
 
     @Test func catalogComplete() {

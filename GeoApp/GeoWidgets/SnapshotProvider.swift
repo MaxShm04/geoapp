@@ -29,7 +29,10 @@ struct SnapshotProvider: TimelineProvider {
         nonisolated(unsafe) let finish = completion
         Task {
             // Pro wird bei jeder Aktualisierung bei StoreKit erfragt, nichts davon wird gespeichert.
-            let pro = await Self.isPro()
+            let entitled = await Self.isPro()
+            // Beta-Freischaltung aus der App Group, in Release immer aus.
+            let pro = ProRules.unlocked(entitled: entitled,
+                                        betaOverride: BetaSettings.proOverride(in: BetaSettings.sharedDefaults))
             let entry = SnapshotEntry(date: .now, snapshot: snapshot, unlocked: kind == WidgetKind.free || pro)
             // Neu laden zum nächsten Tag; die App lädt die Zeitpläne zusätzlich bei jeder Änderung neu.
             let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: .now))
