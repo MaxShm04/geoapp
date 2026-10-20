@@ -934,6 +934,88 @@
         }
       }
     },
+    "Act as not subscribed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wie nicht abonniert"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Como sin suscripción"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comme sans abonnement"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Come senza abbonamento"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alsof niet geabonneerd"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Como sem assinatura"
+          }
+        }
+      }
+    },
+    "Act as not subscribed treats a test purchase as ended right away, also in the widgets. The purchase itself stays. Turn off auto-renew cancels it in StoreKit; it then ends at the end of its period, not right away. To remove a test purchase at once, delete it in Xcode under Debug › StoreKit › Manage Transactions." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„Wie nicht abonniert“ behandelt einen Testkauf sofort als beendet, auch in den Widgets. Der Kauf selbst bleibt. „Automatische Verlängerung aus“ kündigt ihn in StoreKit; er endet dann erst am Ende der Laufzeit. Um einen Testkauf sofort zu entfernen, lösche ihn in Xcode unter Debug › StoreKit › Manage Transactions."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Como sin suscripción” trata una compra de prueba como terminada al instante, también en los widgets. La compra en sí se mantiene. “Desactivar renovación automática” la cancela en StoreKit; termina al final de su periodo, no al instante. Para quitar una compra de prueba al instante, elimínala en Xcode en Debug › StoreKit › Manage Transactions."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "« Comme sans abonnement » traite un achat de test comme terminé tout de suite, aussi dans les widgets. L’achat lui-même reste. « Désactiver le renouvellement auto » l’annule dans StoreKit ; il prend fin à la fin de sa période, pas tout de suite. Pour supprimer un achat de test tout de suite, supprime-le dans Xcode sous Debug › StoreKit › Manage Transactions."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Come senza abbonamento” considera subito concluso un acquisto di prova, anche nei widget. L’acquisto resta. “Disattiva rinnovo automatico” lo annulla in StoreKit; termina alla fine del periodo, non subito. Per rimuovere subito un acquisto di prova, eliminalo in Xcode in Debug › StoreKit › Manage Transactions."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘Alsof niet geabonneerd’ behandelt een testaankoop meteen als beëindigd, ook in de widgets. De aankoop zelf blijft. ‘Automatisch verlengen uitzetten’ zegt hem op in StoreKit; hij stopt dan pas aan het eind van de periode. Verwijder een testaankoop meteen in Xcode via Debug › StoreKit › Manage Transactions."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Como sem assinatura” trata uma compra de teste como encerrada na hora, também nos widgets. A compra em si continua. “Desativar renovação automática” a cancela no StoreKit; ela termina no fim do período, não na hora. Para remover uma compra de teste na hora, apague-a no Xcode em Debug › StoreKit › Manage Transactions."
+          }
+        }
+      }
+    },
     "Active" : {
       "localizations" : {
         "de" : {
@@ -975,7 +1057,7 @@
       }
     },
     "Adds sample trips in Bavaria, from 12 days in Munich to short stops in small towns, to try the map and regions. Turning it off removes exactly these entries again. Real visits stay." : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1252,46 +1334,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Todos os widgets para a sua Tela de Início"
-          }
-        }
-      }
-    },
-    "All years" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alle Jahre"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Todos los años"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toutes les années"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tutti gli anni"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alle jaren"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Todos os anos"
           }
         }
       }
@@ -1777,6 +1819,7 @@
       }
     },
     "Beta" : {
+      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3177,43 +3220,43 @@
         }
       }
     },
-    "Every year on the map and in your trips" : {
+    "Every year in your trips and places" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jedes Jahr auf der Karte und in deinen Reisen"
+            "value" : "Jedes Jahr in deinen Reisen und Orten"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cada año en el mapa y en tus viajes"
+            "value" : "Cada año en tus viajes y lugares"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chaque année sur la carte et dans tes voyages"
+            "value" : "Chaque année dans tes voyages et tes lieux"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ogni anno sulla mappa e nei tuoi viaggi"
+            "value" : "Ogni anno nei tuoi viaggi e luoghi"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Elk jaar op de kaart en in je reizen"
+            "value" : "Elk jaar in je reizen en plekken"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cada ano no mapa e nas suas viagens"
+            "value" : "Cada ano nas suas viagens e lugares"
           }
         }
       }
@@ -4962,46 +5005,6 @@
         }
       }
     },
-    "No places recorded in this year yet." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "In diesem Jahr ist noch kein Ort erfasst."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aún no hay lugares registrados en este año."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucun lieu enregistré pour cette année."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ancora nessun luogo registrato in quest’anno."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nog geen plekken geregistreerd in dit jaar."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nenhum lugar registrado neste ano ainda."
-          }
-        }
-      }
-    },
     "No places yet" : {
       "localizations" : {
         "de" : {
@@ -5443,6 +5446,7 @@
       }
     },
     "Only in debug builds from Xcode. App Store and TestFlight builds don’t include this menu." : {
+      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -6129,6 +6133,7 @@
       }
     },
     "Show test controls" : {
+      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -6609,7 +6614,7 @@
       }
     },
     "Test data in Bavaria" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -6650,6 +6655,7 @@
       }
     },
     "Test data, the location check and the diagnostic log in Settings. Turn off to see Settings as a regular user." : {
+      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -6685,6 +6691,47 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dados de teste, a verificação de localização e o log de diagnóstico nos Ajustes. Desative para ver os Ajustes como um usuário comum."
+          }
+        }
+      }
+    },
+    "Test subscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test-Abo"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suscripción de prueba"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonnement de test"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbonamento di prova"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testabonnement"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assinatura de teste"
           }
         }
       }
@@ -6889,42 +6936,42 @@
         }
       }
     },
-    "To delete a single country or city, open it on the map or in Places." : {
+    "To delete a single country or city, open it on the map or in Places on the Trips tab." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Um ein einzelnes Land oder eine Stadt zu löschen, öffne es auf der Karte oder unter „Orte“."
+            "value" : "Um ein einzelnes Land oder eine Stadt zu löschen, öffne es auf der Karte oder unter „Orte“ im Tab „Reisen“."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Para eliminar un país o una ciudad, ábrelo en el mapa o en “Lugares”."
+            "value" : "Para eliminar un país o una ciudad, ábrelo en el mapa o en “Lugares” en la pestaña “Viajes”."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pour supprimer un pays ou une ville, ouvre-le sur la carte ou dans « Lieux »."
+            "value" : "Pour supprimer un pays ou une ville, ouvre-le sur la carte ou dans « Lieux » de l’onglet « Voyages »."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Per eliminare un paese o una città, aprilo sulla mappa o in “Luoghi”."
+            "value" : "Per eliminare un paese o una città, aprilo sulla mappa o in “Luoghi” nella scheda “Viaggi”."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open een land of stad op de kaart of in ‘Plekken’ om het te verwijderen."
+            "value" : "Open een land of stad op de kaart of in ‘Plekken’ op het tabblad ‘Reizen’ om het te verwijderen."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Para apagar um país ou uma cidade, abra-o no mapa ou em “Lugares”."
+            "value" : "Para apagar um país ou uma cidade, abra-o no mapa ou em “Lugares” na aba “Viagens”."
           }
         }
       }
@@ -7129,6 +7176,47 @@
         }
       }
     },
+    "Turn off auto-renew" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatische Verlängerung aus"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desactivar renovación automática"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactiver le renouvellement auto"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disattiva rinnovo automatico"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatisch verlengen uitzetten"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desativar renovação automática"
+          }
+        }
+      }
+    },
     "Turn on precise location" : {
       "localizations" : {
         "de" : {
@@ -7210,6 +7298,7 @@
       }
     },
     "Unlock Pro" : {
+      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -7290,6 +7379,7 @@
       }
     },
     "Unlocks all Pro features on this device, including the widgets. Nothing is purchased." : {
+      "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -7769,82 +7859,42 @@
         }
       }
     },
-    "World map. %@ and %@ visited. The Places button lists them." : {
+    "World map. %@ and %@ visited. The Trips tab lists all places." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Weltkarte. %@ und %@ besucht. Der Knopf „Orte“ listet sie auf."
+            "value" : "Weltkarte. %@ und %@ besucht. Der Tab „Reisen“ listet alle Orte auf."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mapa del mundo. %1$@ y %2$@ visitados. El botón “Lugares” los muestra en una lista."
+            "value" : "Mapa del mundo. %1$@ y %2$@ visitados. La pestaña “Viajes” muestra todos los lugares."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Carte du monde. %1$@ et %2$@ visités. Le bouton « Lieux » les affiche sous forme de liste."
+            "value" : "Carte du monde. %1$@ et %2$@ visités. L’onglet « Voyages » liste tous les lieux."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mappa del mondo. %1$@ e %2$@ visitati. Il pulsante “Luoghi” li mostra in un elenco."
+            "value" : "Mappa del mondo. %1$@ e %2$@ visitati. La scheda “Viaggi” elenca tutti i luoghi."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wereldkaart. %1$@ en %2$@ bezocht. De knop ‘Plekken’ toont ze als lijst."
+            "value" : "Wereldkaart. %1$@ en %2$@ bezocht. Het tabblad ‘Reizen’ toont alle plekken."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mapa-múndi. %1$@ e %2$@ visitados. O botão “Lugares” os mostra em uma lista."
-          }
-        }
-      }
-    },
-    "Year filter" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jahresfilter"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filtro por año"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filtre par année"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filtro per anno"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jaarfilter"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filtro por ano"
+            "value" : "Mapa-múndi. %1$@ e %2$@ visitados. A aba “Viagens” lista todos os lugares."
           }
         }
       }

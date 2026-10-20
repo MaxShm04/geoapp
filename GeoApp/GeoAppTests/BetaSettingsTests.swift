@@ -33,7 +33,63 @@ struct BetaSettingsTests {
         #endif
     }
 
+    /// „Wie nicht abonniert“ lässt ein gültiges Abo außer Acht; die Freischaltung gilt trotzdem.
+    @Test func unlockedRuleIgnoringSubscription() {
+        #if DEBUG
+        #expect(ProRules.unlocked(entitled: true, betaOverride: false, ignoresSubscription: true) == false)
+        #expect(ProRules.unlocked(entitled: true, betaOverride: true, ignoresSubscription: true) == true)
+        #expect(ProRules.unlocked(entitled: false, betaOverride: false, ignoresSubscription: true) == false)
+        #expect(ProRules.unlocked(entitled: true, betaOverride: false, ignoresSubscription: false) == true)
+        #else
+        #expect(ProRules.unlocked(entitled: true, betaOverride: false, ignoresSubscription: true) == true)
+        #endif
+    }
+
     #if DEBUG
+    @Test func ignoreStoredInDefaults() {
+        let (defaults, name) = freshDefaults()
+        defer { defaults.removePersistentDomain(forName: name) }
+
+        #expect(BetaSettings.ignoresSubscription(in: defaults) == false)
+        #expect(BetaSettings.ignoresSubscription(in: nil) == false)
+        BetaSettings.setIgnoresSubscription(true, in: defaults)
+        #expect(BetaSettings.ignoresSubscription(in: defaults) == true)
+        BetaSettings.setIgnoresSubscription(false, in: defaults)
+        #expect(BetaSettings.ignoresSubscription(in: defaults) == false)
+    }
+
+    /// Ein gültiges Test-Abo zählt nicht mehr: Gates zu, Status frei, auch für einen zweiten Leser (Widgets).
+    @Test func ignoringSubscriptionLocksGates() {
+        let (defaults, name) = freshDefaults()
+        defer { defaults.removePersistentDomain(forName: name) }
+
+        let store = ProStore(betaDefaults: defaults)
+        let active = EntitlementFact(productID: "de.max.geoapp.pro.monthly", revoked: false,
+                                     expires: betaNow.addingTimeInterval(30 * 86_400), isUpgraded: false)
+        store.refresh(facts: [active])
+        #expect(store.isPro && store.hasActiveSubscription)
+
+        store.setBetaIgnoresSubscription(true)
+        #expect(store.isEntitled == true)
+        #expect(store.isPro == false)
+        #expect(store.hasActiveSubscription == false)
+        #expect(ProGate.allows(.timeline, year: .year(2025), currentYear: 2026, isPro: store.isPro) == false)
+        #expect(ProGate.allowsStatisticsDetail(isPro: store.isPro) == false)
+        #expect(ProGate.allowsWidget(.map, isPro: store.isPro) == false)
+        #expect(ProStore(betaDefaults: defaults).betaIgnoresSubscription == true)
+        #expect(ProRules.unlocked(entitled: true, betaOverride: BetaSettings.proOverride(in: defaults),
+                                  ignoresSubscription: BetaSettings.ignoresSubscription(in: defaults)) == false)
+
+        // Die Freischaltung gilt weiter, das Abo bleibt dabei außer Acht.
+        store.setBetaProOverride(true)
+        #expect(store.isPro == true)
+        #expect(store.hasActiveSubscription == false)
+        store.setBetaProOverride(false)
+
+        store.setBetaIgnoresSubscription(false)
+        #expect(store.isPro && store.hasActiveSubscription)
+    }
+
     @Test func overrideStoredInDefaults() {
         let (defaults, name) = freshDefaults()
         defer { defaults.removePersistentDomain(forName: name) }
@@ -52,9 +108,9 @@ struct BetaSettingsTests {
         defer { defaults.removePersistentDomain(forName: name) }
 
         let store = ProStore(betaDefaults: defaults)
-        store.refresh(facts: [], now: betaNow)
+        store.refresh(facts: [])
         #expect(store.isPro == false)
-        #expect(ProGate.allows(.yearFilter, year: .year(2025), currentYear: 2026, isPro: store.isPro) == false)
+        #expect(ProGate.allows(.timeline, year: .year(2025), currentYear: 2026, isPro: store.isPro) == false)
 
         store.setBetaProOverride(true)
         #expect(store.isPro == true)
@@ -99,7 +155,7 @@ struct BetaSettingsTests {
         let store = ProStore(betaDefaults: defaults)
         let active = EntitlementFact(productID: "de.max.geoapp.pro.yearly", revoked: false,
                                      expires: betaNow.addingTimeInterval(30 * 86_400), isUpgraded: false)
-        store.refresh(facts: [active], now: betaNow)
+        store.refresh(facts: [active])
         #expect(store.isEntitled == true)
         #expect(store.isPro == true)
 
@@ -107,7 +163,7 @@ struct BetaSettingsTests {
         store.setBetaProOverride(false)
         #expect(store.isPro == true)
 
-        store.refresh(facts: [], now: betaNow)
+        store.refresh(facts: [])
         #expect(store.isPro == false)
     }
     #endif

@@ -14,18 +14,6 @@ private func gateFact(_ productID: String, revoked: Bool = false, expires: Date?
 
 /// Freie und Pro-Teile der Funktionen (Phase 2, D9 und D10) und die gemeinsamen Pro-Regeln.
 struct ProGateTests {
-    @Test func yearFilter() {
-        #expect(ProGate.allows(.yearFilter, year: .all, currentYear: 2026, isPro: false) == true)
-        #expect(ProGate.allows(.yearFilter, year: .year(2026), currentYear: 2026, isPro: false) == true)
-        #expect(ProGate.allows(.yearFilter, year: .year(2025), currentYear: 2026, isPro: false) == false)
-        #expect(ProGate.allows(.yearFilter, year: .year(2027), currentYear: 2026, isPro: false) == false)
-
-        #expect(ProGate.allows(.yearFilter, year: .all, currentYear: 2026, isPro: true) == true)
-        #expect(ProGate.allows(.yearFilter, year: .year(2026), currentYear: 2026, isPro: true) == true)
-        #expect(ProGate.allows(.yearFilter, year: .year(2025), currentYear: 2026, isPro: true) == true)
-        #expect(ProGate.allows(.yearFilter, year: .year(2027), currentYear: 2026, isPro: true) == true)
-    }
-
     @Test func timelineAndStatisticsYears() {
         for feature in [ProFeature.timeline, .statistics] {
             #expect(ProGate.allows(feature, year: .year(2026), currentYear: 2026, isPro: false) == true,
@@ -64,7 +52,7 @@ struct ProGateTests {
     /// Die Paywall nennt nur Funktionen, die es gibt. Das Wort „upcoming“ bleibt draußen.
     @Test func paywallCopyMatchesShippedFeatures() {
         #expect(PaywallView.featureKeys == [
-            "Every year on the map and in your trips",
+            "Every year in your trips and places",
             "Detailed statistics for every year",
             "All widgets for your Home Screen",
         ])
@@ -100,8 +88,8 @@ struct ProGateTests {
             (other, false),
         ]
         for (facts, expected) in cases {
-            #expect(ProRules.isPro(facts: facts, now: gateNow) == expected)
-            #expect(ProStore.isPro(facts: facts, now: gateNow) == expected)
+            #expect(ProRules.isPro(facts: facts) == expected)
+            #expect(ProStore.isPro(facts: facts) == expected)
         }
     }
 }

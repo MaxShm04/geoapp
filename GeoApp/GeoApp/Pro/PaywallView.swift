@@ -8,7 +8,7 @@ struct PaywallView: View {
 
     /// Was Pro freischaltet, so wie es ausgeliefert ist (Phase 2, D10).
     static let featureKeys: [String] = [
-        "Every year on the map and in your trips",
+        "Every year in your trips and places",
         "Detailed statistics for every year",
         "All widgets for your Home Screen",
     ]
@@ -27,9 +27,15 @@ struct PaywallView: View {
         .storeButton(.visible, for: .cancellation)
         .subscriptionStorePolicyDestination(url: ProStore.Links.terms, for: .termsOfService)
         .subscriptionStorePolicyDestination(url: ProStore.Links.privacy, for: .privacyPolicy)
-        .onInAppPurchaseCompletion { _, _ in
+        // Mit eigenem Abschluss beendet StoreKit die Transaktion nicht selbst.
+        .onInAppPurchaseCompletion { _, result in
+            if case .success(.success(.verified(let transaction))) = result {
+                await transaction.finish()
+            }
             await store.refreshFromStoreKit()
         }
+        // Falls der Pro-Zustand veraltet ist: neu fragen; ist Pro schon aktiv, schließt die Paywall.
+        .task { await store.refreshFromStoreKit() }
         .onChange(of: store.isPro) { _, isPro in
             if isPro { dismiss() }
         }

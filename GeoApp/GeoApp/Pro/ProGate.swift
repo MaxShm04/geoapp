@@ -1,17 +1,12 @@
 import Foundation
 import GeoCore
 
-/// Was ohne Pro geht (Entscheidung D10).
+/// Was ohne Pro geht (Entscheidung D10). Die Karte zeigt immer alle Jahre und ist ganz frei.
 enum ProGate {
-    /// Jahr auf der Karte, in den Reisen oder in der Statistik.
+    /// Jahr in den Reisen, in der Ortsansicht oder in der Statistik.
     static func allows(_ feature: ProFeature, year: YearFilter, currentYear: Int, isPro: Bool) -> Bool {
         if isPro { return true }
         switch feature {
-        case .yearFilter:
-            switch year {
-            case .all: return true
-            case .year(let value): return value == currentYear
-            }
         case .timeline, .statistics:
             if case .year(let value) = year { return value == currentYear }
             return false

@@ -5,6 +5,7 @@ struct RootView: View {
     @AppStorage(AppSettings.onboardingDone) private var onboardingDone = false
     @Environment(\.scenePhase) private var scenePhase
     @Environment(LocationService.self) private var location
+    @Environment(ProStore.self) private var proStore
     @Environment(\.modelContext) private var context
     @State private var showsPaywall = false
 
@@ -37,6 +38,8 @@ struct RootView: View {
         }
         .onChange(of: scenePhase, initial: true) { _, phase in
             if phase == .active, onboardingDone { location.captureOnAppOpen() }
+            // Abos können sich außerhalb der App ändern (Ablauf, Kündigung, Verlängerung): beim Öffnen neu fragen.
+            if phase == .active { Task { await proStore.refreshFromStoreKit() } }
             if phase == .background { WidgetSync.refresh(context: context) }
         }
         // Gesperrte Widgets öffnen die App mit `geoapp://pro`.

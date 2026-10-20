@@ -28,9 +28,8 @@ struct SettingsView: View {
     }
 
     private var proStatus: String {
-        if store.isEntitled { return String(localized: "Active") }
-        if store.isPro { return String(localized: "Unlocked (beta)") }
-        return String(localized: "Free")
+        guard store.isPro else { return String(localized: "Free") }
+        return store.hasActiveSubscription ? String(localized: "Active") : String(localized: "Unlocked (beta)")
     }
 
     /// Tagebuch für das Heimatgebiet in der Zeile unten.
@@ -43,7 +42,7 @@ struct SettingsView: View {
             Form {
                 Section {
                     LabeledContent("Status", value: proStatus)
-                    if store.isEntitled {
+                    if store.hasActiveSubscription {
                         Button("Manage subscription") { showsManageSubscriptions = true }
                             .manageSubscriptionsSheet(isPresented: $showsManageSubscriptions)
                     } else {
@@ -142,7 +141,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Data")
                 } footer: {
-                    Text("To delete a single country or city, open it on the map or in Places.")
+                    Text("To delete a single country or city, open it on the map or in Places on the Trips tab.")
                 }
 
                 Section {
@@ -156,6 +155,7 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
             .betaMenuButton()
+            .task { await store.refreshFromStoreKit() }
             .alert("Delete all data?", isPresented: $confirmsDeleteAll) {
                 Button("Delete everything", role: .destructive) {
                     try? Deletion.deleteAll(context: context)

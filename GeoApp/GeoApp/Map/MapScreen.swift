@@ -5,19 +5,16 @@ import SwiftUI
 /// Startbildschirm: Zähler oben, Weltkarte darunter. Ein Tipp auf ein besuchtes Land zoomt
 /// in die Länderansicht mit Regionen, ein Tipp auf eine Region zeigt alle Städte dort.
 /// Ein Tipp auf eine Stadt oder ein zweiter Tipp in die gewählte Region öffnet die Ortsansicht
-/// (wann man dort war). Der Knopf neben dem Zähler öffnet alle Orte als Liste.
+/// (wann man dort war). Die Karte zeigt immer alle Jahre; die Liste aller Orte liegt bei den Reisen.
 struct MapScreen: View {
     @Query private var countries: [Country]
     @Query private var cities: [City]
     @Query private var visits: [DayVisit]
     @Environment(LocationService.self) private var location
     @AppStorage(AppSettings.trackingEnabled) private var trackingEnabled = true
-    @AppStorage("mapYear") private var yearStorage = "all"
-    @Environment(ProStore.self) private var store
     @State private var selectedCountry: String?
     @State private var selectedRegion: String?
     @State private var showsSheet = false
-    @State private var showsPlaces = false
     /// Ortsansicht für eine Stadt, einen Kreis, eine Region oder das Land, über dem Länderblatt.
     @State private var place: PlaceRef?
 
@@ -25,10 +22,10 @@ struct MapScreen: View {
     private static let sheetHeight: CGFloat = 220
 
     var body: some View {
-        let focus = selectedCountry.map { CountryFocus.make(code: $0, cities: shownCities, visits: shownVisits) }
+        let focus = selectedCountry.map { CountryFocus.make(code: $0, cities: cities, visits: visits) }
         NavigationStack {
             WorldMapView(
-                visitedCodes: shownCountryCodes,
+                visitedCodes: Set(countries.map(\.isoCode)),
                 focus: focus,
                 selectedRegion: selectedRegion,
                 bottomInset: Self.sheetHeight,
@@ -47,7 +44,7 @@ struct MapScreen: View {
                     Color.clear
                         .allowsHitTesting(false)
                         .accessibilityElement()
-                        .accessibilityLabel(Self.accessibilitySummary(countries: shownCountryCodes.count, cities: shownCities.count))
+                        .accessibilityLabel(Self.accessibilitySummary(countries: countries.count, cities: cities.count))
                         .accessibilityHint("Tap a highlighted country to see its regions and cities.")
                 }
             }
@@ -98,34 +95,12 @@ struct MapScreen: View {
         withAnimation(.easeInOut(duration: 0.35)) { selectedRegion = id }
     }
 
-    /// Zähler und Jahresfilter nebeneinander.
     private var counterRow: some View {
-        HStack(spacing: 8) {
-            counter
-            YearMenu(selection: yearSelection,
-                     years: YearFilter.availableYears(days: visits.map(\.day), currentYear: currentYear),
-                     currentYear: currentYear,
-                     isPro: store.isPro)
-            placesButton
-        }
-        .padding(.top, 8)
-    }
-
-    /// Öffnet alle Länder und Städte als durchsuchbare Liste.
-    private var placesButton: some View {
-        Button { showsPlaces = true } label: {
-            Image(systemName: "list.bullet")
-                .font(.body.weight(.semibold))
-                .frame(width: 38, height: 38)
-                .background(.regularMaterial, in: Circle())
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel("Places")
-        .sheet(isPresented: $showsPlaces) { PlacesList() }
+        counter.padding(.top, 8)
     }
 
     private var counter: some View {
-        Text(Self.counterText(countries: shownCountryCodes.count, cities: shownCities.count))
+        Text(Self.counterText(countries: countries.count, cities: cities.count))
             .font(.subheadline.weight(.medium))
             .monospacedDigit()
             .padding(.horizontal, 16)
@@ -134,43 +109,9 @@ struct MapScreen: View {
             .accessibilityElement(children: .combine)
     }
 
-    /// Jahr, das die Karte zeigt. Ohne Pro gilt wieder "All years", etwa nach Ende des Abos.
-    private var yearFilter: YearFilter {
-        let filter = YearFilter(storageValue: yearStorage) ?? .all
-        return ProGate.allows(.yearFilter, year: filter, currentYear: currentYear, isPro: store.isPro) ? filter : .all
-    }
-
-    private var currentYear: Int {
-        DayKey.year(DayKey.today())
-    }
-
-    /// Auswahl im Menü zeigt den wirksamen Filter, sonst stünde nach Ende des Abos ein gesperrtes Jahr dort.
-    private var yearSelection: Binding<String> {
-        Binding(get: { yearFilter.storageValue }, set: { yearStorage = $0 })
-    }
-
-    /// Besuche im gewählten Jahr. Bei "All years" alle.
-    private var shownVisits: [DayVisit] {
-        visits.filter { yearFilter.contains(day: $0.day) }
-    }
-
-    /// Besuchte Länder. Bei "All years" wie bisher aus der Länderliste.
-    private var shownCountryCodes: Set<String> {
-        yearFilter == .all ? Set(countries.map(\.isoCode)) : Set(shownVisits.map(\.countryCode))
-    }
-
-    /// Städte mit Besuchen im gewählten Jahr. Bei "All years" alle.
-    private var shownCities: [City] {
-        guard yearFilter != .all else { return cities }
-        let ids = Set(shownVisits.compactMap(\.geonamesId))
-        return cities.filter { ids.contains($0.geonamesId) }
-    }
-
     /// Leise Hinweise unter dem Zähler: Erfassung läuft nicht im Hintergrund, oder noch nichts erfasst.
     @ViewBuilder private var hint: some View {
-        if yearFilter != .all, shownVisits.isEmpty, !countries.isEmpty {
-            hintCapsule("No places recorded in this year yet.", systemImage: nil)
-        } else if !trackingEnabled {
+        if !trackingEnabled {
             hintCapsule("Recording is turned off", systemImage: "pause.circle")
         } else if location.authorization != .authorizedAlways {
             Button(action: openSettings) {
@@ -224,7 +165,7 @@ struct MapScreen: View {
     static func accessibilitySummary(countries: Int, cities: Int, locale: Locale = .current) -> String {
         let countriesText = L10n.string("\(countries) countries", locale: locale)
         let citiesText = L10n.string("\(cities) cities", locale: locale)
-        return L10n.string("World map. \(countriesText) and \(citiesText) visited. The Places button lists them.",
+        return L10n.string("World map. \(countriesText) and \(citiesText) visited. The Trips tab lists all places.",
                            locale: locale)
     }
 }

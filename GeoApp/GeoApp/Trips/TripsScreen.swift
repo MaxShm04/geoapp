@@ -3,12 +3,14 @@ import SwiftData
 import SwiftUI
 
 /// Reisen als Zeitleiste (T18): die Reisen eines Jahres, neueste zuerst. Jahre außer dem laufenden sind Pro (D10).
+/// Oben links öffnet ein Knopf alle Länder und Städte als durchsuchbare Liste.
 struct TripsScreen: View {
     @Environment(ProStore.self) private var store
     @Query private var visits: [DayVisit]
     @AppStorage(AppSettings.homeRegionOverride) private var homeOverride = ""
     @State private var year = DayKey.year(DayKey.today())
     @State private var showsPaywall = false
+    @State private var showsPlaces = false
 
     var body: some View {
         let today = DayKey.today()
@@ -42,11 +44,15 @@ struct TripsScreen: View {
             }
             .navigationTitle("Trips")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Places", systemImage: "list.bullet") { showsPlaces = true }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     yearMenu(years: journal.years(currentYear: currentYear), shownYear: shownYear, currentYear: currentYear)
                 }
             }
             .sheet(isPresented: $showsPaywall) { PaywallView() }
+            .sheet(isPresented: $showsPlaces) { PlacesList() }
         }
     }
 

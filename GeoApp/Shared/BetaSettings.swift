@@ -1,6 +1,7 @@
 import Foundation
 
-/// Beta-Menü zum Testen auf dem eigenen iPhone: Testschalter ein- und ausblenden, Pro lokal freischalten.
+/// Beta-Menü zum Testen auf dem eigenen iPhone: Testschalter ein- und ausblenden, Pro lokal freischalten
+/// oder ein Test-Abo so behandeln, als wäre es beendet.
 /// Gibt es nur in Debug-Builds. In Release (App Store, TestFlight) sind Schlüssel, Setter und Menü nicht
 /// einkompiliert; `proOverride(in:)` liefert dort fest `false`.
 nonisolated enum BetaSettings {
@@ -18,11 +19,17 @@ nonisolated enum BetaSettings {
     #if DEBUG
     /// Pro-Freischaltung, in den Defaults der App Group.
     static let proOverrideKey = "betaProOverride"
+    /// Abo ignorieren („wie nicht abonniert“), in den Defaults der App Group.
+    static let ignoresSubscriptionKey = "betaIgnoresSubscription"
     /// Testschalter in den Einstellungen sichtbar, in `UserDefaults.standard` (nur App).
     static let testControlsKey = "betaTestControls"
 
     static func setProOverride(_ on: Bool, in defaults: UserDefaults?) {
         defaults?.set(on, forKey: proOverrideKey)
+    }
+
+    static func setIgnoresSubscription(_ on: Bool, in defaults: UserDefaults?) {
+        defaults?.set(on, forKey: ignoresSubscriptionKey)
     }
     #endif
 
@@ -30,6 +37,15 @@ nonisolated enum BetaSettings {
     static func proOverride(in defaults: UserDefaults?) -> Bool {
         #if DEBUG
         return defaults?.bool(forKey: proOverrideKey) ?? false
+        #else
+        return false
+        #endif
+    }
+
+    /// Ob ein gültiges Abo ignoriert wird, als wäre es beendet. In Release immer `false`.
+    static func ignoresSubscription(in defaults: UserDefaults?) -> Bool {
+        #if DEBUG
+        return defaults?.bool(forKey: ignoresSubscriptionKey) ?? false
         #else
         return false
         #endif

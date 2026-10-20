@@ -15,36 +15,38 @@ private func fact(_ productID: String, revoked: Bool = false, expires: Date?, up
 @MainActor
 struct ProStoreTests {
     @Test func noEntitlementsMeansFree() {
-        #expect(ProStore.isPro(facts: [], now: proTestNow) == false)
+        #expect(ProStore.isPro(facts: []) == false)
     }
 
     @Test func activeYearly() {
         let facts = [fact(yearlyID, expires: proTestNow.addingTimeInterval(30 * proTestDay))]
-        #expect(ProStore.isPro(facts: facts, now: proTestNow) == true)
+        #expect(ProStore.isPro(facts: facts) == true)
     }
 
-    @Test func expired() {
+    /// Geändert am 20. Oktober 2026: Was StoreKit als aktuelle Berechtigung liefert, gilt auch nach dem
+    /// Ablaufdatum (Kulanzfrist, abweichende Uhr). Vorher `false`, siehe `ProRefreshTests`.
+    @Test func pastExpiryCountsWhileStoreKitListsIt() {
         let facts = [fact(monthlyID, expires: proTestNow.addingTimeInterval(-1))]
-        #expect(ProStore.isPro(facts: facts, now: proTestNow) == false)
+        #expect(ProStore.isPro(facts: facts) == true)
     }
 
     @Test func revoked() {
         let facts = [fact(yearlyID, revoked: true, expires: proTestNow.addingTimeInterval(30 * proTestDay))]
-        #expect(ProStore.isPro(facts: facts, now: proTestNow) == false)
+        #expect(ProStore.isPro(facts: facts) == false)
     }
 
     /// Ein altes Monatsabo, das durch ein Upgrade ersetzt wurde, gibt allein keinen Zugang; das Jahresabo schon.
     @Test func upgradedIgnored() {
         let upgraded = fact(monthlyID, expires: proTestNow.addingTimeInterval(10 * proTestDay), upgraded: true)
-        #expect(ProStore.isPro(facts: [upgraded], now: proTestNow) == false)
+        #expect(ProStore.isPro(facts: [upgraded]) == false)
 
         let yearly = fact(yearlyID, expires: proTestNow.addingTimeInterval(300 * proTestDay))
-        #expect(ProStore.isPro(facts: [upgraded, yearly], now: proTestNow) == true)
+        #expect(ProStore.isPro(facts: [upgraded, yearly]) == true)
     }
 
     @Test func unknownProduct() {
         let facts = [fact("com.other.product", expires: proTestNow.addingTimeInterval(30 * proTestDay))]
-        #expect(ProStore.isPro(facts: facts, now: proTestNow) == false)
+        #expect(ProStore.isPro(facts: facts) == false)
     }
 
     @Test func productIDs() {
@@ -91,9 +93,9 @@ struct ProStoreTests {
         #expect(identifier?.hasSuffix("Products.storekit") == true, "Schema verweist nicht auf Products.storekit")
     }
 
-    /// Phase 2 (D10) sperrt Jahresfilter, Zeitleiste, Statistik und Widgets; ersetzt Phase 1, Fall 22.
+    /// Phase 2 (D10) sperrt Zeitleiste, Statistik und Widgets; ersetzt Phase 1, Fall 22. Der Jahresfilter der Karte ist entfallen.
     @Test func gatesOnInPhase2() {
-        #expect(ProFeature.allCases == [.yearFilter, .timeline, .statistics, .widgets])
+        #expect(ProFeature.allCases == [.timeline, .statistics, .widgets])
         for feature in ProFeature.allCases {
             #expect(ProFeature.isGated(feature) == true, "\(feature.rawValue) ist nicht gesperrt")
         }
@@ -103,7 +105,7 @@ struct ProStoreTests {
     @Test func storesNothing() {
         let before = Set(UserDefaults.standard.dictionaryRepresentation().keys)
         let store = ProStore()
-        store.refresh(facts: [fact(yearlyID, expires: proTestNow.addingTimeInterval(30 * proTestDay))], now: proTestNow)
+        store.refresh(facts: [fact(yearlyID, expires: proTestNow.addingTimeInterval(30 * proTestDay))])
         let added = Set(UserDefaults.standard.dictionaryRepresentation().keys).subtracting(before)
         let proKeys = added.filter { key in
             let lowered = key.lowercased()
